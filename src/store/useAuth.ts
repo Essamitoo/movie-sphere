@@ -11,7 +11,7 @@ interface AuthState {
     cuenta?: string;
     list?: string[];
     image?: string;
-  } | null;
+  } | null ;
   setData: (newData: Partial<AuthState["data"]>) => void;
   logout: () => void;
 }
