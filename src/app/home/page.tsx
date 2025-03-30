@@ -3,8 +3,10 @@ import { useState } from 'react'
 import Card from '@/components/card/Card'
 import { mediaList } from '@/utils/utils'
 import { IMedia } from '@/interfaces/IMedia'
+import { useAuth } from "@/store/useAuth";
 
 const HomePage = () => {
+	const { setData, logout } = useAuth();
 	const [filter, setFilter] = useState('')
 	const [currentPage, setCurrentPage] = useState(1)
 	const [yearFilter, setYearFilter] = useState('')
@@ -37,6 +39,24 @@ const HomePage = () => {
   const countFilter=(yearFilter.length>0?1:0)+(genreFilter.length>0?1:0)+(ageFilter.length>0?1:0)+(filter.length>0?1:0);
 	return (
 		<div className='bg-[#202020] max-h-max min-h-lvh pb-5 text-white'>
+			<button
+						onClick={logout}
+						className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:cursor-pointer"
+					  >
+						Cerrar sesión
+					  </button>
+						<button
+						onClick={() => setData({ name: "Pepe", email: "franco@email.com",favorites:["1","2","4"],views:["3","7"],criticas:["1","2"],cuenta:"Free",list:["1","2"],image:"https://th.bing.com/th/id/OIP.CO3XC04tdvus7TFR4p3dTwHaIU?pid=ImgDet&w=191&h=214&c=7" })}
+						className="mt-4 px-4 py-2 bg-blue-400 text-black rounded hover:cursor-pointer"
+					  >
+						Cuenta Premium (Demo)
+					  </button>
+						<button
+						onClick={() => setData({ name: "Franco", email: "franco@email.com",favorites:["1","2","4"],views:["3","7"],criticas:["1","2"],cuenta:"Premium",list:["1","2"],image:"https://th.bing.com/th/id/OIP.CO3XC04tdvus7TFR4p3dTwHaIU?pid=ImgDet&w=191&h=214&c=7" })}
+						className="mt-4 px-4 py-2 bg-yellow-400 text-black rounded hover:cursor-pointer"
+					  >
+						Cuenta Premium (Demo)
+					  </button>
 			<div className='flex justify-center gap-2 p-5'>
 				<img className='w-[48px] h-[48px] rounded-lg' src='https://th.bing.com/th/id/R.7c7a5ffd585e8780f4d46387eb161f93?rik=BjmA1Mqpxvuliw&pid=ImgRaw&r=0' alt='' />
 				<img className='w-[48px] h-[48px] rounded-lg' src='https://th.bing.com/th/id/OIP.PmFNtBFSGTPzIp2lhp7uuAHaEL?pid=ImgDet&w=191&h=107&c=7' alt='' />
