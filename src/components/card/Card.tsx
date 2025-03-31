@@ -25,7 +25,7 @@ useEffect(() => {
       });
     }
     else{
-      const newList = data?.list.filter(item => item !== id.toString())|| [];
+      const newList = data?.list?.filter(item => item !== id.toString())|| [];
       setData({
           list: newList 
       });
@@ -39,7 +39,7 @@ const toggleFavorite = () => {
       favorites: [...(data?.favorites || []), id.toString()],
     });
   } else {
-    const newFavorites = data?.favorites.filter(item => item !== id.toString()) || [];
+    const newFavorites = data?.favorites?.filter(item => item !== id.toString()) || [];
     setData({
       favorites: newFavorites,
     });
