@@ -1,18 +1,11 @@
 'use client'
 
-import { useAuth } from '@/store/useAuth'
-import { isValid } from '@/utils/validation'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 import { FiLock, FiMail } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
-
-interface Touched {
-	[key: string]: boolean
-}
 
 interface FormData {
 	[key: string]: string
@@ -20,25 +13,19 @@ interface FormData {
 
 const LoginView = () => {
 	const initialData: FormData = { email: '', password: '' }
-	const initialTouched: Touched = { email: false, password: false }
-	const { setData } = useAuth()
 
-	const [data, setFormData] = useState(initialData)
-	const [touched, setTouched] = useState(initialTouched)
-	const router = useRouter()
+	const [data, setData] = useState(initialData)
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setFormData({ ...data, [e.target.name]: e.target.value })
+		setData({ ...data, [e.target.name]: e.target.value })
+		console.log(data);
+		
 	}
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault()
-		alert('¡Inicio de sesión exitoso!')
-		router.push('/home')
-	}
-
-	const handleBlur = (field: string) => {
-		setTouched({ ...touched, [field]: true })
+		if( data.email && data.password) alert('logged in!')
+			else alert('error en input')
 	}
 
 	return (
@@ -93,13 +80,7 @@ const LoginView = () => {
 											className='w-full pl-9 pr-3 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='email@ejemplo.com'
 											onChange={onChange}
-											onBlur={() => handleBlur('email')}
 										/>
-										{touched.email && !isValid('email', data.email) && (
-											<p className='text-red-700 ml-4 text-sm'>
-												Error en el email
-											</p>
-										)}
 									</div>
 								</div>
 
@@ -111,15 +92,9 @@ const LoginView = () => {
 											value={data.password}
 											type='password'
 											className='w-full pl-9 pr-10 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
-											placeholder='Tu contraseña'
+											placeholder='Crea una contraseña fuerte'
 											onChange={onChange}
-											onBlur={() => handleBlur('password')}
 										/>
-										{touched.password && !isValid('password', data.password) && (
-											<p className='text-red-700 ml-4 text-sm'>
-												Error en la contraseña
-											</p>
-										)}
 									</div>
 								</div>
 
@@ -140,7 +115,6 @@ const LoginView = () => {
 								<button
 									type='submit'
 									className='w-full flex justify-center py-2 px-4  placehoder:text-smtext-sm font-semibold rounded-lg text-white bg-quaternary hover:cursor-pointer hover:bg-quinary transition duration-300 ease-in-out'
-									disabled={!data.email || !data.password}
 								>
 									Iniciar sesion
 								</button>
