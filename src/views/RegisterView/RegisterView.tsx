@@ -1,20 +1,14 @@
 'use client'
 
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { isValid} from '@/utils/validation'
 import { FaRegHeart } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
-import { useAuth } from '@/store/useAuth'
 
 interface FormData {
 	[key: string]: string
-}
-
-export interface Touched {
-	[key: string]: boolean
 }
 
 const RegisterView = () => {
@@ -25,32 +19,17 @@ const RegisterView = () => {
 		repeatPassword: '',
 	}
 
-	const initialTouched: Touched = {
-		email: false,
-		password: false,
-		name: false,
-		address: false,
-		phone: false,
-	}
-
-  const {setData} = useAuth()
-	const [data, setFormData] = useState(initialData)
-	const [touched, setTouched] = useState(initialTouched)
+	const [data, setData] = useState(initialData)
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setFormData({ ...data, [name]: value })
+		setData({ ...data, [e.target.name]: e.target.value })
 	}
 
 	const onSubmit = (e: FormEvent) => {
 		e.preventDefault()
-    setData(data)
-		alert('¡Registro exitoso!')
-    window.location.href = '/home'
-	}
-
-	const handleBlur = (field: string) => {
-		setTouched({ ...touched, [field]: true })
+		if (data.name && data.email && data.password && data.repeatPassword)
+			alert('faltan completar campos')
+		else alert('logged in!')
 	}
 
 	return (
@@ -83,10 +62,9 @@ const RegisterView = () => {
 					</div>
 				</div>
 			</div>
-
 			<div className='w-[66.6%] flex flex-col'>
 				<div className='min-h-screen bg-gradient-to-br from-primary to-secondary py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center'>
-					<div className='max-w-md w-full space-y-8 bg-secondary p-8 rounded-xl shadow-lg'>
+					<div className='max-w-md w-full space-y-8 bg-secondary  p-8 rounded-xl shadow-lg'>
 						<div className='text-center'>
 							<h2 className='text-3xl font-extrabold text-white mb-2'>
 								Crear Cuenta
@@ -98,9 +76,6 @@ const RegisterView = () => {
 
 						<form className='mt-8 space-y-6' onSubmit={onSubmit}>
 							<div className='space-y-4'>
-
-								{/* Nombre */}
-
 								<div>
 									<div className='relative'>
 										<FiUser className='absolute top-3 left-3 text-white' />
@@ -109,19 +84,11 @@ const RegisterView = () => {
 											type='text'
 											value={data.name}
 											onChange={onChange}
-											onBlur={() => handleBlur('name')}
-											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white'
+											className='w-full pl-9 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='Nombre'
 										/>
 									</div>
-									{touched.name && !isValid('name', data.name) && (
-										<p className='text-red-700 ml-4 text-sm'>
-											Error en el nombre
-										</p>
-									)}
 								</div>
-
-								{/* Email */}
 
 								<div>
 									<div className='relative'>
@@ -131,59 +98,51 @@ const RegisterView = () => {
 											type='email'
 											value={data.email}
 											onChange={onChange}
-											onBlur={() => handleBlur('email')}
-											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white'
+											className='w-full pl-9  py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='email@ejemplo.com'
 										/>
 									</div>
-									{touched.email && !isValid('email', data.email) && (
-										<p className='text-red-700 ml-4 text-sm'>Email invalido</p>
-									)}
 								</div>
-
-								{/* Contraseña */}
 
 								<div>
 									<div className='relative'>
 										<FiLock className='absolute top-3 left-3 text-white' />
 										<input
-											name='password'
+										name='password'
 											type='password'
 											value={data.password}
 											onChange={onChange}
-											onBlur={() => handleBlur('password')}
-											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white'
+											className='w-full pl-9  py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='Crea una contraseña fuerte'
 										/>
 									</div>
-									{touched.password && !isValid('password', data.password) && (
-										<p className='text-red-700 ml-4 text-sm'>
-											Contraseña invalida
-										</p>
-									)}
 								</div>
 
-								{/* Repetir Contraseña */}
-                
 								<div>
 									<div className='relative'>
 										<FiLock className='absolute top-3 left-3 text-white' />
 										<input
-											name='repeatPassword'
+										name='repeatPassword'
 											type='password'
 											value={data.repeatPassword}
 											onChange={onChange}
-											onBlur={() => handleBlur('repeatPassword')}
-											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white'
+											className='w-full pl-9 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='Repite tu contraseña'
 										/>
 									</div>
-									{touched.repeatPassword &&
-										!isValid('repeatPassword', data.repeatPassword) && (
-											<p className='text-red-700 ml-4 text-sm'>
-												Las contraseñas no coinciden
-											</p>
-										)}
+								</div>
+
+								<div className='flex items-center pl-2'>
+									<input
+										type='checkbox'
+										className='w-4 h-4 focus:ring-quaternary'
+									/>
+									<label className='ml-2 block text-sm text-tertiary'>
+										Estoy de acuerdo con los{' '}
+										<a href='#' className='text-quinary hover:text-quaternary'>
+											terminos y condiciones
+										</a>
+									</label>
 								</div>
 							</div>
 
@@ -191,7 +150,6 @@ const RegisterView = () => {
 								<button
 									type='submit'
 									className='w-full flex justify-center py-2 px-4  placehoder:text-smtext-sm font-semibold rounded-lg text-white bg-quaternary hover:cursor-pointer hover:bg-quinary transition duration-300 ease-in-out'
-                  disabled={!data.name || !data.email || !data.password || !data.repeatPassword}
 								>
 									Crear Cuenta
 								</button>
