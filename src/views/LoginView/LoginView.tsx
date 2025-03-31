@@ -9,6 +9,7 @@ import { FaRegHeart } from 'react-icons/fa'
 import { FiLock, FiMail } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
+import { TbEye, TbEyeOff } from 'react-icons/tb'
 
 interface Touched {
 	[key: string]: boolean
@@ -25,6 +26,7 @@ const LoginView = () => {
 
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
+	const [showPassword, setShowPassword] = useState(false)
 	const router = useRouter()
 
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +99,7 @@ const LoginView = () => {
 										/>
 										{touched.email && !isValid('email', data.email) && (
 											<p className='text-red-700 ml-4 text-sm'>
-												Error en el email
+												Email incorrecto
 											</p>
 										)}
 									</div>
@@ -115,11 +117,19 @@ const LoginView = () => {
 											onChange={onChange}
 											onBlur={() => handleBlur('password')}
 										/>
-										{touched.password && !isValid('password', data.password) && (
-											<p className='text-red-700 ml-4 text-sm'>
-												Error en la contraseña
-											</p>
-										)}
+										<button
+											type='button'
+											onClick={() => setShowPassword(!showPassword)}
+											className='absolute top-3 right-3 text-white hover:cursor-pointer hover:scale-115 transition duration-200 ease-in-out'
+										>
+											{showPassword ? <TbEyeOff /> : <TbEye />}
+										</button>
+										{touched.password &&
+											!isValid('password', data.password) && (
+												<p className='text-red-700 ml-4 text-sm'>
+													Contraseña incorrecta
+												</p>
+											)}
 									</div>
 								</div>
 
