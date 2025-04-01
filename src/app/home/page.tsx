@@ -49,7 +49,7 @@ const HomePage = () => {
 						onClick={() => setData({ name: "Pepe", email: "franco@email.com",favorites:["1","2","4"],views:["3","7"],criticas:["1","2"],cuenta:"Free",list:["1","2"],image:"https://th.bing.com/th/id/OIP.CO3XC04tdvus7TFR4p3dTwHaIU?pid=ImgDet&w=191&h=214&c=7" })}
 						className="mt-4 px-4 py-2 bg-blue-400 text-black rounded hover:cursor-pointer"
 					  >
-						Cuenta Premium (Demo)
+						Cuenta Free (Demo)
 					  </button>
 						<button
 						onClick={() => setData({ name: "Franco", email: "franco@email.com",favorites:["1","2","4"],views:["3","7"],criticas:["1","2"],cuenta:"Premium",list:["1","2"],image:"https://th.bing.com/th/id/OIP.CO3XC04tdvus7TFR4p3dTwHaIU?pid=ImgDet&w=191&h=214&c=7" })}
@@ -57,21 +57,18 @@ const HomePage = () => {
 					  >
 						Cuenta Premium (Demo)
 					  </button>
-			<div className='flex justify-center gap-2 p-5'>
-				<img className='w-[48px] h-[48px] rounded-lg' src='https://th.bing.com/th/id/R.7c7a5ffd585e8780f4d46387eb161f93?rik=BjmA1Mqpxvuliw&pid=ImgRaw&r=0' alt='' />
-				<img className='w-[48px] h-[48px] rounded-lg' src='https://th.bing.com/th/id/OIP.PmFNtBFSGTPzIp2lhp7uuAHaEL?pid=ImgDet&w=191&h=107&c=7' alt='' />
-				<img className='w-[48px] h-[48px] rounded-lg' src='https://th.bing.com/th/id/OIP.uCNT2iqsyBGXddafSsC-zwHaEK?rs=1&pid=ImgDetMain' alt='' />
-			</div>
 			<div className='flex gap-4 justify-around'>
 				<div className="flex justify-around w-[20%]">
 					<button onClick={() => setFilter('')} className='flex flex-col hover:cursor-pointer'>
 						VER TODO{filter === '' && <div className='bg-[#00A878] h-1'></div>}
 					</button>
-					<button onClick={() => setFilter('movie')} className='flex flex-col hover:cursor-pointer'>
+					<button onClick={() => {setFilter('movie')
+						setCurrentPage(1)}} className='flex flex-col hover:cursor-pointer'>
 						Peliculas
 						{filter === 'movie' && <div className='bg-[#00A878] h-1'></div>}
 					</button>
-					<button onClick={() => setFilter('serie')} className='flex flex-col hover:cursor-pointer'>
+					<button onClick={() => {setFilter('serie')
+						setCurrentPage(1)}} className='flex flex-col hover:cursor-pointer'>
 						Series{filter === 'serie' && <div className='bg-[#00A878] h-1'></div>}
 					</button>
 				</div>
@@ -82,14 +79,17 @@ const HomePage = () => {
 							<button onClick={() => {
                 setYearFilter('2024') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>2024</button>
 							<button onClick={() => {
                 setYearFilter('2023') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>2023</button>
 							<button onClick={() => {
                 setYearFilter('') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Todos los Años</button>
 						</div>}
 					</details>
@@ -99,18 +99,22 @@ const HomePage = () => {
 							<button onClick={() => {
                 setGenreFilter('Acción') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Acción</button>
 							<button onClick={() => {
                 setGenreFilter('Drama') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Drama</button>
 							<button onClick={() => {
                 setGenreFilter('Ciencia Ficción') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Ciencia Ficción</button>
 							<button onClick={() => {
                 setGenreFilter('') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Todos los Géneros</button>
 						</div>}
 					</details>
@@ -122,18 +126,22 @@ const HomePage = () => {
 							<button onClick={() => {
               setAgeFilter('18+') 
               setOpenDetails(null)
+			  setCurrentPage(1)
               }}>18+</button>
 							<button onClick={() => {
                 setAgeFilter('16+')
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>16+</button>
 							<button onClick={() => {
                 setAgeFilter('ATP') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>ATP</button>
 							<button onClick={() => {
                 setAgeFilter('') 
                 setOpenDetails(null)
+				setCurrentPage(1)
                 }}>Todas las edades</button>
 						</div>}
 					</details>
@@ -144,17 +152,22 @@ const HomePage = () => {
 							setAgeFilter('')
 							setFilter('')
               setOpenDetails(null)
+			  setCurrentPage(1)
 						}} className={`cursor-pointer ${booleanFilter?"text-[#00A878]": "text-gray-400/70"}`}
 					>
 						LIMPIAR FILTRO {countFilter>0&&`[${countFilter}]`}
 					</button>
 				</div>
 			</div>
-			<div className='grid grid-cols-5'>
+			{displayedItems.length>0?<div className='grid grid-cols-5'>
 				{displayedItems.map((item) => (
 					<Card key={item.id} {...item} />
 				))}
-			</div>
+			</div>:<div className='flex justify-center items-center h-[50vh] w-full'>
+					<p className='text-center font-bold text-3xl'>
+					No se encontraron peliculas o series
+					</p>
+				</div>}
 			<div className='flex justify-center gap-2'>
 				{Array.from({ length: totalPages }, (_, index) => (
 					<button
