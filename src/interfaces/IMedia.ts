@@ -10,4 +10,12 @@ export interface IMedia {
 	califications: number
 	type: string
 }
-
+export interface Review {
+	userImg: string;
+	userName: string;
+	reviewCount: number;
+	comment: string;
+	rating: number;
+	date: Date;
+  }
+  
