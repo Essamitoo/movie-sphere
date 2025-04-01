@@ -18,12 +18,16 @@ const Header=()=>{
             </Link>
             <Search/>
             <div className="flex flex-col w-[25%]">
-            <Link href="/chat" className="text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]">Salas de Chat  <span className="text-[8px] text-green-400">🟢</span></Link>
+            {false?<Link href="/chat" className="text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]">Salas de Chat  <span className="text-[8px] text-green-400">🟢</span></Link>:<></>}
             <div className="flex justify-around">
                 <Link href="/home" className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Inicio</Link>
-                <Link href="/series" className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Noticias</Link>
+                {false?<><Link href="/series" className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Noticias</Link>
                 <Link href="/popular" className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Popular</Link>
                 <Link href="/estrenos" className="bg-gradient-to-b from-[#F1FDFA] to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Estrenos</Link>
+                </>:<><p className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Noticias</p>
+                <p className="bg-gradient-to-b from-[#F1FDFA]  to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Popular</p>
+                <p  className="bg-gradient-to-b from-[#F1FDFA] to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold ">Estrenos</p>
+                </>}
             </div>
             </div>
              
