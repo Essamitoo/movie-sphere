@@ -8,14 +8,18 @@ import StarRating from '@/components/starRating/StartRating'
 import Reparto from '@/components/reparto/Reparto'
 import Criticas from '@/components/criticas/Criticas'
 import Trailer from '@/components/trailer/Trailer'
-
-const MediaPage: React.FC = ({ params }) => {  
+interface MediaPageProps {
+	params: { id: string };
+  }
+  
+  const MediaPage: React.FC<MediaPageProps> = ({ params }) => {
 	const VIDEO_ID="Oh_B9Ejvn-8?si=5p_r5UFVH2z3BRP_"
 	const { data, setData } = useAuth()
 	const [isInViews, setIsInViews] = useState(false)
 	const [isInFavorite, setIsInFavorite] = useState(false)
 	const [isInList, setIsInList] = useState(false)
 	const [open,setOpen]=useState(false)
+	if (!params || !params.id) return <p>Cargando...</p>;
 	useEffect(() => {
 		if (!data || !params.id) return
 		setIsInViews(data.views?.includes(params.id) || false)
