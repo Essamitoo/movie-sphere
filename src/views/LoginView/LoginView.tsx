@@ -1,5 +1,6 @@
 'use client'
 
+import { IFormData, ITouched } from '@/interfaces/IForm'
 import { useAuth } from '@/store/useAuth'
 import { isValid } from '@/utils/validation'
 import Link from 'next/link'
@@ -11,17 +12,9 @@ import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 
-interface Touched {
-	[key: string]: boolean
-}
-
-interface FormData {
-	[key: string]: string
-}
-
 const LoginView = () => {
-	const initialData: FormData = { email: '', password: '' }
-	const initialTouched: Touched = { email: false, password: false }
+	const initialData: IFormData = { email: '', password: '' }
+	const initialTouched: ITouched = { email: false, password: false }
 	const { setData } = useAuth()
 
 	const [data, setFormData] = useState(initialData)

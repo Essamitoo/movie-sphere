@@ -21,7 +21,7 @@ export const useAuth = create<AuthState>()(
     (set) => ({
       data: { views: [], favorites: [], list: [] },
       setData: (newData) => set((state) => ({ data: { ...state.data, ...newData } })), 
-      logout: () => set({ data: { views: [], favorites: [], list: [] } }), 
+      logout: () => set({ data: { views: [], favorites: [], list: [] , name: '', email: '',} }), 
     }),
     { name: "auth-storage" }
   )

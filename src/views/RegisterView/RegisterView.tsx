@@ -9,24 +9,20 @@ import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
 import { useAuth } from '@/store/useAuth'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
+import { IFormData, ITouched } from '@/interfaces/IForm'
+import { useRouter } from 'next/navigation'
 
-interface FormData {
-	[key: string]: string
-}
 
-export interface Touched {
-	[key: string]: boolean
-}
 
 const RegisterView = () => {
-	const initialData: FormData = {
+	const initialData: IFormData = {
 		name: '',
 		email: '',
 		password: '',
 		repeatPassword: '',
 	}
 
-	const initialTouched: Touched = {
+	const initialTouched: ITouched = {
 		email: false,
 		password: false,
 		name: false,
@@ -35,6 +31,7 @@ const RegisterView = () => {
 	}
 
 	const { setData } = useAuth()
+	const router = useRouter()
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
 	const [showPassword, setShowPassword] = useState(false)
@@ -49,7 +46,7 @@ const RegisterView = () => {
 		e.preventDefault()
 		setData(data)
 		alert('¡Registro exitoso!')
-		window.location.href = '/home'
+		router.push('/home')
 	}
 
 	const handleBlur = (field: string) => {
@@ -60,10 +57,12 @@ const RegisterView = () => {
 		<div className='flex min-h-screen '>
 			<div className="bg-[url('../assets/sign-in-bg.webp')] w-1/3 flex justify-center items-center">
 				<div className='text-white space-y-8 p-4 text-lg'>
+
 					<div className='relative'>
 						<MdOutlineMovieFilter className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>Disfruta de los mejores estrenos</p>
 					</div>
+
 					<div className='relative'>
 						<FaRegHeart className='absolute top-[-.4rem] left-[-.65rem] size-9 text-quinary' />
 						<p className='pl-12'>
@@ -71,12 +70,14 @@ const RegisterView = () => {
 							<span className='font-bold'>favoritas, pendientes y vistas</span>
 						</p>
 					</div>
+
 					<div className='relative'>
 						<LuStar className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>
 							Puntua y deja tu opinion sobre las peliculas
 						</p>
 					</div>
+
 					<div className='relative'>
 						<LuCrown className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>
@@ -84,6 +85,7 @@ const RegisterView = () => {
 							exclusivas!
 						</p>
 					</div>
+
 				</div>
 			</div>
 
@@ -101,6 +103,7 @@ const RegisterView = () => {
 
 						<form className='mt-8 space-y-6' onSubmit={onSubmit}>
 							<div className='space-y-4'>
+
 								{/* Nombre */}
 
 								<div>
@@ -173,6 +176,7 @@ const RegisterView = () => {
 								</div>
 
 								{/* Repetir Contraseña */}
+
 								<div>
 									<div className='relative'>
 										<FiLock className='absolute top-3 left-3 text-white' />
