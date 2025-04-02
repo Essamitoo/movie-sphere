@@ -1,11 +1,12 @@
 'use client'
 
 import { IFormData, ITouched } from '@/interfaces/IForm'
-import { useAuth } from '@/store/useAuth'
+import { loginService } from '@/services/authServices'
+import { AuthContext } from '@/contexts/authContext'
 import { isValid } from '@/utils/validation'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 import { FiLock, FiMail } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
@@ -15,7 +16,7 @@ import { TbEye, TbEyeOff } from 'react-icons/tb'
 const LoginView = () => {
 	const initialData: IFormData = { email: '', password: '' }
 	const initialTouched: ITouched = { email: false, password: false }
-	const { setData } = useAuth()
+	const { setUser } = useContext(AuthContext)
 
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
@@ -26,10 +27,17 @@ const LoginView = () => {
 		setFormData({ ...data, [e.target.name]: e.target.value })
 	}
 
-	const onSubmit = (e: FormEvent) => {
+	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		alert('¡Inicio de sesión exitoso!')
-		router.push('/home')
+
+		const response = await loginService(data)
+		console.log(response)
+		if (response.statusCode >= 400 ) alert('Credenciales incorrectas')
+		else {
+			setUser(response)
+			alert('iniciado!')
+			router.push('/home')
+		}
 	}
 
 	const handleBlur = (field: string) => {
@@ -104,7 +112,7 @@ const LoginView = () => {
 										<input
 											name='password'
 											value={data.password}
-											type='password'
+											type={showPassword ? 'text' : 'password'}
 											className='w-full pl-9 pr-10 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
 											placeholder='Tu contraseña'
 											onChange={onChange}

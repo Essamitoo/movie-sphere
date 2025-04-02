@@ -1,9 +1,9 @@
 'use client'
 import { IMedia } from '@/interfaces/IMedia'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { FaStar, FaHeart, FaPlay } from 'react-icons/fa'
-import { useAuth } from '@/store/useAuth'
+import { AuthContext } from '@/contexts/authContext'
 
 const Card: React.FC<IMedia> = ({
 	image,
@@ -13,44 +13,45 @@ const Card: React.FC<IMedia> = ({
 	califications,
 	type,
 }) => {
-	const { data, setData } = useAuth()
+	const { user } = useContext(AuthContext)
 	const [isInViews, setIsInViews] = useState(false)
 	const [isInFavorite, setIsInFavorite] = useState(false)
 	const [isInList, setIsInList] = useState(false)
 
-	useEffect(() => {
-		if (!data || !id) return
-		setIsInViews(data.views?.includes(id.toString()) || false)
-		setIsInFavorite(data.favorites?.includes(id.toString()) || false)
-		setIsInList(data.list?.includes(id.toString()) || false)
-	}, [data, id])
+	// useEffect(() => {
+	// 	if (!user || !id) return
+	// 	setIsInViews(user.user?.views?.includes(id.toString()) || false)
+	// 	setIsInFavorite(user.user?.favorites?.includes(id.toString()) || false)
+	// 	setIsInList(user.user?.list?.includes(id.toString()) || false)
+	// }, [user, id])
 
-	const addList = () => {
-		if (!isInList) {
-			setData({
-				list: [...(data?.list || []), id.toString()],
-			})
-		} else {
-			const newList = data?.list?.filter((item) => item !== id.toString()) || []
-			setData({
-				list: newList,
-			})
-		}
-	}
+	// const addList = () => {
+	// 	if (!isInList) {
+	// 		setMovie({
+	// 			list: [...(data?.user?.list || []), id.toString()],
+	// 		})
+	// 	} else {
+	// 		const newList =
+	// 			data?.user?.list?.filter((item) => item !== id.toString()) || []
+	// 		setMovie({
+	// 			list: newList,
+	// 		})
+	// 	}
+	// }
 
-	const toggleFavorite = () => {
-		if (!isInFavorite) {
-			setData({
-				favorites: [...(data?.favorites || []), id.toString()],
-			})
-		} else {
-			const newFavorites =
-				data?.favorites?.filter((item) => item !== id.toString()) || []
-			setData({
-				favorites: newFavorites,
-			})
-		}
-	}
+	// const toggleFavorite = () => {
+	// 	if (!isInFavorite) {
+	// 		setMovie({
+	// 			favorites: [...(user?.user?.favorites || []), id.toString()],
+	// 		})
+	// 	} else {
+	// 		const newFavorites =
+	// 			user?.user?.favorites?.filter((item) => item !== id.toString()) || []
+	// 		setMovie({
+	// 			favorites: newFavorites,
+	// 		})
+	// 	}
+	// }
 
 	return (
 		<div
@@ -69,7 +70,7 @@ const Card: React.FC<IMedia> = ({
 				<img src={image} className='rounded-xl h-[240px] w-full' alt={title} />
 			</Link>
 			<div
-				onClick={toggleFavorite}
+				// onClick={toggleFavorite}
 				className={`w-8 h-8 rounded-full ml-[190px] border absolute flex items-center justify-center ${
 					isInFavorite
 						? 'text-[#00A878] bg-[#00A878]/50'
@@ -93,14 +94,14 @@ const Card: React.FC<IMedia> = ({
 			{!isInViews &&
 				(isInList ? (
 					<button
-						onClick={() => addList()}
+						// onClick={() => addList()}
 						className='border border-[#00A878]/50 text-[#00A878] w-full rounded-sm hover:cursor-pointer bg-[#171717] h-[30px]'
 					>
 						Agregada
 					</button>
 				) : (
 					<button
-						onClick={() => addList()}
+						// onClick={() => addList()}
 						className='border border-slate-100/50 w-full rounded-xl text-ms hover:cursor-pointer bg-[#171717]'
 					>
 						+ Agregar a la lista
@@ -116,3 +117,4 @@ const Card: React.FC<IMedia> = ({
 }
 
 export default Card
+

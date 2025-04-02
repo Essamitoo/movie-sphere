@@ -1,18 +1,16 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { isValid } from '@/utils/validation'
 import { FaRegHeart } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
-import { useAuth } from '@/store/useAuth'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 import { IFormData, ITouched } from '@/interfaces/IForm'
 import { useRouter } from 'next/navigation'
-
-
+import { registerService } from '@/services/authServices'
 
 const RegisterView = () => {
 	const initialData: IFormData = {
@@ -30,7 +28,6 @@ const RegisterView = () => {
 		phone: false,
 	}
 
-	const { setData } = useAuth()
 	const router = useRouter()
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
@@ -42,11 +39,29 @@ const RegisterView = () => {
 		setFormData({ ...data, [name]: value })
 	}
 
-	const onSubmit = (e: FormEvent) => {
+	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		setData(data)
-		alert('¡Registro exitoso!')
-		router.push('/home')
+
+		const response = await registerService(data)
+		console.log('Respuesta del servidor:', response)
+
+		// Si la respuesta contiene un mensaje de error, lo mostramos y detenemos la ejecución
+
+		if (response?.message === 'Email already exists') {
+			alert('El correo ya está registrado.')
+			return
+		}
+
+		alert('Registro exitoso')
+		router.push('/auth/login')
+	}
+
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword)
+	}
+
+	const toggleRepeatPasswordVisibility = () => {
+		setShowRepeatPassword(!showRepeatPassword)
 	}
 
 	const handleBlur = (field: string) => {
@@ -57,7 +72,6 @@ const RegisterView = () => {
 		<div className='flex min-h-screen '>
 			<div className="bg-[url('../assets/sign-in-bg.webp')] w-1/3 flex justify-center items-center">
 				<div className='text-white space-y-8 p-4 text-lg'>
-
 					<div className='relative'>
 						<MdOutlineMovieFilter className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>Disfruta de los mejores estrenos</p>
@@ -85,7 +99,6 @@ const RegisterView = () => {
 							exclusivas!
 						</p>
 					</div>
-
 				</div>
 			</div>
 
@@ -103,7 +116,6 @@ const RegisterView = () => {
 
 						<form className='mt-8 space-y-6' onSubmit={onSubmit}>
 							<div className='space-y-4'>
-
 								{/* Nombre */}
 
 								<div>
@@ -120,9 +132,7 @@ const RegisterView = () => {
 										/>
 									</div>
 									{touched.name && !isValid('name', data.name) && (
-										<p className='text-red-700 ml-4 text-sm'>
-											Nombre invalido
-										</p>
+										<p className='text-red-700 ml-4 text-sm'>Nombre invalido</p>
 									)}
 								</div>
 
@@ -153,7 +163,7 @@ const RegisterView = () => {
 										<FiLock className='absolute top-3 left-3 text-white' />
 										<input
 											name='password'
-											type={showPassword ? 'text' : 'password'} 
+											type={showPassword ? 'text' : 'password'}
 											value={data.password}
 											onChange={onChange}
 											onBlur={() => handleBlur('password')}
@@ -162,10 +172,10 @@ const RegisterView = () => {
 										/>
 										<button
 											type='button'
-											onClick={() => setShowPassword(!showPassword)} 
+											onClick={() => setShowPassword(!showPassword)}
 											className='absolute top-3 right-3 text-white hover:cursor-pointer hover:scale-115 transition duration-200 ease-in-out'
 										>
-											{showPassword ? <TbEyeOff />  : <TbEye />}
+											{showPassword ? <TbEyeOff /> : <TbEye />}
 										</button>
 									</div>
 									{touched.password && !isValid('password', data.password) && (

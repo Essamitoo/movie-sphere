@@ -10,7 +10,7 @@ export interface IMedia {
 	califications: number
 	type: string
 }
-export interface Review {
+export interface IReview {
 	userImg: string;
 	userName: string;
 	reviewCount: number;
