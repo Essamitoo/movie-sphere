@@ -244,8 +244,8 @@ const HomePage = () => {
 			</div>
 			{displayedItems.length > 0 ? (
 				<div className='grid grid-cols-5'>
-					{displayedItems.map((item) => (
-						<Card key={item.id} {...item} />
+					{displayedItems.map((movie) => (
+						<Card key={movie.id} {...movie} movie={movie} />
 					))}
 				</div>
 			) : (

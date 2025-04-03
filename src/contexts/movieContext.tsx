@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useState, useContext } from 'react'
+import { createContext, useState, useContext, useEffect } from 'react'
 import { IMedia } from '@/interfaces/IMedia'
 import { AuthContext } from './authContext'
 
@@ -8,70 +8,111 @@ interface ChildrenType {
 }
 
 interface MoviesContextProps {
-    favorites: IMedia[]
-    views: IMedia[]
-    list: IMedia[]
-    addToFavorites: (movie: IMedia) => void
-    removeFromFavorites: (movie: IMedia) => void
-    addToViews: (movie: IMedia) => void
-    removeFromViews: (movie: IMedia) => void
-    addToList: (movie: IMedia) => void
-    removeFromList: (movie: IMedia) => void
+	addToFavorites: (movie: IMedia) => void
+	removeFromFavorites: (movie: IMedia) => void
+	addToViews: (movie: IMedia) => void
+	removeFromViews: (movie: IMedia) => void
+	addToList: (movie: IMedia) => void
+	removeFromList: (movie: IMedia) => void
+	isMovieInUserList: (
+		type: 'favorites' | 'views' | 'list',
+		movie: any
+	) => boolean
+    isFavorite: (movie: any) => boolean
+    isViewed: (movie: any) => boolean
+    isInList: (movie: any) => boolean
 }
 
-const MoviesContext = createContext<MoviesContextProps | undefined>(undefined)
+export const MoviesContext = createContext<MoviesContextProps>({
+	addToFavorites: () => {},
+	removeFromFavorites: () => {},
+	addToViews: () => {},
+	removeFromViews: () => {},
+	addToList: () => {},
+	removeFromList: () => {},
+	isMovieInUserList: () => false,
+    isFavorite: () => false,
+    isViewed: () => false,
+    isInList: () => false,
+})
 
 const MoviesProvider = ({ children }: ChildrenType) => {
-    const { user } = useContext(AuthContext)
-    const [favorites, setFavorites] = useState<IMedia[]>(user?.user.favorites || [])
-    const [views, setViews] = useState<IMedia[]>(user?.user.views || [])
-    const [list, setList] = useState<IMedia[]>(user?.user.list || [])
+	const { user, updateUserLists, removeFromUserLists } = useContext(AuthContext)
 
-    const addToFavorites = (movie: IMedia) => {
-        if (!favorites.some(fav => fav.id === movie.id)) {
-            setFavorites([...favorites, movie])
-        }
-    }
+	const isMovieInUserList = (
+		type: 'favorites' | 'views' | 'list',
+		movie: any
+	): boolean => {
+		if (!user) return false
+		return user.user[type].some((item: any) => item.id === movie.id)
+	}
 
-    const removeFromFavorites = (movie: IMedia) => {
-        setFavorites(favorites.filter(fav => fav.id !== movie.id))
-    }
+    useEffect(() => {
+        
+    })
 
-    const addToViews = (movie: IMedia) => {
-        if (!views.some(view => view.id === movie.id)) {
-            setViews([...views, movie])
-        }
-    }
+	const addToFavorites = (movie: IMedia) => {
+        if(!isMovieInUserList('favorites', movie)) {
 
-    const removeFromViews = (movie: IMedia) => {
-        setViews(views.filter(view => view.id !== movie.id))
-    }
+            updateUserLists('favorites', movie)
+            alert('Película añadida a favoritos')
 
-    const addToList = (movie: IMedia) => {
-        if (!list.some(item => item.id === movie.id)) {
-            setList([...list, movie])
-        }
-    }
+        } else alert('Ya tienes esta película en favoritos')
+        
+	}
 
-    const removeFromList = (movie: IMedia) => {
-        setList(list.filter(item => item.id !== movie.id))
-    }
+	const addToViews = (movie: IMedia) => {
+        if(!isMovieInUserList('views', movie)) {
+            updateUserLists('views', movie)
+            alert('Película añadida a vistas')
 
-    return (
-        <MoviesContext.Provider value={{
-            favorites,
-            views,
-            list,
-            addToFavorites,
-            removeFromFavorites,
-            addToViews,
-            removeFromViews,
-            addToList,
-            removeFromList
-        }}>
-            {children}
-        </MoviesContext.Provider>
-    )
+        } else alert('La pelicula ya esta en vistas')
+	}
+
+	const addToList = (movie: IMedia) => {
+        if(!isMovieInUserList('list', movie)) {
+            updateUserLists('list', movie)
+            alert('Película añadida a la lista')
+
+        } else alert('La pelicula ya esta en la lista')
+	}
+
+	const removeFromFavorites = (movie: IMedia) => {
+		removeFromUserLists('favorites', movie)
+	}
+
+	const removeFromViews = (movie: IMedia) => {
+		removeFromUserLists('views', movie)
+	}
+
+	const removeFromList = (movie: IMedia) => {
+		removeFromUserLists('list', movie)
+	}
+
+	// Variables para estilos condicionales
+
+    const isFavorite = (movie: IMedia) => isMovieInUserList('favorites', movie);
+    const isViewed = (movie: IMedia) => isMovieInUserList('views', movie);
+    const isInList = (movie: IMedia) => isMovieInUserList('list', movie);
+
+	return (
+		<MoviesContext.Provider
+			value={{
+				addToFavorites,
+				removeFromFavorites,
+				addToViews,
+				removeFromViews,
+				addToList,
+				removeFromList,
+				isMovieInUserList,
+                isFavorite,
+                isViewed,
+                isInList,
+			}}
+		>
+			{children}
+		</MoviesContext.Provider>
+	)
 }
 
 export default MoviesProvider

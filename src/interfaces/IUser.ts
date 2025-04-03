@@ -17,5 +17,4 @@ interface IUser {
 export interface IUserSession {
     user: IUser;
     token: string;
-    login: true;
 }

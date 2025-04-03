@@ -10,43 +10,35 @@ import Reparto from '@/components/reparto/Reparto'
 import Criticas from '@/components/criticas/Criticas'
 import Trailer from '@/components/trailer/Trailer'
 import { useParams } from 'next/navigation'
+import { MoviesContext } from '@/contexts/movieContext'
+import { IMedia } from '@/interfaces/IMedia'
 
-const MediaPage: React.FC = () => {
+const MediaPage = ({movie}: {movie:IMedia}) => {
 	const params = useParams()
 	const VIDEO_ID = 'Oh_B9Ejvn-8?si=5p_r5UFVH2z3BRP_'
+
 	const { user, setUser } = useContext(AuthContext)
-	const [isInViews, setIsInViews] = useState(false)
-	const [isInFavorite, setIsInFavorite] = useState(false)
-	const [isInList, setIsInList] = useState(false)
 	const [open, setOpen] = useState(false)
+
+	const {addToFavorites, addToList, addToViews, favorites, views, list} = useContext(MoviesContext)
 
 	const id = Array.isArray(params.id) ? params.id[0] : params.id
 	if (!id) return <p>Cargando...</p>
 
-	useEffect(() => {
-		if (!user || !id) return
-		setIsInViews(user.user.views?.includes(id) || false)
-		setIsInFavorite(user.user.favorites?.includes(id) || false)
-		setIsInList(user.user.list?.includes(id) || false)
-	}, [user, id])
+	// useEffect(() => {
+	// 	if (!user || !id) return
+	// 	setIsInViews(user.user.views?.includes(id) || false)
+	// 	setIsInFavorite(user.user.favorites?.includes(id) || false)
+	// 	setIsInList(user.user.list?.includes(id) || false)
+	// }, [user, id])
 
-	const toggleFavorite = () => {
-		if (!isInFavorite) {
-			setData({ favorites: [...(user?.favorites || []), id] })
-		} else {
-			setData({
-				favorites: user?.user.favorites?.filter((item) => item !== id) || [],
-			})
-		}
+const isMovieInList = (movie: IMedia, list: IMedia[]) => {
+		return list.some(item => item.id === movie.id);
 	}
 
-	const addList = () => {
-		if (!isInList) {
-			setData({ list: [...(data?.list || []), id] })
-		} else {
-			setData({ list: data?.list?.filter((item) => item !== id) || [] })
-		}
-	}
+	const isFavorite = isMovieInList(movie, favorites)
+	const isViewed = isMovieInList(movie, views)
+	const isInList = isMovieInList(movie, list)
 
 	return (
 		<div className='max-h-max min-h-lvh pb-5 text-white flex flex-col items-center gap-6'>
@@ -62,7 +54,7 @@ const MediaPage: React.FC = () => {
 					<FaPlay size={15} /> TRAILER
 				</button>
 				<button
-					onClick={addList}
+					onClick={() => addToList(movie)}
 					className='border-2 border-gray-300 font-medium text-white text-sm rounded-lg w-[150px] flex gap-1 p-2 hover:scale-105'
 				>
 					<FaPlus size={15} /> {isInList ? 'Agregada' : 'Agregar a la lista'}
@@ -87,9 +79,9 @@ const MediaPage: React.FC = () => {
 				</div>
 				<div className='text-black flex flex-col justify-around items-center'>
 					<button
-						onClick={toggleFavorite}
+						onClick={() => addToFavorites(movie)}
 						className={`w-10 h-10 rounded-full border flex items-center justify-center ${
-							isInFavorite
+							isFavorite
 								? 'text-[#00A878] bg-black'
 								: 'text-white bg-gray-700/70'
 						}`}
@@ -103,7 +95,7 @@ const MediaPage: React.FC = () => {
 			<h2 className='text-black font-semibold text-2xl'>
 				Tu opinión nos importa, compártela aquí.
 			</h2>
-			<Comment img={data?.image || ''} name={data?.name || ''} />
+			<Comment img={user?.user.image || ''} name={user?.user.name || ''} />
 			{mediaInfo?.reviews?.map((item, index) => (
 				<Criticas key={index} {...item} />
 			))}

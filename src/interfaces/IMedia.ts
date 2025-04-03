@@ -1,4 +1,5 @@
-export interface IMedia {
+
+export interface IMedia  {
 	image: string
 	rate: number
 	title: string
@@ -10,6 +11,7 @@ export interface IMedia {
 	califications: number
 	type: string
 }
+
 export interface IReview {
 	userImg: string;
 	userName: string;
@@ -18,4 +20,5 @@ export interface IReview {
 	rating: number;
 	date: Date;
   }
+
   
