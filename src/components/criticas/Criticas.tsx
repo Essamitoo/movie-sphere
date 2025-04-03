@@ -1,8 +1,8 @@
 import { formatearFecha } from "@/utils/utils";
 import StarRating from "../starRating/StartRating";
-import { Review } from "@/interfaces/IMedia";
+import { IReview } from "@/interfaces/IMedia";
 
-const Criticas=({userImg,userName,reviewCount,comment,rating,date}:Review)=>{
+const Criticas=({userImg,userName,reviewCount,comment,rating,date}:IReview)=>{
  return(
     <div className="w-[60%] h-[200px] text-black grid grid-cols-[20%_80%]">
         <div className="flex flex-col items-center">
