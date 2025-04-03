@@ -1,13 +1,15 @@
-import { IMedia } from '@/interfaces/IMedia'
-import { getMovies } from '@/services/movieServices'
-import MediaPage from '@/views/MediaView/MediaView'
-import React from 'react'
+import { getMovie } from '@/services/movieServices';
+import MediaView from '@/views/MediaView/MediaView';
 
-const Media = () => {
-	const movie: IMedia[] = getMovies()
-  return (
-	<MediaPage movie={movie}></MediaPage>
-  )
-}
+const Media = ({ params }: { params: { id: string } }) => {
+	const id = Number(params.id);
+	const movie = getMovie(id);
+  
+	if (!movie) {
+	  return <p>Película no encontrada</p>;
+	}
+  
+	return <MediaView movie={movie} />;
+};
 
-export default Media
+export default Media;
