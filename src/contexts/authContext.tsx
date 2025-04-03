@@ -27,22 +27,7 @@ interface AuthContextProps {
 }
 
 export const AuthContext = createContext<AuthContextProps>({
-	user: {
-		user: {
-			id: '',
-			name: '',
-			email: '',
-			password: '',
-			image: '',
-			account: '',
-			role: '',
-			favorites: [],
-			reviews: [],
-			views: [],
-			list: [],
-		},
-		token: '',
-	},
+	user: null,
 	setUser: () => {},
 	logout: () => {},
 	updateUserLists: () => {},
@@ -66,7 +51,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		const localUser = localStorage.getItem('user')
 		if (localUser) {
 			const parsedUser: IUserSession = JSON.parse(localUser)
-			// Asegurar que los arrays siempre sean válidos
+			// Asegurar que los arrays siempre sean válidos y valores por defecto 
 			const sanitizedUser = {
 				...parsedUser,
 				user: {
@@ -74,6 +59,10 @@ const AuthProvider = ({ children }: ChildrenType) => {
 					favorites: parsedUser.user.favorites || [],
 					views: parsedUser.user.views || [],
 					list: parsedUser.user.list || [],
+					image: '../assets/default-avatar-user.webp',
+					account: parsedUser.user.account || 'Free',
+					role: parsedUser.user.role || 'User',
+					reviews: parsedUser.user.reviews || [],
 				},
 			}
 			setUser(sanitizedUser)
