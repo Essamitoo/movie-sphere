@@ -5,10 +5,14 @@ import { useContext } from 'react'
 import { FaStar, FaHeart, FaPlay } from 'react-icons/fa'
 import { MoviesContext } from '@/contexts/movieContext'
 
-const Card = ({movie} : {movie: IMedia} ) => {
+interface Props {
+	movie: IMedia
+}
+
+const Card = ({movie}: Props) => {
 	const {addToFavorites, addToList, addToViews, isMovieInUserList, isFavorite, removeFromList} = useContext(MoviesContext)
 
-	
+	const {id} = movie
 
 	
 
@@ -27,7 +31,7 @@ const Card = ({movie} : {movie: IMedia} ) => {
 			>
 				{movie.type === 'movie' ? 'Pelicula' : 'Serie'}
 			</p>
-			<Link href={`/media/${movie.id}`} className='rounded-xl h-[240px] w-full'>
+			<Link href={`/media/${id}`} className='rounded-xl h-[240px] w-full'>
 				<img
 					src={movie.image}
 					className='rounded-xl h-[240px] w-full'
@@ -54,7 +58,7 @@ const Card = ({movie} : {movie: IMedia} ) => {
 				<FaPlay size={40} className='text-gray-300/70' />
 			</div>
 			<Link href={`/info/${movie.id}`}>
-				<p className='text-[#00A878] font-bold m-1'>{movie.title}</p>
+				<p className='text-[#00A878] font-bold m-1 hover:opacity-65'>{movie.title}</p>
 			</Link>
 			{!isMovieInUserList('views', movie) &&
 				(isMovieInUserList('list', movie) ? (

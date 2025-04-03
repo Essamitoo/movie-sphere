@@ -13,15 +13,20 @@ import { useParams } from 'next/navigation'
 import { MoviesContext } from '@/contexts/movieContext'
 import { IMedia } from '@/interfaces/IMedia'
 
-const MediaPage = ({movie}: {movie:IMedia}) => {
-    const params = useParams()
+const MediaView = ({movie}: {movie: IMedia}) => {
+    
+    console.log(movie);
+    
+    
+    // const params = useParams()
     const VIDEO_ID = 'Oh_B9Ejvn-8?si=5p_r5UFVH2z3BRP_'
     const { user } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
     const {addToFavorites, addToList, addToViews, isInList, isFavorite } = useContext(MoviesContext)
-
-    const id = Array.isArray(params.id) ? params.id[0] : params.id
-    if (!id) return <p>Cargando...</p>
+    
+    // const id = Array.isArray(params.id) ? params.id[0] : params.id
+    // if (!id) return <p>Cargando...</p>
+    
 
     return (
         <div className='max-h-max min-h-lvh pb-5 text-white flex flex-col items-center gap-6'>
@@ -107,6 +112,6 @@ const MediaPage = ({movie}: {movie:IMedia}) => {
     )
 }
 
-export default MediaPage
+export default MediaView
 
 
