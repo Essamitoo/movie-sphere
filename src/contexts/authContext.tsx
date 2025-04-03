@@ -5,11 +5,9 @@ import {
 	useEffect,
 	Dispatch,
 	SetStateAction,
-	useContext,
 } from 'react'
 import { IUserSession } from '@/interfaces/IUser'
 import { IMedia } from '@/interfaces/IMedia'
-import { MoviesContext } from './movieContext'
 
 interface ChildrenType {
 	children: React.ReactNode
@@ -46,26 +44,10 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	}, [user])
 
 	// Carga al usuario desde localStorage
-
+	
 	useEffect(() => {
 		const localUser = localStorage.getItem('user')
 		if (localUser) {
-			const parsedUser: IUserSession = JSON.parse(localUser)
-			// Asegurar que los arrays siempre sean válidos y valores por defecto 
-			const sanitizedUser = {
-				...parsedUser,
-				user: {
-					...parsedUser.user,
-					favorites: parsedUser.user.favorites || [],
-					views: parsedUser.user.views || [],
-					list: parsedUser.user.list || [],
-					image: '../assets/default-avatar-user.webp',
-					account: parsedUser.user.account || 'Free',
-					role: parsedUser.user.role || 'User',
-					reviews: parsedUser.user.reviews || [],
-				},
-			}
-			setUser(sanitizedUser)
 		}
 	}, [])
 

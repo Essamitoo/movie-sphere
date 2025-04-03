@@ -29,16 +29,34 @@ const LoginView = () => {
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-
+	
 		const response = await loginService(data)
 		console.log(response)
-		if (response.statusCode >= 400 ) alert('Credenciales incorrectas')
-		else {
-			setUser(response)
-			alert('iniciado!')
+	
+		if (response.statusCode >= 400) {
+			alert('Credenciales incorrectas')
+		} else {
+			const defaultUser = {
+				...response, 
+				user: {
+					...response.user,
+					favorites: response.user.favorites || [],
+					views: response.user.views || [],
+					list: response.user.list || [],
+					image: response.user.image || '../assets/default-avatar-user.webp',
+					account: response.user.account || 'Free',
+					role: response.user.role || 'User',
+					reviews: response.user.reviews || [],
+				},
+			}
+
+			localStorage.setItem('user', JSON.stringify(defaultUser))
+			setUser(defaultUser)
+			alert('Iniciado!')
 			router.push('/home')
 		}
 	}
+	
 
 	const handleBlur = (field: string) => {
 		setTouched({ ...touched, [field]: true })
