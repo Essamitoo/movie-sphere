@@ -12,6 +12,8 @@ interface Props {
 const Card = ({movie}: Props) => {
 	const {addToFavorites, addToList, addToViews, isMovieInUserList, isFavorite, removeFromList} = useContext(MoviesContext)
 
+	if (!movie) return <p>No hay pelicula seleccionada</p>
+
 	const {id} = movie
 
 	
@@ -86,6 +88,8 @@ const Card = ({movie}: Props) => {
 }
 
 export default Card
+
+
 
 
 

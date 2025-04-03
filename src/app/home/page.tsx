@@ -6,7 +6,7 @@ import { IMedia } from '@/interfaces/IMedia'
 import { AuthContext } from '@/contexts/authContext'
 
 const HomePage = () => {
-	const { setUser, logout } = useContext(AuthContext)
+	const { logout } = useContext(AuthContext)
 	const [filter, setFilter] = useState('')
 	const [currentPage, setCurrentPage] = useState(1)
 	const [yearFilter, setYearFilter] = useState('')

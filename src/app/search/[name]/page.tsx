@@ -30,19 +30,20 @@ const Search: React.FC = () => {
 
 
   return (
-    <div className="bg-[#202020] max-h-max min-h-lvh pb-5 text-white">
-      {filter && (
-        <p className="ml-[2%] p-1 font-semibold font-second text-1xl">
-          Resultados de la búsqueda {`"${name}"`} ({filter.length} Resultados)
-        </p>
-      )}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 m-2 gap-6">
-        {filter?.map((item) => (
-					<Card key={item.id} {...item} />
+		<div className='bg-[#202020] max-h-max min-h-lvh pb-5 text-white'>
+			{filter && (
+				<p className='ml-[2%] p-1 font-semibold font-second text-1xl'>
+					Resultados de la búsqueda {`"${name}"`} ({filter.length} Resultados)
+				</p>
+			)}
+			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 m-2 gap-6'>
+				{filter?.map((movie) => (
+					<Card key={movie.id} {...movie} movie={movie}/>
 				))}
-      </div>
-    </div>
-  );
+			</div>
+		</div>
+	)
 };
 
 export default Search;
+
