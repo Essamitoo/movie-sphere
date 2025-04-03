@@ -1,33 +1,30 @@
 'use client'
-import { getMovies } from "@/services/movieServices"
-import { useAuth } from "@/store/useAuth"
+import { AuthContext } from '@/contexts/authContext'
+import { useContext } from 'react'
 
 const DashboardList = () => {
- const { data } = useAuth()
- 
-    const getFavoriteMovies = () => {
-        const movies = getMovies()
-        const favMovies = movies.filter((movie) =>
-            data?.favorites?.includes(String(movie.id))
-        )
-        return favMovies
-    }
- 
-     const favoriteMovies = getFavoriteMovies()
- 
-    return (
-        <div>
-            <p>Peliculas favoritas:</p>
-            <div>
-                {favoriteMovies.map((movie) => (
-                     <div key={movie.id}>
-                         <p>{movie.title}</p>
-                         <p>{movie.genre}</p>
-                     </div>
-                ))}
+  const { user } = useContext(AuthContext)
+
+  // Accede directamente a las películas favoritas del usuario
+  const favoriteMovies = user?.user?.favorites || []
+
+  return (
+    <div>
+      <p>Películas favoritas:</p>
+      <div>
+        {favoriteMovies.length > 0 ? (
+          favoriteMovies.map((movie) => (
+            <div key={movie.id}>
+              <p>{movie.title}</p>
+              <p>{movie.genre}</p>
             </div>
-        </div>
-    )
+          ))
+        ) : (
+          'No hay películas favoritas'
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default DashboardList
