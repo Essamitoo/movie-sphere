@@ -1,8 +1,12 @@
 import { getMovie } from '@/services/movieServices';
 import MediaView from '@/views/MediaView/MediaView';
 
-const Media = ({ params }: { params: { id: string } }) => {
-	const id = Number(params.id);
+interface MediaProps {
+	params: { id: number };
+}
+
+const Media = ({ params}: MediaProps) => {
+	const id = params.id;
 	const movie = getMovie(id);
   
 	if (!movie) {
