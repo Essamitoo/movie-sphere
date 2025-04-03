@@ -29,3 +29,9 @@
     --foreground: #ededed;
   }
 }
+
+@layer components {
+  .link {
+    @apply bg-gradient-to-b from-[#F1FDFA] to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold hover:opacity-90 cursor-pointer;
+  }
+}

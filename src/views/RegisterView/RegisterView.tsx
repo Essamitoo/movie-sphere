@@ -1,32 +1,26 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { isValid } from '@/utils/validation'
 import { FaRegHeart } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
-import { useAuth } from '@/store/useAuth'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
-
-interface FormData {
-	[key: string]: string
-}
-
-export interface Touched {
-	[key: string]: boolean
-}
+import { IFormData, ITouched } from '@/interfaces/IForm'
+import { useRouter } from 'next/navigation'
+import { registerService } from '@/services/authServices'
 
 const RegisterView = () => {
-	const initialData: FormData = {
+	const initialData: IFormData = {
 		name: '',
 		email: '',
 		password: '',
 		repeatPassword: '',
 	}
 
-	const initialTouched: Touched = {
+	const initialTouched: ITouched = {
 		email: false,
 		password: false,
 		name: false,
@@ -34,7 +28,7 @@ const RegisterView = () => {
 		phone: false,
 	}
 
-	const { setData } = useAuth()
+	const router = useRouter()
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
 	const [showPassword, setShowPassword] = useState(false)
@@ -45,11 +39,29 @@ const RegisterView = () => {
 		setFormData({ ...data, [name]: value })
 	}
 
-	const onSubmit = (e: FormEvent) => {
+	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		setData(data)
-		alert('¡Registro exitoso!')
-		window.location.href = '/home'
+
+		const response = await registerService(data)
+		console.log('Respuesta del servidor:', response)
+
+		// Si la respuesta contiene un mensaje de error, lo mostramos y detenemos la ejecución
+
+		if (response?.message === 'Email already exists') {
+			alert('El correo ya está registrado.')
+			return
+		}
+
+		alert('Registro exitoso')
+		router.push('/auth/login')
+	}
+
+	const togglePasswordVisibility = () => {
+		setShowPassword(!showPassword)
+	}
+
+	const toggleRepeatPasswordVisibility = () => {
+		setShowRepeatPassword(!showRepeatPassword)
 	}
 
 	const handleBlur = (field: string) => {
@@ -64,6 +76,7 @@ const RegisterView = () => {
 						<MdOutlineMovieFilter className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>Disfruta de los mejores estrenos</p>
 					</div>
+
 					<div className='relative'>
 						<FaRegHeart className='absolute top-[-.4rem] left-[-.65rem] size-9 text-quinary' />
 						<p className='pl-12'>
@@ -71,12 +84,14 @@ const RegisterView = () => {
 							<span className='font-bold'>favoritas, pendientes y vistas</span>
 						</p>
 					</div>
+
 					<div className='relative'>
 						<LuStar className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>
 							Puntua y deja tu opinion sobre las peliculas
 						</p>
 					</div>
+
 					<div className='relative'>
 						<LuCrown className='absolute top-[-.5rem] left-[-.65rem] size-10 text-quinary' />
 						<p className='pl-12'>
@@ -117,9 +132,7 @@ const RegisterView = () => {
 										/>
 									</div>
 									{touched.name && !isValid('name', data.name) && (
-										<p className='text-red-700 ml-4 text-sm'>
-											Nombre invalido
-										</p>
+										<p className='text-red-700 ml-4 text-sm'>Nombre invalido</p>
 									)}
 								</div>
 
@@ -150,7 +163,7 @@ const RegisterView = () => {
 										<FiLock className='absolute top-3 left-3 text-white' />
 										<input
 											name='password'
-											type={showPassword ? 'text' : 'password'} 
+											type={showPassword ? 'text' : 'password'}
 											value={data.password}
 											onChange={onChange}
 											onBlur={() => handleBlur('password')}
@@ -159,10 +172,10 @@ const RegisterView = () => {
 										/>
 										<button
 											type='button'
-											onClick={() => setShowPassword(!showPassword)} 
+											onClick={() => setShowPassword(!showPassword)}
 											className='absolute top-3 right-3 text-white hover:cursor-pointer hover:scale-115 transition duration-200 ease-in-out'
 										>
-											{showPassword ? <TbEyeOff />  : <TbEye />}
+											{showPassword ? <TbEyeOff /> : <TbEye />}
 										</button>
 									</div>
 									{touched.password && !isValid('password', data.password) && (
@@ -173,6 +186,7 @@ const RegisterView = () => {
 								</div>
 
 								{/* Repetir Contraseña */}
+
 								<div>
 									<div className='relative'>
 										<FiLock className='absolute top-3 left-3 text-white' />

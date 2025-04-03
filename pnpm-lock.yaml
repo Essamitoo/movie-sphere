@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      env:
+        specifier: ^0.0.2
+        version: 0.0.2
       next:
         specifier: 15.2.3
         version: 15.2.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -23,9 +26,6 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.0.0)
-      zustand:
-        specifier: ^5.0.3
-        version: 5.0.3(@types/react@19.0.12)(react@19.0.0)
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.0.15
@@ -339,6 +339,10 @@ packages:
     resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
     engines: {node: '>=10.13.0'}
 
+  env@0.0.2:
+    resolution: {integrity: sha512-yP8LfjO4ughSHD/3HgLPinWzexmaOGvRfs2TFx0SZhOm7j1xPi9evjuGcLiNVHIGLmcsgMak4eDbBzlYqGIVxw==}
+    engines: {node: '>= 0.5.9'}
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -517,24 +521,6 @@ packages:
 
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
-
-  zustand@5.0.3:
-    resolution: {integrity: sha512-14fwWQtU3pH4dE0dOpdMiWjddcH+QzKIgk1cl8epwSE7yag43k/AD/m4L6+K7DytAOr9gGBe3/EXj9g7cdostg==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=18.0.0'
-      immer: '>=9.0.6'
-      react: '>=18.0.0'
-      use-sync-external-store: '>=1.2.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
-      react:
-        optional: true
-      use-sync-external-store:
-        optional: true
 
 snapshots:
 
@@ -763,6 +749,8 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.2.1
 
+  env@0.0.2: {}
+
   graceful-fs@4.2.11: {}
 
   is-arrayish@0.3.2:
@@ -922,8 +910,3 @@ snapshots:
   typescript@5.8.2: {}
 
   undici-types@6.19.8: {}
-
-  zustand@5.0.3(@types/react@19.0.12)(react@19.0.0):
-    optionalDependencies:
-      '@types/react': 19.0.12
-      react: 19.0.0
