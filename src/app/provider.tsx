@@ -1,14 +1,16 @@
+'use client'
 import AuthProvider from '@/contexts/authContext'
 import MoviesProvider from '@/contexts/movieContext'
+import { SessionProvider } from 'next-auth/react'
 import React from 'react'
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<AuthProvider>
-			<MoviesProvider>
-        {children}
-      </MoviesProvider>
-		</AuthProvider>
+		<SessionProvider>
+			<AuthProvider>
+				<MoviesProvider>{children}</MoviesProvider>
+			</AuthProvider>
+		</SessionProvider>
 	)
 }
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { IFormData, ITouched } from '@/interfaces/IForm'
-import { loginService } from '@/services/authServices'
 import { AuthContext } from '@/contexts/authContext'
 import { isValid } from '@/utils/validation'
 import Link from 'next/link'
@@ -17,7 +16,7 @@ import { toast } from 'react-toastify'
 const LoginView = () => {
 	const initialData: IFormData = { email: '', password: '' }
 	const initialTouched: ITouched = { email: false, password: false }
-	const { setUser } = useContext(AuthContext)
+	const { localLogin } = useContext(AuthContext)
 
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)
@@ -30,37 +29,14 @@ const LoginView = () => {
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-	
-		const response = await loginService(data)
-		console.log(response)
-	
-		if (response.statusCode >= 400) {
-			alert('Credenciales incorrectas')
-		} else {
-
-			//Setea datos por defecto al user
-
-			const defaultUser = {
-				...response, 
-				user: {
-					...response.user,
-					favorites: response.user.favorites || [],
-					views: response.user.views || [],
-					list: response.user.list || [],
-					image: response.user.image || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
-					account: response.user.account || 'Free',
-					role: response.user.role || 'User',
-					reviews: response.user.reviews || [],
-				},
-			}
-
-			localStorage.setItem('user', JSON.stringify(defaultUser))
-			setUser(defaultUser)
-			toast('Inicio de sesión exitoso')
+		try {
+			await localLogin(data)
+			toast.success('Sesión iniciada correctamente')
 			router.push('/home')
+		} catch (error) {
+			toast('Credenciales incorrectas')
 		}
 	}
-	
 
 	const handleBlur = (field: string) => {
 		setTouched({ ...touched, [field]: true })
