@@ -1,8 +1,7 @@
-import DashboardList from "@/views/DashboardView/DashboardList"
+import Favorites from "@/views/DashboardView/Favorites"
 
-const Lists = () => {
-  return <DashboardList/>
-
+const FavoritesPage = () => {
+  return <Favorites/>
 }
 
-export default Lists
+export default FavoritesPage

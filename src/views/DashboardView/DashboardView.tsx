@@ -1,16 +1,11 @@
-import SideBar from '@/components/sidebar/SideBar'
-import UserInfo from '@/components/userInfo/UserInfo'
+import Greeting from "@/components/greeting/Greeting"
 
 const DashboardView = () => {
-	return (
-		<div className='flex flex-row h-screen'>
-			<div className='w-1/8'>
-				<SideBar />
-			</div>
-			<div className='w-7/8 bg-[#303030] text-white '>
+	
 
-			<UserInfo />
-			</div>
+	return (
+		<div>
+		<Greeting/>
 		</div>
 	)
 }
