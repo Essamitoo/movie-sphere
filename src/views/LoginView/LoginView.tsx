@@ -12,6 +12,7 @@ import { FiLock, FiMail } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
+import { toast } from 'react-toastify'
 
 const LoginView = () => {
 	const initialData: IFormData = { email: '', password: '' }
@@ -36,6 +37,9 @@ const LoginView = () => {
 		if (response.statusCode >= 400) {
 			alert('Credenciales incorrectas')
 		} else {
+
+			//Setea datos por defecto al user
+
 			const defaultUser = {
 				...response, 
 				user: {
@@ -43,7 +47,7 @@ const LoginView = () => {
 					favorites: response.user.favorites || [],
 					views: response.user.views || [],
 					list: response.user.list || [],
-					image: response.user.image || '../assets/default-avatar-user.webp',
+					image: response.user.image || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
 					account: response.user.account || 'Free',
 					role: response.user.role || 'User',
 					reviews: response.user.reviews || [],
@@ -52,7 +56,7 @@ const LoginView = () => {
 
 			localStorage.setItem('user', JSON.stringify(defaultUser))
 			setUser(defaultUser)
-			alert('Iniciado!')
+			toast('Inicio de sesión exitoso')
 			router.push('/home')
 		}
 	}
@@ -111,7 +115,7 @@ const LoginView = () => {
 											name='email'
 											value={data.email}
 											type='email'
-											className='w-full pl-9 pr-3 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
+											className='form-input'
 											placeholder='email@ejemplo.com'
 											onChange={onChange}
 											onBlur={() => handleBlur('email')}
@@ -131,7 +135,7 @@ const LoginView = () => {
 											name='password'
 											value={data.password}
 											type={showPassword ? 'text' : 'password'}
-											className='w-full pl-9 pr-10 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white'
+											className='form-input'
 											placeholder='Tu contraseña'
 											onChange={onChange}
 											onBlur={() => handleBlur('password')}

@@ -16,7 +16,7 @@ interface MoviesContextProps {
 	removeFromList: (movie: IMedia) => void
 	isMovieInUserList: (
 		type: 'favorites' | 'views' | 'list',
-		movie: any
+		movie: IMedia
 	) => boolean
     isFavorite: (movie: any) => boolean
     isViewed: (movie: any) => boolean

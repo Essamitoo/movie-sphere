@@ -48,6 +48,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	useEffect(() => {
 		const localUser = localStorage.getItem('user')
 		if (localUser) {
+			setUser(JSON.parse(localUser))
 		}
 	}, [])
 

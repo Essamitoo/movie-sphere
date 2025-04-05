@@ -4,25 +4,18 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AuthContext } from '@/contexts/authContext'
 import { useContext } from 'react'
+import Logo from '../logo/Logo'
 
 const Header = () => {
 	const { user } = useContext(AuthContext)
 	const pathname = usePathname()
-	const hideHeaderRoutes = ['/', '/auth/register', '/auth/login']
+	const hideHeaderRoutes = ['/', '/auth/register', '/auth/login', '/dashboard/favorites', '/dashboard/list', '/dashboard/views' , '/dashboard']
 	const shouldShowHeader = !hideHeaderRoutes.includes(pathname)
 	return (
 		<>
 			{shouldShowHeader && (
-				<div className='w-[100%] h-[70px] bg-[#171717] flex justify-around items-center text-white'>
-					<Link href='/home' className='flex w-[20%]'>
-						<img
-							src='https://res.cloudinary.com/dpyotudkz/image/upload/v1743098027/2082059f-cf96-4dad-aebf-e219a93a9c74.png'
-							alt=''
-						/>
-						<h3 className='bg-gradient-to-r from-[#00CC92] via-[#016b4d] to-[#013023] bg-clip-text text-transparent text-xl font-bold '>
-							MOVIE SPHERE
-						</h3>
-					</Link>
+				<div className='w-[100%] h-[70px] bg-quaternary flex justify-around items-center text-white'>
+					<Logo/>
 					<Search />
 					<div className='flex flex-col w-[25%]'>
 						{false ? (
@@ -37,18 +30,18 @@ const Header = () => {
 							<></>
 						)}
 						<div className='flex justify-around'>
-							<Link href='/home' className='link'>
+							<Link href='/home' className='header-link'>
 								Inicio
 							</Link>
 							{false ? (
 								<>
-									<Link href='/series' className='link'>
+									<Link href='/series' className='header-link'>
 										Noticias
 									</Link>
-									<Link href='/popular' className='link'>
+									<Link href='/popular' className='header-link'>
 										Popular
 									</Link>
-									<Link href='/estrenos' className='link'>
+									<Link href='/estrenos' className='header-link'>
 										Estrenos
 									</Link>
 								</>

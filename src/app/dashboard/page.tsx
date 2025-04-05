@@ -1,7 +1,11 @@
-import DashboardView from '@/views/DashboardView/DashboardView'
+import DashboardView from "@/views/DashboardView/DashboardView"
 
 const Dashboard = () => {
-	return <DashboardView />
+	return (
+		<div>
+			<DashboardView />
+		</div>
+	)
 }
 
 export default Dashboard

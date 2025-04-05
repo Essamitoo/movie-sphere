@@ -9,7 +9,6 @@ import StarRating from '@/components/starRating/StartRating'
 import Reparto from '@/components/reparto/Reparto'
 import Criticas from '@/components/criticas/Criticas'
 import Trailer from '@/components/trailer/Trailer'
-import { useParams } from 'next/navigation'
 import { MoviesContext } from '@/contexts/movieContext'
 import { IMedia } from '@/interfaces/IMedia'
 
@@ -18,14 +17,11 @@ const MediaView = ({movie}: {movie: IMedia}) => {
     console.log(movie);
     
     
-    // const params = useParams()
+
     const VIDEO_ID = 'Oh_B9Ejvn-8?si=5p_r5UFVH2z3BRP_'
     const { user } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
     const {addToFavorites, addToList, addToViews, isInList, isFavorite } = useContext(MoviesContext)
-    
-    // const id = Array.isArray(params.id) ? params.id[0] : params.id
-    // if (!id) return <p>Cargando...</p>
     
 
     return (

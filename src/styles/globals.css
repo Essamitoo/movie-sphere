@@ -1,37 +1,61 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --jade: #00a878;
-  --emerald: #00cc92;
-  --white: #ffffff;
-  --timberwolf: #d0d0d0;
-  --eblack-20: #202020;
-  --eblack-17: #171717;
+	--background: #ffffff;
+	--foreground: #171717;
+	--jade: #00a878;
+	--emerald: #00cc92;
+	--white: #ffffff;
+	--timberwolf: #d0d0d0;
+	--eblack-20: #202020;
+	--eblack-17: #101010;
+	--font-logo: 'Ubuntu'
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-quaternary: var(--jade);
-  --color-quinary: var(--emerald);
-  --color-white: var(--white);
-  --color-tertiary: var(--timberwolf);
-  --color-secondary: var(--eblack-20);
-  --color-primary: var(--eblack-17);
-
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-quaternary: var(--jade);
+	--color-quinary: var(--emerald);
+	--color-white: var(--white);
+	--color-tertiary: var(--timberwolf);
+	--color-secondary: var(--eblack-20);
+	--color-primary: var(--eblack-17);
+	--font-logo: var(--font-logo)
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+	}
+}
+
+body {
+	font-family: var(--font-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-family: var(--font-secondary);
+   font-weight: 700;
 }
 
 @layer components {
-  .link {
-    @apply bg-gradient-to-b from-[#F1FDFA] to-[#aaaaaa] bg-clip-text text-transparent text-lg font-bold hover:opacity-90 cursor-pointer;
-  }
+
+	.header-link {
+		@apply  text-lg font-bold hover:opacity-70 cursor-pointer;
+	}
+
+	.form-input {
+		@apply w-full pl-9 pr-10 py-2 border border-tertiary rounded-lg focus:outline-none focus:border-quaternary focus:shadow-sm transition-all duration-200 ease-in-out placeholder-tertiary text-sm text-white;
+	}
+
+	.sidebar-icon {
+		@apply w-6 h-6 text-tertiary  cursor-pointer;
+	}
 }

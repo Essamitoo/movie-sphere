@@ -9,14 +9,19 @@ interface Props {
 	movie: IMedia
 }
 
-const Card = ({movie}: Props) => {
-	const {addToFavorites, addToList, addToViews, isMovieInUserList, isFavorite, removeFromList} = useContext(MoviesContext)
+const Card = ({ movie }: Props) => {
+	const {
+		addToFavorites,
+		addToList,
+		addToViews,
+		isMovieInUserList,
+		isFavorite,
+		removeFromList,
+	} = useContext(MoviesContext)
 
-	if (!movie) return <p>No hay pelicula seleccionada</p>
+	if (!movie) return
 
-	const {id} = movie
-
-	
+	const { id } = movie
 
 	return (
 		<div
@@ -27,12 +32,13 @@ const Card = ({movie}: Props) => {
 			}`}
 		>
 			<p
-				className={`absolute w-[80px] text-center ml-[-150px] ${
+				className={` absolute w-[80px] text-center ml-[-150px] ${
 					movie.type === 'movie' ? 'bg-blue-800' : 'bg-green-800'
 				}`}
 			>
 				{movie.type === 'movie' ? 'Pelicula' : 'Serie'}
 			</p>
+
 			<Link href={`/media/${id}`} className='rounded-xl h-[240px] w-full'>
 				<img
 					src={movie.image}
@@ -40,6 +46,7 @@ const Card = ({movie}: Props) => {
 					alt={movie.title}
 				/>
 			</Link>
+
 			<div
 				onClick={() => addToFavorites(movie)}
 				className={`cursor-pointer w-8 h-8 rounded-full ml-[190px] border absolute flex items-center justify-center ${
@@ -50,18 +57,26 @@ const Card = ({movie}: Props) => {
 			>
 				<FaHeart size={20} />
 			</div>
+
 			<div className='flex items-center mt-2 text-sm'>
 				<FaStar size={14} className='text-yellow-300' />
 				<p>
 					{movie.rate} ({movie.califications} Criticas)
 				</p>
 			</div>
-			<div className='absolute m-[100px] w-20 h-20 rounded-full border-4 border-gray-300/70 flex justify-center items-center'>
-				<FaPlay size={40} className='text-gray-300/70' />
+
+			<div className='absolute m-[100px] w-20 h-20 rounded-full border-4 border-gray-300/70 flex justify-center items-center opacity-0 hover:opacity-80 transition duration-200 '>
+				<p>
+					<FaPlay size={40} className='text-tertiary' />
+				</p>
 			</div>
+
 			<Link href={`/info/${movie.id}`}>
-				<p className='text-[#00A878] font-bold m-1 hover:opacity-65'>{movie.title}</p>
+				<p className='text-[#00A878] font-bold m-1 hover:opacity-65'>
+					{movie.title}
+				</p>
 			</Link>
+
 			{!isMovieInUserList('views', movie) &&
 				(isMovieInUserList('list', movie) ? (
 					<button
@@ -88,10 +103,4 @@ const Card = ({movie}: Props) => {
 }
 
 export default Card
-
-
-
-
-
-
 

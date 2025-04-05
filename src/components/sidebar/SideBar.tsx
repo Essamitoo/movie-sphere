@@ -1,22 +1,66 @@
-import Link from "next/link"
-import { FiClock, FiHeart, FiHome } from "react-icons/fi"
-import { TbEyeCheck } from "react-icons/tb"
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { FiHome, FiHeart, FiClock, FiEye } from 'react-icons/fi'
+import UserInfo from '../userInfo/UserInfo'
+import Logo from '../logo/Logo'
 
 const SideBar = () => {
-  return (
-		<>
-			<div className='left-0 h-full w-full bg-secondary flex flex-col items-center py-8 '>
-				<div className='flex flex-col items-center space-y-6'>
-					<FiHome className='w-6 h-6 text-[#00F0FF] cursor-pointer' />
-					<Link href={'/dashboard/favorites'}>
-          
-					<FiHeart className='w-6 h-6 text-gray-400 hover:text-quaternary cursor-pointer' />
-          </Link>
-					<FiClock className='w-6 h-6 text-gray-400 hover:text-quaternary cursor-pointer' />
-					<TbEyeCheck className='w-7 h-10 text-gray-400 hover:text-quaternary cursor-pointer' />
-				</div>
+	const pathname = usePathname()
+
+	const links = [
+		{
+			href: '/dashboard',
+			icon: <FiHome className='sidebar-icon' />,
+			label: 'Inicio',
+		},
+		{
+			href: '/dashboard/favorites',
+			icon: <FiHeart className='sidebar-icon' />,
+			label: 'Favoritos',
+		},
+		{
+			href: '/dashboard/views',
+			icon: <FiEye className='sidebar-icon' />,
+			label: 'Vistas',
+		},
+		{
+			href: '/dashboard/list',
+			icon: <FiClock className='sidebar-icon' />,
+			label: 'Listas',
+		},
+	]
+
+	return (
+		<div className='left-0 h-full w-full bg-secondary flex flex-col items-center py-8'>
+			<Logo/>
+			<UserInfo />
+			<div className='flex flex-col space-y-6 '>
+				{links.map((link) => {
+					const isActive = pathname === link.href
+
+					return (
+						<Link
+							key={link.href}
+							href={link.href}
+							className={`flex gap-2 items-center transition-all duration-300 ${
+								isActive ? 'text-tertiary font-extrabold' : 'text-tertiary'
+							}`}
+						>
+							<span
+								className={`sidebar-icon transition-transform duration-300 ${
+									isActive ? 'scale-105 rotate-2 font-extrabold ' : ''
+								}`}
+							>
+								{link.icon}
+							</span>
+							<p className='text-sm p-2'>{link.label}</p>
+						</Link>
+					)
+				})}
 			</div>
-		</>
+		</div>
 	)
 }
 
