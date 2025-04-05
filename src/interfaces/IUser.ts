@@ -1,7 +1,7 @@
 import { IMedia, IReview } from "./IMedia";
 
-interface IUser {
-    id: string;
+export interface IUser {
+    id: string
     name: string;
     email: string;
     password: string;
@@ -17,4 +17,5 @@ interface IUser {
 export interface IUserSession {
     user: IUser;
     token: string;
+    provider: string;
 }

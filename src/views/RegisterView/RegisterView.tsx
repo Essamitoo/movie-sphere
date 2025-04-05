@@ -11,6 +11,10 @@ import { TbEye, TbEyeOff } from 'react-icons/tb'
 import { IFormData, ITouched } from '@/interfaces/IForm'
 import { useRouter } from 'next/navigation'
 import { registerService } from '@/services/authServices'
+import { signIn } from 'next-auth/react'
+import { toast } from 'react-toastify'
+import GoogleAuthBtn from '@/components/button/GoogleAuthBtn'
+import Link from 'next/link'
 
 const RegisterView = () => {
 	const initialData: IFormData = {
@@ -34,6 +38,8 @@ const RegisterView = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRepeatPassword, setShowRepeatPassword] = useState(false)
 
+	// const onLoginGoogle =
+
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
 		setFormData({ ...data, [name]: value })
@@ -41,27 +47,15 @@ const RegisterView = () => {
 
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-
 		const response = await registerService(data)
-		console.log('Respuesta del servidor:', response)
-
-		// Si la respuesta contiene un mensaje de error, lo mostramos y detenemos la ejecución
 
 		if (response?.message === 'Email already exists') {
-			alert('El correo ya está registrado.')
+			toast.error('El email ya existe')
 			return
 		}
 
-		alert('Registro exitoso')
+		toast.success('Usuario creado con exito')
 		router.push('/auth/login')
-	}
-
-	const togglePasswordVisibility = () => {
-		setShowPassword(!showPassword)
-	}
-
-	const toggleRepeatPasswordVisibility = () => {
-		setShowRepeatPassword(!showRepeatPassword)
 	}
 
 	const handleBlur = (field: string) => {
@@ -167,8 +161,8 @@ const RegisterView = () => {
 											value={data.password}
 											onChange={onChange}
 											onBlur={() => handleBlur('password')}
-											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white'
-											placeholder='Crea una contraseña fuerte'
+											className='w-full pl-9 py-2 border border-tertiary rounded-lg text-white placeholder:text-sm'
+											placeholder='Crea una contraseña'
 										/>
 										<button
 											type='button'
@@ -214,8 +208,10 @@ const RegisterView = () => {
 											</p>
 										)}
 								</div>
-
-								<div className='space-y-4'>
+										<div className='pl-2'>
+											<p className='text-tertiary text-sm'>Ya tienes una cuenta, <Link href={'/auth/login'} className='text-quaternary hover:text-quinary'>Iniciar sesion</Link></p>
+										</div>
+								<div className='-mb-4'>
 									<button
 										type='submit'
 										className='w-full flex justify-center py-2 px-4  placehoder:text-smtext-sm font-semibold rounded-lg text-white bg-quaternary hover:cursor-pointer hover:bg-quinary transition duration-300 ease-in-out'
@@ -228,17 +224,15 @@ const RegisterView = () => {
 									>
 										Crear Cuenta
 									</button>
-
-									<button
-										type='button'
-										className='w-full flex items-center justify-center px-4 py-2 rounded-lg text-sm font-semibold text-secondary bg-white transition duration-200 ease-in-out hover:cursor-pointer hover:shadow-lg hover:shadow-white/50 '
-									>
-										<FcGoogle className='mr-2 w-4 h-4' />
-										Registrarse con Google
-									</button>
 								</div>
 							</div>
 						</form>
+						<div className='flex items-center justify-center space-x-2 '>
+							<hr className='flex-grow border-t border-tertiary' />
+							<span className='text-tertiary'>o</span>
+							<hr className='flex-grow border-t border-tertiary' />
+						</div>
+						<GoogleAuthBtn />
 					</div>
 				</div>
 			</div>

@@ -2,9 +2,11 @@
 import { useContext } from 'react'
 import { AuthContext } from '@/contexts/authContext'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 
 const UserInfo = () => {
 	const { user } = useContext(AuthContext)
+	const { data: sessionGoogle } = useSession()
 
 	if (!user) {
 		return <div className='h-screen text-white px-4'>Loading...</div>
@@ -24,7 +26,7 @@ const UserInfo = () => {
 					/>
 				</div>
 				<div>
-					<p className='font-semibold'>{name}</p>
+					<p className='font-semibold'>{name || sessionGoogle?.user?.name}</p>
 					<p className='text-sm font-extralight'>{email}</p>
 				</div>
 			</div>
