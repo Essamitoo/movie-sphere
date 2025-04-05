@@ -1,5 +1,8 @@
+
 import { IFormData } from "@/interfaces/IForm";
+
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3030';
+
 
 
 export const loginService = async (loginData: IFormData) => {
@@ -13,6 +16,7 @@ export const loginService = async (loginData: IFormData) => {
         })
 
             const data = await response.json()
+        
             return data
 
     } catch (error) {
