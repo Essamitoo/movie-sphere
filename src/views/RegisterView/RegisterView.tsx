@@ -3,7 +3,6 @@
 import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { isValid } from '@/utils/validation'
 import { FaRegHeart } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
 import { FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
@@ -11,10 +10,9 @@ import { TbEye, TbEyeOff } from 'react-icons/tb'
 import { IFormData, ITouched } from '@/interfaces/IForm'
 import { useRouter } from 'next/navigation'
 import { registerService } from '@/services/authServices'
-import { signIn } from 'next-auth/react'
 import { toast } from 'react-toastify'
-import GoogleAuthBtn from '@/components/button/GoogleAuthBtn'
 import Link from 'next/link'
+import GoogleAuth from '@/components/googleAuth/GoogleAuth'
 
 const RegisterView = () => {
 	const initialData: IFormData = {
@@ -232,7 +230,7 @@ const RegisterView = () => {
 							<span className='text-tertiary'>o</span>
 							<hr className='flex-grow border-t border-tertiary' />
 						</div>
-						<GoogleAuthBtn />
+						<GoogleAuth />
 					</div>
 				</div>
 			</div>
