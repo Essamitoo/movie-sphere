@@ -11,8 +11,8 @@ interface UploadImageClientProps {
 
 export default function UploadImageClient({ image }: UploadImageClientProps) {
   const [imageUrl, setImageUrl] = useState(image)
-  const [deleteToken, setDeleteToken] = useState("")
   const { user, setUser } = useContext(AuthContext)
+  const [deleteToken, setDeleteToken] = useState(user?.user.avatar_token || "")
 
   if (!user) return null
 
