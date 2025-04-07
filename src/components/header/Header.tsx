@@ -23,21 +23,17 @@ const Header = () => {
 	return (
 		<>
 			{shouldShowHeader && (
-				<div className='w-[100%] h-[70px] bg-quaternary flex justify-around items-center text-white'>
+				<div className='w-[100%] h-[70px] bg-[#171717] flex justify-around items-center text-white'>
 					<Logo />
 					<Search />
 					<div className='flex flex-col w-[25%]'>
-						{false ? (
 							<Link
-								href='/chat'
+								href='/rooms'
 								className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]'
 							>
 								Salas de Chat
 								<span className='text-[8px] text-green-400'>🟢</span>
 							</Link>
-						) : (
-							<></>
-						)}
 						<div className='flex justify-around'>
 							<Link href='/home' className='header-link'>
 								Inicio
