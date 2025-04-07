@@ -65,7 +65,8 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
           ...user,
           user: {
             ...user.user,
-            image: updated.avatar, // Asumiendo que el backend responde con { avatar }
+            image: updated.avatar, 
+            avatar_token: updated.avatar_token, 
           },
         }
         setUser(updatedUser)
