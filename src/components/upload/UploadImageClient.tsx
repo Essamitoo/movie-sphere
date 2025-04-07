@@ -4,17 +4,17 @@ import { useState, useContext } from "react"
 import { AuthContext } from "@/contexts/authContext"
 import { Pencil } from "lucide-react"
 import Image from "next/image"
-
+import { updateUserAvatarService } from "@/services/authServices"
 interface UploadImageClientProps {
-  image?: string 
+  image?: string
 }
 
 export default function UploadImageClient({ image }: UploadImageClientProps) {
-  const [imageUrl, setImageUrl] = useState(image )
+  const [imageUrl, setImageUrl] = useState(image)
   const [deleteToken, setDeleteToken] = useState("")
   const { user, setUser } = useContext(AuthContext)
 
-  if(!user) return
+  if (!user) return null
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -22,9 +22,7 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
 
     if (deleteToken) {
       await fetch(
-        "https://api.cloudinary.com/v1_1/" +
-          process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME +
-          "/delete_by_token",
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/delete_by_token`,
         {
           method: "POST",
           headers: {
@@ -55,46 +53,51 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
     setImageUrl(data.secure_url)
     setDeleteToken(data.delete_token)
 
-    if (user) {
-      const updatedUser = {
-        ...user,
-        user: {
-          ...user.user,
-          image: data.secure_url,
-        },
+    if (user?.user?.id) {
+      const updated = await updateUserAvatarService(
+        user.user.id,
+        data.secure_url,
+        data.delete_token
+      )
+
+      if (updated) {
+        const updatedUser = {
+          ...user,
+          user: {
+            ...user.user,
+            image: updated.avatar, // Asumiendo que el backend responde con { avatar }
+          },
+        }
+        setUser(updatedUser)
+        localStorage.setItem("user", JSON.stringify(updatedUser))
       }
-      setUser(updatedUser)
-      localStorage.setItem("user", JSON.stringify(updatedUser))
     }
   }
 
   return (
+    <div className="relative mx-auto size-30">
+      <div className="relative w-full h-full rounded-full overflow-hidden">
+        <Image
+          src={imageUrl || user?.user.image}
+          alt="user"
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      </div>
 
-<div className="relative mx-auto size-30">
-  <div className="relative w-full h-full rounded-full overflow-hidden">
-    <Image
-      src={imageUrl || user?.user.image}
-      alt="user"
-      fill
-      style={{ objectFit: "cover" }}
-    />
-  </div>
+      <label
+        htmlFor="file-upload"
+        className="absolute -bottom-0 -right-0 bg-white p-2 rounded-full hover:cursor-pointer hover:scale-105 transition duration-200 ease-in-out"
+      >
+        <Pencil className="w-4 h-4 text-gray-700" />
+      </label>
 
-  
-
-  <label
-    htmlFor="file-upload"
-    className="absolute -bottom-0 -right-0 bg-white p-2 rounded-full hover:cursor-pointer hover:scale-105 transition duration-200 ease-in-out"
-  >
-    <Pencil className="w-4 h-4 text-gray-700" />
-  </label>
-
-  <input
-    id="file-upload"
-    type="file"
-    onChange={handleFileChange}
-    className="hidden"
-  />
-</div>
+      <input
+        id="file-upload"
+        type="file"
+        onChange={handleFileChange}
+        className="hidden"
+      />
+    </div>
   )
 }
