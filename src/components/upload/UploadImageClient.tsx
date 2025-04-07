@@ -3,15 +3,18 @@
 import { useState, useContext } from "react"
 import { AuthContext } from "@/contexts/authContext"
 import { Pencil } from "lucide-react"
+import Image from "next/image"
 
 interface UploadImageClientProps {
   image?: string 
 }
 
 export default function UploadImageClient({ image }: UploadImageClientProps) {
-  const [imageUrl, setImageUrl] = useState(image || "")
+  const [imageUrl, setImageUrl] = useState(image )
   const [deleteToken, setDeleteToken] = useState("")
   const { user, setUser } = useContext(AuthContext)
+
+  if(!user) return
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -66,24 +69,32 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
   }
 
   return (
-    <div className="relative inline-block group">
-      <img
-        src={imageUrl || user?.user.image}
-        alt="Avatar"
-        className="w-32 h-32 rounded-full object-cover"
-      />
-      <label
-        htmlFor="file-upload"
-        className="cursor-pointer p-2 bg-white rounded-full shadow hover:bg-gray-100 transition absolute bottom-0 right-0"
-      >
-        <Pencil className="w-5 h-5 text-gray-700" />
-      </label>
-      <input
-        id="file-upload"
-        type="file"
-        onChange={handleFileChange}
-        className="hidden"
-      />
-    </div>
+
+<div className="relative mx-auto size-30">
+  <div className="relative w-full h-full rounded-full overflow-hidden">
+    <Image
+      src={imageUrl || user?.user.image}
+      alt="user"
+      fill
+      style={{ objectFit: "cover" }}
+    />
+  </div>
+
+  
+
+  <label
+    htmlFor="file-upload"
+    className="absolute -bottom-0 -right-0 bg-white p-2 rounded-full hover:cursor-pointer hover:scale-105 transition duration-200 ease-in-out"
+  >
+    <Pencil className="w-4 h-4 text-gray-700" />
+  </label>
+
+  <input
+    id="file-upload"
+    type="file"
+    onChange={handleFileChange}
+    className="hidden"
+  />
+</div>
   )
 }

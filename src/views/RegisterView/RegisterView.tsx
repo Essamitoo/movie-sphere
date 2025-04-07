@@ -36,8 +36,6 @@ const RegisterView = () => {
 	const [showPassword, setShowPassword] = useState(false)
 	const [showRepeatPassword, setShowRepeatPassword] = useState(false)
 
-	// const onLoginGoogle =
-
 	const onChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
 		setFormData({ ...data, [name]: value })
