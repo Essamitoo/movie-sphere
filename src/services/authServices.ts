@@ -44,3 +44,28 @@ export const registerService = async (registerData: IFormData) => {
     }
 
 }
+//Actualiza el avatar del usuario con la URL de la imagen y el token de eliminación de Cloudinary
+ 
+export const updateUserAvatarService = async (
+    userId: string,
+    avatarUrl: string,
+    avatarToken: string
+) => {
+    try {
+        const response = await fetch(`${apiUrl}/api/v1/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                avatar: avatarUrl,
+                avatar_token: avatarToken,
+            }),
+        });
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+};
