@@ -4,6 +4,7 @@ import Card from '@/components/card/Card'
 import { mediaList } from '@/utils/utils'
 import { IMedia } from '@/interfaces/IMedia'
 import { AuthContext } from '@/contexts/authContext'
+import GridContainer from '@/components/grid/GridContainer'
 
 const HomePage = () => {
 	const { logout } = useContext(AuthContext)
@@ -53,7 +54,7 @@ const HomePage = () => {
 			>
 				Cerrar sesión
 			</button>
-			
+
 			<div className='flex gap-4 justify-around'>
 				<div className='flex justify-around w-[20%]'>
 					<button
@@ -243,11 +244,11 @@ const HomePage = () => {
 				</div>
 			</div>
 			{displayedItems.length > 0 ? (
-				<div className='grid grid-cols-5'>
+				<GridContainer>
 					{displayedItems.map((movie) => (
 						<Card key={movie.id} {...movie} movie={movie} />
 					))}
-				</div>
+				</GridContainer>
 			) : (
 				<div className='flex justify-center items-center h-[50vh] w-full'>
 					<p className='text-center font-bold text-3xl'>

@@ -1,103 +1,60 @@
 'use client'
-import { IMedia } from '@/interfaces/IMedia'
 import Link from 'next/link'
-import { useContext } from 'react'
-import { FaStar, FaHeart, FaPlay } from 'react-icons/fa'
-import { MoviesContext } from '@/contexts/movieContext'
+import { IMedia } from '@/interfaces/IMedia'
+import { FaStar, FaPlay } from 'react-icons/fa'
 
 interface Props {
 	movie: IMedia
 }
 
-const Card = ({ movie }: Props) => {
-	const {
-		addToFavorites,
-		addToList,
-		addToViews,
-		isMovieInUserList,
-		isFavorite,
-		removeFromList,
-	} = useContext(MoviesContext)
+function capFirstLetter(palabra: string) {
+	return palabra.charAt(0).toUpperCase() + palabra.slice(1).toLowerCase()
+}
 
+const Card = ({ movie }: Props) => {
 	if (!movie) return
 
-	const { id } = movie
-
 	return (
-		<div
-			className={`rounded-xl border h-[350px] m-4 p-1 flex flex-col items-center hover:scale-102 hover:cursor-pointer hover:border-[#00A878] w-[240px] ${
-				isMovieInUserList('views', movie)
-					? 'border-[#00A878] bg-[#00A878]/10'
-					: 'border-slate-400/40'
-			}`}
-		>
+		<div className='bg-primary rounded-lg  m-4  flex flex-col  hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out'>
 			<p
-				className={` absolute w-[80px] text-center ml-[-150px] ${
+				className={` ${
 					movie.type === 'movie' ? 'bg-blue-800' : 'bg-green-800'
 				}`}
-			>
-				{movie.type === 'movie' ? 'Pelicula' : 'Serie'}
-			</p>
+			></p>
 
-			<Link href={`/media/${id}`} className='rounded-xl h-[240px] w-full'>
-				<img
-					src={movie.image}
-					className='rounded-xl h-[240px] w-full'
-					alt={movie.title}
-				/>
+			<Link href={`/media/${movie.id}`}>
+				<div className='relative h-94 overflow-hidden'>
+					<img
+						src={movie.image}
+						alt={movie.title}
+						className='w-full h-full object-cover object-center'
+					/>
+					<div className='absolute top-0 left-0'>
+						<span
+							className={` px-4 py-1 text-sm font-bold rounded-r-lg ${
+								movie.type === 'movie' ? 'bg-blue-800' : 'bg-green-800'
+							}`}
+						>
+							{capFirstLetter(movie.type)}
+						</span>
+					</div>
+					<div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-50 transition duration-300 ease-in-out'>
+						<p>
+							<FaPlay size={40} className='text-tertiary' />
+						</p>
+					</div>
+				</div>
 			</Link>
-
-			<div
-				onClick={() => addToFavorites(movie)}
-				className={`cursor-pointer w-8 h-8 rounded-full ml-[190px] border absolute flex items-center justify-center ${
-					isFavorite(movie)
-						? 'text-[#00A878] bg-[#00A878]/50'
-						: 'text-gray-200/40 bg-gray-700/70'
-				}`}
-			>
-				<FaHeart size={20} />
+			<div className=''>
+				<p className='font-bold px-2 ml-2'>{movie.title}</p>
 			</div>
-
-			<div className='flex items-center mt-2 text-sm'>
-				<FaStar size={14} className='text-yellow-300' />
-				<p>
-					{movie.rate} ({movie.califications} Criticas)
-				</p>
+			<div className='flex items-center justify-around text-sm mt-2  p-4'>
+				<div className='flex items-center mr-2'>
+					<FaStar size={14} className='text-yellow-300' />
+					<p>{movie.rate}</p>
+				</div>
+				<p>{movie.califications} Criticas</p>
 			</div>
-
-			<div className='absolute m-[100px] w-20 h-20 rounded-full border-4 border-gray-300/70 flex justify-center items-center opacity-0 hover:opacity-80 transition duration-200 '>
-				<p>
-					<FaPlay size={40} className='text-tertiary' />
-				</p>
-			</div>
-
-			<Link href={`/info/${movie.id}`}>
-				<p className='text-[#00A878] font-bold m-1 hover:opacity-65'>
-					{movie.title}
-				</p>
-			</Link>
-
-			{!isMovieInUserList('views', movie) &&
-				(isMovieInUserList('list', movie) ? (
-					<button
-						onClick={() => removeFromList(movie)}
-						className='border border-[#00A878]/50 text-[#00A878] w-full rounded-sm hover:cursor-pointer bg-[#171717] h-[30px]'
-					>
-						Agregada
-					</button>
-				) : (
-					<button
-						onClick={() => addToList(movie)}
-						className='border border-slate-100/50 w-full rounded-xl text-ms hover:cursor-pointer bg-[#171717] '
-					>
-						+ Agregar a la lista
-					</button>
-				))}
-			{isMovieInUserList('views', movie) && (
-				<button className='bg-gradient-to-r from-[#00CC92] via-[#016b4d] to-[#013023] w-full rounded-sm hover:cursor-pointer bg-[#171717] h-[30px]'>
-					Vista
-				</button>
-			)}
 		</div>
 	)
 }
