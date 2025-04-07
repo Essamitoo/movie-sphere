@@ -40,7 +40,7 @@ export default function RootLayout({
 					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col`}
 				>
 					<Header />
-					<main className='flex-grow bg-eblack-17'>{children}</main>
+					<main className='flex-grow bg-primary'>{children}</main>
 					<Footer/>
 					<ToastContainer/>
 				</body>

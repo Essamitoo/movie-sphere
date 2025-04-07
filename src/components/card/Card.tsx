@@ -15,15 +15,10 @@ const Card = ({ movie }: Props) => {
 	if (!movie) return
 
 	return (
-		<div className='bg-primary rounded-lg  m-4  flex flex-col  hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out'>
-			<p
-				className={` ${
-					movie.type === 'movie' ? 'bg-blue-800' : 'bg-green-800'
-				}`}
-			></p>
-
+		<div className='bg-primary rounded-lg  m-4  flex flex-col  hover:scale-105 hover:cursor-pointer transition-transform duration-300 ease-in-out '>
+	
 			<Link href={`/media/${movie.id}`}>
-				<div className='relative h-94 overflow-hidden'>
+				<div className='relative h-94 overflow-hidden rounded-t-lg'>
 					<img
 						src={movie.image}
 						alt={movie.title}
@@ -46,12 +41,12 @@ const Card = ({ movie }: Props) => {
 				</div>
 			</Link>
 			<div className=''>
-				<p className='font-bold px-2 ml-2'>{movie.title}</p>
+				<h1 className='font-bold px-2 mt-2 text-center text-lg'>{movie.title}</h1>
 			</div>
-			<div className='flex items-center justify-around text-sm mt-2  p-4'>
-				<div className='flex items-center mr-2'>
+			<div className='flex items-center justify-around text-sm p-4'>
+				<div className='flex items-center'>
 					<FaStar size={14} className='text-yellow-300' />
-					<p>{movie.rate}</p>
+					<p className='ml-1'>{movie.rate}</p>
 				</div>
 				<p>{movie.califications} Criticas</p>
 			</div>
