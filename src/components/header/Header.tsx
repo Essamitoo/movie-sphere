@@ -23,7 +23,7 @@ const Header = () => {
 	return (
 		<>
 			{shouldShowHeader && (
-				<div className='w-[100%] h-[70px] bg-[#171717] flex justify-around items-center text-white'>
+				<div className='w-[100%] h-[70px] bg-primary flex justify-around items-center text-white'>
 					<Logo />
 					<Search />
 					<div className='flex flex-col w-[25%]'>
@@ -63,7 +63,7 @@ const Header = () => {
 					{user ? (
 						<Link href='/dashboard' className='flex items-center gap-1'>
 							<img
-								className='border h-10 w-10 rounded-full'
+								className='h-10 w-10 rounded-full'
 								src={user.user.image}
 								alt='User Avatar'
 							/>
@@ -81,7 +81,7 @@ const Header = () => {
 					) : (
 						<Link
 							href='/auth/login'
-							className='bg-[#00a878] w-[150px] h-[30px] p-1 rounded font-medium text-sm mt-2 text-center hover:scale-105 text-gray-900'
+							className='bg-quaternary px-8 py-1 rounded-xl text-center hover:scale-105 text-white font-bold'
 						>
 							Ingresar
 						</Link>

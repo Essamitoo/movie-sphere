@@ -47,7 +47,7 @@ const HomePage = () => {
 		(ageFilter.length > 0 ? 1 : 0) +
 		(filter.length > 0 ? 1 : 0)
 	return (
-		<div className='bg-[#202020] max-h-max min-h-lvh pb-5 text-white'>
+		<div className='] max-h-max min-h-lvh pb-5 text-white'>
 			<button
 				onClick={logout}
 				className='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:cursor-pointer'
