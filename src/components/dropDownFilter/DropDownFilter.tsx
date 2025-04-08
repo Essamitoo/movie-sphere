@@ -27,7 +27,6 @@ const DropdownFilter = ({
         }}
       >
         <span>{selected === '' ? label : selected}</span>
-        {/* Icono de despliegue */}
         <span className="ml-2 ">
           {openDetails === id ? <FaChevronUp /> : <FaChevronDown />}
         </span>
@@ -41,7 +40,7 @@ const DropdownFilter = ({
                 onSelect(opt === 'Todos los Años' || opt === 'Todos los Géneros' || opt === 'Todas las edades' ? '' : opt)
                 setOpenDetails(null)
               }}
-              className="text-left px-2 py-1 hover:bg-primary hover:cursor-pointer text-tertiary"
+              className="text-left px-2 py-1 hover:bg-primary hover:cursor-pointer "
             >
               {opt}
             </button>

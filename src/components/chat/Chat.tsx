@@ -90,7 +90,7 @@ const Chat: React.FC<ChatProps> = ({ socket, username, room, photo, rol,cover, l
     }, [socket]);
 
     return (
-        <div className="h-screen">
+        <div className="">
         <img src={cover} alt="" className="h-full w-full absolute"/>
         <div className="mx-auto w-full max-w-6xl rounded-2xl overflow-hidden absolute z-2 top-25 left-10">
           <div className="flex items-center h-[30px] w-full  bg-black">

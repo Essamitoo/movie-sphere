@@ -56,16 +56,16 @@ const Header = () => {
 						<Link href='/dashboard' className='flex items-center gap-2'>
 							<img
 								className='h-10 w-10 rounded-full'
-								src={user.user.image}
+								src={user.image}
 								alt=''
 							/>
 							<div
 								className={`${
-									user.user.account === 'Premium' ? 'text-amber-300' : ''
+									user.account === 'Premium' ? 'text-amber-300' : ''
 								}`}
 							>
-								<h2 className='text-sm text-white'>{user.user.name}</h2>
-								{user.user.account === 'Premium' && (
+								<h2 className='text-sm text-white'>{user.name}</h2>
+								{user.account === 'Premium' && (
 									<h3 className='font-extrabold'>PREMIUM</h3>
 								)}
 							</div>

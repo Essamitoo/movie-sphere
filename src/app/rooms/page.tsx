@@ -19,19 +19,19 @@ const userData: RoomsCard = {
 
 const RoomsPages: React.FC = () => {
   const { user } = useContext(AuthContext)
-  const [username, setUsername] = useState<string>(user?.user.name||userData.username);
+  const [username, setUsername] = useState<string>(user?.name||userData.username);
   const [room, setRoom] = useState<string>("");
-  const [photo, setPhoto] = useState<string>(user?.user.image||userData.image);
-  const [rol, setRol] = useState<string>(user?.user.role||userData.rol);
+  const [photo, setPhoto] = useState<string>(user?.image||userData.image);
+  const [rol, setRol] = useState<string>(user?.role||userData.rol);
   const [chat, setChat] = useState<boolean>(false);
   const [socket, setSocket] = useState<Socket | null>(null);
 
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
   useEffect(()=>{
-    if(user&&user.user.name.length>0){
-      setUsername(user?.user.name)
-      setPhoto(user?.user.image)
-      setRol(user.user.role)
+    if(user&&user.name.length>0){
+      setUsername(user.name)
+      setPhoto(user.image)
+      setRol(user.role)
     }
   },[user])
   useEffect(() => {
@@ -71,7 +71,7 @@ const RoomsPages: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#202020] min-h-lvh text-white">
+    <div >
       {chat && socket ? (
         <Chat
           socket={socket}

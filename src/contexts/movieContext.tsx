@@ -43,8 +43,8 @@ const MoviesProvider = ({ children }: ChildrenType) => {
 		type: 'favorites' | 'views' | 'list',
 		movie: any
 	): boolean => {
-		if (!user?.user[type]) return false
-		return user.user[type].some((item: any) => item.id === movie.id)
+		if (!user?.[type]) return false
+		return user[type].some((item: any) => item.id === movie.id)
 	}
 
     useEffect(() => {

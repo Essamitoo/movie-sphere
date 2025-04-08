@@ -97,7 +97,7 @@ h6 {
 	}
 
 	.sidebar-icon {
-		@apply w-6 h-6 text-tertiary  cursor-pointer;
+		@apply w-6 h-6 cursor-pointer;
 	}
 
 }

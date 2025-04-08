@@ -30,7 +30,7 @@ const Greeting = () => {
         <div>
             <h1 className='text-2xl'>
                 {greeting},
-                <span className='text-quinary'> {user.user.name.split(' ')[0]}</span>
+                <span className='text-quinary'> {user.name.split(' ')[0]}</span>
             </h1>
             <p className='text-sm'>Hoy es {date}</p>
         </div>

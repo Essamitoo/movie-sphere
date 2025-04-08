@@ -10,7 +10,7 @@ interface Props {
 const RoomCard: React.FC<Props> = ({ room, onEnterRoom }) => {
 	return (
 		<div
-			className={`rounded-xl border h-[350px] m-4 p-1 flex flex-col items-center hover:scale-102 hover:cursor-pointer hover:border-[#00A878] w-[240px] border-[#00A878] bg-[#00A878]/10`}
+			className={`text-white rounded-xl border h-[350px] m-4 p-1 flex flex-col items-center hover:scale-102 hover:cursor-pointer hover:border-[#00A878] w-[240px] border-[#00A878] bg-[#00A878]/10`}
 		>
 			<Link href={`/room/${room.username}`} className='rounded-xl h-[240px] w-full'>
 				<img

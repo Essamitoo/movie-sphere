@@ -1,11 +1,12 @@
 'use client'
 import Card from '@/components/card/Card'
+import EmptyState from '@/components/emptyState/EmpyState'
 import { AuthContext } from '@/contexts/authContext'
 import { useContext } from 'react'
 
 const List = () => {
 	const { user } = useContext(AuthContext)
-	const moviesList = user?.user?.list || []
+	const moviesList = user?.list || []
 
 	return (
 			<div className=''>
@@ -18,7 +19,7 @@ const List = () => {
 						))}
 					</div>
 				) : (
-					<p>No hay películas en la lista</p>
+					<EmptyState text='No se encontraron peliculas en la lista'/>
 				)}
 			</div>
 	)

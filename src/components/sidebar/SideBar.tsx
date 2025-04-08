@@ -45,12 +45,12 @@ const SideBar = () => {
 							key={link.href}
 							href={link.href}
 							className={`flex gap-2 items-center transition-all duration-300 ${
-								isActive ? 'text-tertiary font-extrabold' : 'text-tertiary'
+								isActive ? ' font-extrabold text-quinary' : 'text-tertiary'
 							}`}
 						>
 							<span
 								className={`sidebar-icon transition-transform duration-300 ${
-									isActive ? 'scale-105 rotate-2 font-extrabold ' : ''
+									isActive ? 'scale-105 rotate-2 text-quinary' : ''
 								}`}
 							>
 								{link.icon}

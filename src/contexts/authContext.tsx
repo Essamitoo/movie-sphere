@@ -8,7 +8,7 @@ import {
 	SetStateAction,
 } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
-import { IUserSession } from '@/interfaces/IUser'
+import { IUser } from '@/interfaces/IUser'
 import { IMedia } from '@/interfaces/IMedia'
 import { loginService } from '@/services/authServices'
 import { IFormData } from '@/interfaces/IForm'
@@ -18,8 +18,8 @@ interface ChildrenType {
 }
 
 interface AuthContextProps {
-	user: IUserSession | null
-	setUser: Dispatch<SetStateAction<IUserSession | null>>
+	user: IUser | null
+	setUser: Dispatch<SetStateAction<IUser | null>>
 	logout: () => void
 	updateUserLists: (type: 'favorites' | 'views' | 'list', movie: IMedia) => void
 	removeFromUserLists: (
@@ -39,72 +39,69 @@ export const AuthContext = createContext<AuthContextProps>({
 	removeFromUserLists: () => {},
 	localLogin: async () => {},
 	googleLogin: () => {},
-	loading: true
+	loading: true,
 })
 
 const AuthProvider = ({ children }: ChildrenType) => {
-	const [user, setUser] = useState<IUserSession | null>(null)
+	const [user, setUser] = useState<IUser | null>(null)
 	const { data: session } = useSession()
 	const [loading, setLoading] = useState(true)
 
 	// Normaliza los datos según el tipo de proveedor
-	const normalizeUserData = (
-		data: any,
-		type: 'local' | 'google'
-	): IUserSession => {
+	const normalizeUserData = (data: any, type: 'local' | 'google'): IUser => {
 		// Ahora 'data' directamente tiene los datos del 'user' sin estar anidado
 		if (type === 'local') {
 			return {
-				user: {
-					id: data.email, // Usamos el email como ID único
-					name: data.name,
-					email: data.email,
-					password: '',  // Como no tienes password, lo inicializamos vacío
-					image: data.image || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg', // Imagen por defecto
-					account: 'free',
-					role: 'user',
-					favorites: [],
-					reviews: [],
-					views: [],
-					list: [],
-					avatar_token: '', // Si no tienes avatar_token, lo dejamos vacío
-				},
-				token: '', // Puedes dejar el token vacío por ahora
+				id: data.id, 
+				name: data.name,
+				email: data.email,
+				password: '', 
+				image:
+					data.avatar ||
+					'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg', // Imagen por defecto
+				account: 'free',
+				role: 'user',
+				favorites: [],
+				reviews: [],
+				views: [],
+				list: [],
+				avatar_token: data.avatar_token || '', 
+				token: data.access_token || 'no token', 
 				provider: 'local',
-			};
+			}
 		} else {
 			return {
-				user: {
-					id: 'google_' + data.email, // Usamos el email como ID temporal para Google
-					name: data.name,
-					email: data.email,
-					password: '', // Sin password para login con Google
-					image: data.image,
-					account: 'free',
-					role: 'user',
-					favorites: [],
-					reviews: [],
-					views: [],
-					list: [],
-					avatar_token: '', // Avatar token vacío
-				},
-				token: '', // Token vacío para login con Google
+				id: 'google_' + data.email, // Usamos el email como ID temporal para Google
+				name: data.name,
+				email: data.email,
+				password: '', // Sin password para login con Google
+				image: data.image,
+				account: 'free',
+				role: 'user',
+				favorites: [],
+				reviews: [],
+				views: [],
+				list: [],
+				avatar_token: data.avatar_token || '', 
+
+				token: '', 
 				provider: 'google',
-			};
+			}
 		}
-	};
+	}
 
 	// Login local
 	const localLogin = async (loginData: IFormData) => {
 		try {
-		
 			const response = await loginService(loginData)
-			if (response.statusCode >= 400) throw new Error('Credenciales incorrectas')
+			if (response.statusCode >= 400)
+				throw new Error('Credenciales incorrectas')
 
 			const userDefault = normalizeUserData(response, 'local')
+			console.log(response)
+
 			setUser(userDefault)
 			localStorage.setItem('user', JSON.stringify(userDefault))
-			
 		} catch (error) {
 			console.error(error)
 			throw error
@@ -113,9 +110,9 @@ const AuthProvider = ({ children }: ChildrenType) => {
 
 	// Login con Google
 	const googleLogin = () => {
-		console.log(session);
+		console.log(session)
 		signIn('google', {
-			callbackUrl: '/home'
+			callbackUrl: '/home',
 		})
 	}
 
@@ -138,7 +135,6 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	// Cargar usuario del localStorage
 
 	useEffect(() => {
-
 		const localUser = localStorage.getItem('user')
 		if (localUser) {
 			setUser(JSON.parse(localUser))
@@ -151,13 +147,12 @@ const AuthProvider = ({ children }: ChildrenType) => {
 
 	const logout = () => {
 		if (user?.provider === 'google') {
-		  signOut() // Cierra sesión de NextAuth
+			signOut() // Cierra sesión de NextAuth
 		}
-	  
+
 		setUser(null)
 		localStorage.removeItem('user')
-	  }
-	  
+	}
 
 	// Agregar película
 
@@ -166,14 +161,14 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		movie: IMedia
 	) => {
 		if (!user) return
-		const isDuplicate = user.user[type].some((m) => m.id === movie.id)
+		const isDuplicate = user[type].some((m) => m.id === movie.id)
 		if (isDuplicate) return
 
 		const updatedUser = {
 			...user,
 			user: {
-				...user.user,
-				[type]: [...user.user[type], movie],
+				...user,
+				[type]: [...user[type], movie],
 			},
 		}
 		setUser(updatedUser)
@@ -190,8 +185,8 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		const updatedUser = {
 			...user,
 			user: {
-				...user.user,
-				[type]: user.user[type].filter((item) => item.id !== movie.id),
+				...user,
+				[type]: user[type].filter((item) => item.id !== movie.id),
 			},
 		}
 		setUser(updatedUser)
@@ -208,7 +203,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				removeFromUserLists,
 				localLogin,
 				googleLogin,
-				loading
+				loading,
 			}}
 		>
 			{children}

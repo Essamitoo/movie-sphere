@@ -9,6 +9,8 @@ export interface IUser {
 	avatar_token: string;
 	account: string;
 	role: string;
+	token: string
+	provider: string
 	favorites: IMedia[];
 	reviews: IReview[];
 	views: IMedia[];
@@ -16,8 +18,3 @@ export interface IUser {
 }
 
 
-export interface IUserSession {
-    user: IUser;
-    token: string;
-    provider: string;
-}

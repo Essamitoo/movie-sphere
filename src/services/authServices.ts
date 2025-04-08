@@ -41,24 +41,31 @@ export const registerService = async (registerData: IFormData) => {
 
 export const updateUserAvatarService = async (
 	userId: string,
-	avatarUrl: string,
-	avatarToken: string
-) => {
+	imageUrl: string,
+	deleteToken: string,
+	access_token: string,
+  ) => {
 	try {
-		const response = await fetch(`${apiUrl}/v1/users/${userId}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				avatar: avatarUrl,
-				avatar_token: avatarToken,
-			}),
-		})
+	  const response = await fetch(`${apiUrl}/v1/users/${userId}`, {
+		method: 'PATCH', 
+		headers: {
+		  'Content-Type': 'application/json',
+		  'Authorization': `Bearer ${access_token}`
+		},
+		body: JSON.stringify({
+		  avatar: imageUrl,
+		  avatar_token: deleteToken,
+		}),
+	  });
+  
+  
 
-		const data = await response.json()
-		return data
+	  const data = await response.json();
+	  console.log(data);
+	  
+	  return data;
 	} catch (error) {
-		console.log(error)
+	  console.error(error);
 	}
-}
+  };
+  
