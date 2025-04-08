@@ -15,7 +15,7 @@ const Card = ({ movie }: Props) => {
 	if (!movie) return
 
 	return (
-		<div className='relative h-94 overflow-hidden rounded-lg group min-w-[265px] '>
+		<div className='relative h-94 overflow-hidden rounded-lg group max-w-[265px] '>
 			<Link href={`media/${movie.id}`}>
 				<img
 					src={movie.image}

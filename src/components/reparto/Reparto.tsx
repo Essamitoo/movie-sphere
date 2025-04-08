@@ -12,8 +12,8 @@ const Reparto = ({reparto}:{reparto:Cast[]}) => {
 				src={actor.image}
 				alt={actor.name}
 			  />
-			  <p className="text-sm text-[#00A878]">{actor.name}</p>
-			  <p className="text-xs">Personaje: {actor.actor}</p>
+			  <p className="text-sm text-[#00A878]">{actor.actor}</p>
+			  <p className="text-xs">Personaje: {actor.name}</p>
 			</div>
 		  ))}
 		</div>
