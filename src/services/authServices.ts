@@ -4,7 +4,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const loginService = async (loginData: IFormData) => {
 	try {
-		const response = await fetch(`${apiUrl}/v1/auth/sign-in`, {
+		const response = await fetch(`${apiUrl}v1/auth/sign-in`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const loginService = async (loginData: IFormData) => {
 
 export const registerService = async (registerData: IFormData) => {
 	try {
-		const response = await fetch(`${apiUrl}/v1/auth/sign-up`, {
+		const response = await fetch(`${apiUrl}v1/auth/sign-up`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

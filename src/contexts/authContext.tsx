@@ -57,7 +57,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				email: data.email,
 				password: '', // Como no tienes password, lo inicializamos vacío
 				image:
-					data.image ||
+					data.avatar ||
 					'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg', // Imagen por defecto
 				account: 'free',
 				role: 'user',
@@ -65,14 +65,14 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				reviews: [],
 				views: [],
 				list: [],
-				avatar_token: '', // Si no tienes avatar_token, lo dejamos vacío
+				avatar_token: data.avatar_token || '', // Si no tienes avatar_token, lo dejamos vacío
 
-				token: '', // Puedes dejar el token vacío por ahora
+				token: data.token,
 				provider: 'local',
 			}
 		} else {
 			return {
-				id: 'google_' + data.email, // Usamos el email como ID temporal para Google
+				id: 'google_' + data.email,
 				name: data.name,
 				email: data.email,
 				password: '', // Sin password para login con Google
@@ -83,9 +83,9 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				reviews: [],
 				views: [],
 				list: [],
-				avatar_token: '', // Avatar token vacío
+				avatar_token: data.token_avatar || '',
 
-				token: '', // Token vacío para login con Google
+				token: data.token,
 				provider: 'google',
 			}
 		}
@@ -165,10 +165,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 
 		const updatedUser = {
 			...user,
-			user: {
-				...user,
-				[type]: [...user[type], movie],
-			},
+			[type]: [...user[type], movie],
 		}
 		setUser(updatedUser)
 		localStorage.setItem('user', JSON.stringify(updatedUser))
@@ -183,10 +180,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		if (!user) return
 		const updatedUser = {
 			...user,
-			user: {
-				...user,
-				[type]: user[type].filter((item) => item.id !== movie.id),
-			},
+			[type]: user[type].filter((item) => item.id !== movie.id),
 		}
 		setUser(updatedUser)
 		localStorage.setItem('user', JSON.stringify(updatedUser))
