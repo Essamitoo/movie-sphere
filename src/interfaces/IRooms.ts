@@ -6,6 +6,7 @@ export interface RoomsCard {
     rol: string;
     room:string;
     url_media:string;
+    cover:string;
 }
 
 export interface Message {
