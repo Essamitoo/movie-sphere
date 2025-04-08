@@ -33,7 +33,7 @@ const ListSearch: React.FC<ListSearchProps> = ({ text, setTextSearch }) => {
   }, [text, product]);
 
   const handleClick = (id: string) => {
-    router.push(`/media/1`);
+    router.push(`/media/${id}`);
     setTextSearch(""); 
   };
 

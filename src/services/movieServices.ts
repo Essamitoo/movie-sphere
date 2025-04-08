@@ -1,8 +1,8 @@
-import { IMedia } from "@/interfaces/IMedia";
-import { mediaList } from "@/utils/utils"
+import {IMediaPage } from "@/interfaces/IMedia";
+import { mediaInfo } from "@/utils/mediaInfo";
 
-export const getMovies = () => {
-    const movies: IMedia[] = mediaList
+export const getMovies = () => { 
+    const movies: IMediaPage[] = mediaInfo
     return movies
 }
 
