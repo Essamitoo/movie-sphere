@@ -353,7 +353,9 @@ export const mediaList: IMedia[] = [
 		age: 'A partir de 13 años',
 	},
 ]
-export const mediaInfo = {
+export const mediaInfo = [
+	{
+	id:2,
 	cover: 'https://a.silvergames.com/banner/j/l/squid-game.jpg',
 	name: 'El juego del calamar 2',
 	image: 'https://f.rpp-noticias.io/2024/11/27/1674491gdto4imwkaar6zmjpg.jpg',
@@ -413,7 +415,8 @@ export const mediaInfo = {
 			link: '',
 		},
 	],
-}
+},
+]
 
 export const formatearFecha = (fecha: Date) => {
 	return fecha
