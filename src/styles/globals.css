@@ -30,7 +30,41 @@
 		--foreground: #ededed;
 	}
 }
-
+.premium-text {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #fff;
+	text-transform: uppercase;
+	text-shadow: 
+	  0 0 5px #eed706, 
+	  0 0 10px #e9e509, 
+	  0 0 20px #eed706, 
+	  0 0 40px #eed706, 
+	  0 0 80px #eed706;
+	animation: flicker 1.5s infinite alternate;
+  }
+  
+  @keyframes flicker {
+	0% {
+	  text-shadow: 
+		0 0 5px #1b6eec, 
+		0 0 10px #00A878, 
+		0 0 20px #1b98ec, 
+		0 0 40px #00A878, 
+		0 0 80px #1b1eec;
+	}
+	100% {
+	  text-shadow: 
+		0 0 5px #00A878, 
+		0 0 10px #00A878, 
+		0 0 30px #00A878, 
+		0 0 60px #00A878, 
+		0 0 120px rgb(197, 5, 117);
+	}
+  }
+  .premium-text.chat{
+	font-size:small;
+  }
 body {
 	font-family: var(--font-primary);
 }
