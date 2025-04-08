@@ -12,6 +12,7 @@ import { LuCrown, LuStar } from 'react-icons/lu'
 import { MdOutlineMovieFilter } from 'react-icons/md'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 import { toast } from 'react-toastify'
+import GoogleAuth from '@/components/googleAuth/GoogleAuth'
 
 const LoginView = () => {
 	const initialData: IFormData = { email: '', password: '' }
@@ -155,6 +156,12 @@ const LoginView = () => {
 								</button>
 							</div>
 						</form>
+						<div className='flex items-center justify-center space-x-2 '>
+							<hr className='flex-grow border-t border-tertiary' />
+							<span className='text-tertiary'>o</span>
+							<hr className='flex-grow border-t border-tertiary' />
+						</div>
+						<GoogleAuth/>
 					</div>
 				</div>
 			</div>
