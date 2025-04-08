@@ -13,7 +13,7 @@ const Trailer = ({ videoId, open, setOpen }: { videoId: string; open: boolean; s
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="flex justify-center items-center z-4 fixed bg-black/80 w-screen h-screen mt-[-70px] pb-[100px]"
+          className="flex justify-center items-center z-4 fixed bg-black/80 w-screen h-screen mt-[-50px] p-6"
         >
           <iframe
             width="800"

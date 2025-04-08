@@ -55,7 +55,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 					trailer.img && trailer.url ? (
 						<button
 							key={index}
-							className='relative border-2 border-white w-48 h-32 p-1 hover:scale-105 hover:cursor-pointer'
+							className='relative  w-52 h-40 p-1 hover:scale-105 hover:cursor-pointer'
 							onClick={() => {
                                 setOpen(true)
                                 setTrailer(trailer.url)
@@ -64,10 +64,10 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 							<img
 								src={trailer.img}
 								alt={`Trailer ${index + 1}`}
-								className='w-full h-full object-cover'
+								className='w-full h-full object-fill rounded-lg'
 							/>
-							<div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-50 transition duration-300 ease-in-out'>
-								<FaPlay size={40} className='text-tertiary' />
+							<div className='absolute inset-0 flex items-center justify-center'>
+								<FaPlay size={40} className='text-tertiary opacity-60' />
 							</div>
 						</button>
 					) : null
