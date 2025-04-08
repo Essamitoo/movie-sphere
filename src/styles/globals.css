@@ -45,10 +45,17 @@ h6 {
    font-weight: 700;
 }
 
+.bleed {
+	max-width: 1540px;
+	margin: 0 auto;
+	width: 100%;
+ }
+ 
+
 @layer components {
 
 	.header-link {
-		@apply  text-lg font-bold hover:opacity-70 cursor-pointer;
+		@apply  text-sm hover:opacity-70 cursor-pointer px-4;
 	}
 
 	.form-input {
@@ -58,4 +65,5 @@ h6 {
 	.sidebar-icon {
 		@apply w-6 h-6 text-tertiary  cursor-pointer;
 	}
+
 }

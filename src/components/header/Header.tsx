@@ -23,56 +23,47 @@ const Header = () => {
 	return (
 		<>
 			{shouldShowHeader && (
-				<div className='w-[100%] h-[70px] bg-primary flex justify-around items-center text-white'>
+				<div className='bg-primary flex justify-around items-center text-tertiary bleed p-3'>
 					<Logo />
 					<Search />
-					<div className='flex flex-col w-[25%]'>
-							<Link
-								href='/rooms'
-								className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]'
-							>
-								Salas de Chat
-								<span className='text-[8px] text-green-400'>🟢</span>
-							</Link>
-						<div className='flex justify-around'>
+					<div className=''>
+						{/* <Link
+							href='/rooms'
+							className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]'
+						>
+							Salas de Chat
+							<span className='text-[8px] text-green-400'>🟢</span>
+						</Link> */}
+						<div className=''>
 							<Link href='/home' className='header-link'>
 								Inicio
 							</Link>
-							{false ? (
-								<>
-									<Link href='/series' className='header-link'>
-										Noticias
-									</Link>
-									<Link href='/popular' className='header-link'>
-										Popular
-									</Link>
-									<Link href='/estrenos' className='header-link'>
-										Estrenos
-									</Link>
-								</>
-							) : (
-								<>
-									<p className='link'>Noticias</p>
-									<p className='link'>Popular</p>
-									<p className='link'>Estrenos</p>
-								</>
-							)}
+
+							<Link href='/series' className='header-link'>
+								Noticias
+							</Link>
+							<Link href='/popular' className='header-link'>
+								Popular
+							</Link>
+							<Link href='/estrenos' className='header-link'>
+								Estrenos
+							</Link>
 						</div>
 					</div>
 
 					{user ? (
-						<Link href='/dashboard' className='flex items-center gap-1'>
+						<Link href='/dashboard' className='flex items-center gap-2'>
 							<img
 								className='h-10 w-10 rounded-full'
 								src={user.user.image}
-								alt='User Avatar'
+								alt=''
 							/>
 							<div
 								className={`${
 									user.user.account === 'Premium' ? 'text-amber-300' : ''
 								}`}
 							>
-								<p>{user.user.name}</p>
+								<h2 className='text-sm text-white'>{user.user.name}</h2>
 								{user.user.account === 'Premium' && (
 									<h3 className='font-extrabold'>PREMIUM</h3>
 								)}

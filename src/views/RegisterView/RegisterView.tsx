@@ -44,9 +44,11 @@ const RegisterView = () => {
 	const onSubmit = async (e: FormEvent) => {
 		e.preventDefault()
 		const response = await registerService(data)
+		console.log(response);
+		
 
-		if (response?.message === 'Email already exists') {
-			toast.error('El email ya existe')
+		if (response?.message === 'Email already exists' || response.statusCode > 400){
+			toast.error('Error al crear el usuario')
 			return
 		}
 
@@ -223,12 +225,6 @@ const RegisterView = () => {
 								</div>
 							</div>
 						</form>
-						<div className='flex items-center justify-center space-x-2 '>
-							<hr className='flex-grow border-t border-tertiary' />
-							<span className='text-tertiary'>o</span>
-							<hr className='flex-grow border-t border-tertiary' />
-						</div>
-						<GoogleAuth />
 					</div>
 				</div>
 			</div>

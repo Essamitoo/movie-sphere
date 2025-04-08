@@ -28,6 +28,7 @@ interface AuthContextProps {
 	) => void
 	localLogin: (loginData: any) => Promise<void>
 	googleLogin: () => void
+	loading: boolean
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -38,11 +39,13 @@ export const AuthContext = createContext<AuthContextProps>({
 	removeFromUserLists: () => {},
 	localLogin: async () => {},
 	googleLogin: () => {},
+	loading: true
 })
 
 const AuthProvider = ({ children }: ChildrenType) => {
 	const [user, setUser] = useState<IUserSession | null>(null)
 	const { data: session } = useSession()
+	const [loading, setLoading] = useState(true)
 
 	// Normaliza los datos según el tipo de proveedor
 	const normalizeUserData = (
@@ -93,24 +96,26 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	// Login local
 	const localLogin = async (loginData: IFormData) => {
 		try {
-			console.log('Iniciando sesión local...')
+		
 			const response = await loginService(loginData)
 			if (response.statusCode >= 400) throw new Error('Credenciales incorrectas')
 
 			const userDefault = normalizeUserData(response, 'local')
 			setUser(userDefault)
 			localStorage.setItem('user', JSON.stringify(userDefault))
-			console.log('Usuario local guardado:', userDefault)
+			
 		} catch (error) {
-			console.error('Error en login local:', error)
+			console.error(error)
 			throw error
 		}
 	}
 
 	// Login con Google
 	const googleLogin = () => {
-		console.log('Iniciando sesión con Google...')
-		signIn('google')
+		console.log(session);
+		signIn('google', {
+			callbackUrl: '/home'
+		})
 	}
 
 	// Escuchar cambios despues de el login con Google
@@ -126,7 +131,6 @@ const AuthProvider = ({ children }: ChildrenType) => {
 			const userDefault = normalizeUserData(googleUserData, 'google')
 			setUser(userDefault)
 			localStorage.setItem('user', JSON.stringify(userDefault))
-			console.log('Usuario de Google guardado:', userDefault)
 		}
 	}, [session])
 
@@ -138,13 +142,15 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		if (localUser) {
 			setUser(JSON.parse(localUser))
 		}
+
+		setLoading(false)
 	}, [])
 
 	// Cerrar sesión
 
 	const logout = () => {
 		if (user?.provider === 'google') {
-		  signOut({ callbackUrl: '/' }) // Cierra sesión de NextAuth
+		  signOut() // Cierra sesión de NextAuth
 		}
 	  
 		setUser(null)
@@ -201,6 +207,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				removeFromUserLists,
 				localLogin,
 				googleLogin,
+				loading
 			}}
 		>
 			{children}

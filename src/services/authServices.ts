@@ -7,7 +7,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3030';
 
 export const loginService = async (loginData: IFormData) => {
     try {
-        const response = await fetch(`${apiUrl}/api/v1/auth/login`, {
+        const response = await fetch(`${apiUrl}/api/v1/auth/sign-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const loginService = async (loginData: IFormData) => {
 
 export const registerService = async (registerData: IFormData) => {
     try {
-        const response = await fetch(`${apiUrl}/api/v1/auth/register`, {
+        const response = await fetch(`${apiUrl}/api/v1/auth/sign-up`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,6 +44,7 @@ export const registerService = async (registerData: IFormData) => {
     }
 
 }
+
 //Actualiza el avatar del usuario con la URL de la imagen y el token de eliminación de Cloudinary
  
 export const updateUserAvatarService = async (

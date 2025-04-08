@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Mulish, Ubuntu } from 'next/font/google'
+import { Inter, Mulish, Alexandria } from 'next/font/google'
 import '../styles/globals.css'
 import Header from '@/components/header/Header'
 import Provider from './provider'
@@ -18,10 +18,11 @@ const primaryFont = Inter({
 	weight: ['200','300','400','700'],
 })
 
-const logoFont = Ubuntu({
+const logoFont = Alexandria({
 	variable: '--font-logo',
 	subsets: ['latin'],
-	weight: ['400', '700'],})
+	weight: ['400'],
+})
 
 export const metadata: Metadata = {
 	title: 'Movie Sphere',
@@ -37,10 +38,10 @@ export default function RootLayout({
 		<Provider>
 			<html lang='es'>
 				<body
-					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col`}
+					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col  bg-primary`}
 				>
 					<Header />
-					<main className='flex-grow bg-primary'>{children}</main>
+					<main className='flex-grow'>{children}</main>
 					<Footer/>
 					<ToastContainer/>
 				</body>
