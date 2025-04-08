@@ -52,46 +52,47 @@ const AuthProvider = ({ children }: ChildrenType) => {
 		data: any,
 		type: 'local' | 'google'
 	): IUserSession => {
+		// Ahora 'data' directamente tiene los datos del 'user' sin estar anidado
 		if (type === 'local') {
 			return {
 				user: {
-					id: data.user.id,
-					name: data.user.name,
-					email: data.user.email,
-					password: data.user.password || '',
-					image: data.user.avatar || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+					id: data.email, // Usamos el email como ID único
+					name: data.name,
+					email: data.email,
+					password: '',  // Como no tienes password, lo inicializamos vacío
+					image: data.image || 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg', // Imagen por defecto
 					account: 'free',
 					role: 'user',
 					favorites: [],
 					reviews: [],
 					views: [],
 					list: [],
-					avatar_token: data.user.avatar_token || '',
+					avatar_token: '', // Si no tienes avatar_token, lo dejamos vacío
 				},
-				token: data.token,
+				token: '', // Puedes dejar el token vacío por ahora
 				provider: 'local',
-			}
+			};
 		} else {
 			return {
 				user: {
-					id: 'google_' + data.user.email, // usar el email como ID temporal
-					name: data.user.name,
-					email: data.user.email,
-					password: '',
-					image: data.user.image,
+					id: 'google_' + data.email, // Usamos el email como ID temporal para Google
+					name: data.name,
+					email: data.email,
+					password: '', // Sin password para login con Google
+					image: data.image,
 					account: 'free',
 					role: 'user',
 					favorites: [],
 					reviews: [],
 					views: [],
 					list: [],
-					avatar_token: data.user.avatar_token || '',
+					avatar_token: '', // Avatar token vacío
 				},
-				token: '',
+				token: '', // Token vacío para login con Google
 				provider: 'google',
-			}
+			};
 		}
-	}
+	};
 
 	// Login local
 	const localLogin = async (loginData: IFormData) => {

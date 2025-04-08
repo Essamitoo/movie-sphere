@@ -6,24 +6,7 @@ const Landing = () => {
 	return (
 		<div className='text-white'>
 			<img className='absolute w-screen h-screen z-1' src={image} alt='' />
-			<div className='absolute flex items-center justify-between z-3 w-screen p-4'>
-				<Link
-					href='/home'
-					className=' font-semibold text-3xl z-3 font-family-title'
-				>
-					MOVIE SPHERE
-				</Link>
-				<div className='w-[40%] flex justify-between items-center font-semibold'>
-					<Link href='/home'>Inicio</Link>
-					<Link
-						href='/auth/login'
-						className=' bg-gradient-to-r from-[#00CC92] via-[#016b4d] to-[#013023] w-[150px] p-1 rounded-xl font-bold text-md mt-2 text-center hover:scale-105'
-					>
-						Ingresar
-					</Link>
-				</div>
-			</div>
-			<div className='absolute h-screen w-full z-2'>
+			<div className='absolute h-screen w-full z-2 '>
 				<div className='absolute  z-3 flex flex-col items-center top-[30%] left-[5%] w-[350px] gap-2'>
 					<p className='text-3xl font-sans font-semibold'>
 						Más allá de la pantalla
@@ -48,4 +31,3 @@ const Landing = () => {
 	)
 }
 export default Landing
-
