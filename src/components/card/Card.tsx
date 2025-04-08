@@ -16,6 +16,8 @@ const Card = ({ movie }: Props) => {
 
 	return (
 		<div className="relative h-94 overflow-hidden rounded-lg group min-w-[265px] ">
+			<Link href={`media/${movie.id}`}>
+			
 		<img
 		  src={movie.image}
 		  alt={movie.title}
@@ -34,6 +36,7 @@ const Card = ({ movie }: Props) => {
 		  </span>
 		</div>
 	  
+			</Link>
 
 		<div className="absolute bottom-0 left-0 right-0 z-20 px-4 py-3 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 		  <h1 className="text-lg font-bold">{movie.title}</h1>
