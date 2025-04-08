@@ -10,7 +10,6 @@ const Header = () => {
 	const { user } = useContext(AuthContext)
 	const pathname = usePathname()
 	const hideHeaderRoutes = [
-		'/',
 		'/auth/register',
 		'/auth/login',
 		'/dashboard/favorites',
@@ -27,13 +26,15 @@ const Header = () => {
 					<Logo />
 					<Search />
 					<div className=''>
-						{/* <Link
+						<Link
 							href='/rooms'
-							className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end ml-[60%]'
+							className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end items-center gap-2'
 						>
 							Salas de Chat
-							<span className='text-[8px] text-green-400'>🟢</span>
-						</Link> */}
+						<span className='text-[8px] text-green-400'>🟢</span>
+						</Link>
+					</div>
+					<div className=''>
 						<div className=''>
 							<Link href='/home' className='header-link'>
 								Inicio
