@@ -12,7 +12,7 @@ interface UploadImageClientProps {
 export default function UploadImageClient({ image }: UploadImageClientProps) {
   const [imageUrl, setImageUrl] = useState(image)
   const { user, setUser } = useContext(AuthContext)
-  const [deleteToken, setDeleteToken] = useState(user?.user.avatar_token || "")
+  const [deleteToken, setDeleteToken] = useState(user?.avatar_token || "")
 
   if (!user) return null
 
@@ -53,21 +53,19 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
     setImageUrl(data.secure_url)
     setDeleteToken(data.delete_token)
 
-    if (user?.user?.id) {
+    if (user?.id) {
       const updated = await updateUserAvatarService(
-        user.user.id,
+        user.id,
         data.secure_url,
         data.delete_token
       )
 
       if (updated) {
         const updatedUser = {
-          ...user,
-          user: {
-            ...user.user,
+            ...user,
             image: updated.avatar, 
             avatar_token: updated.avatar_token, 
-          },
+  
         }
         setUser(updatedUser)
         localStorage.setItem("user", JSON.stringify(updatedUser))
@@ -79,7 +77,7 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
     <div className="relative mx-auto size-30">
       <div className="relative w-full h-full rounded-full overflow-hidden">
         <Image
-          src={imageUrl || user?.user.image}
+          src={imageUrl || user?.image}
           alt="user"
           fill
           style={{ objectFit: "cover" }}

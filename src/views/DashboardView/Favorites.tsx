@@ -1,12 +1,13 @@
 'use client'
 import Card from '@/components/card/Card'
+import EmptyState from '@/components/emptyState/EmpyState'
 // import GridContainer from '@/components/grid/GridContainer'
 import { AuthContext } from '@/contexts/authContext'
 import { useContext } from 'react'
 
 const DashboardList = () => {
 	const { user } = useContext(AuthContext)
-	const favoriteMovies = user?.user?.favorites || []
+	const favoriteMovies = user?.favorites || []
 
 	return (
 		<div className=''>
@@ -16,9 +17,11 @@ const DashboardList = () => {
 						<Card key={movie.id} movie={movie} />
 					))}
 				</div>
-			) : (
-				'No hay películas favoritas'
-			)}
+			) : 
+				(
+					<EmptyState text='No se encontraron peliculas en favoritos'/> 
+				)
+			}
 		</div>
 	)
 }

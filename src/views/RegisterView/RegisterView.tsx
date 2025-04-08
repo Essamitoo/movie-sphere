@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation'
 import { registerService } from '@/services/authServices'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
-import GoogleAuth from '@/components/googleAuth/GoogleAuth'
 
 const RegisterView = () => {
 	const initialData: IFormData = {
