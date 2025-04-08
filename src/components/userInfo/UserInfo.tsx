@@ -10,7 +10,7 @@ const UserInfo = () => {
 		return <div className='h-screen text-white px-4'>Loading...</div>
 	}
 
-	const { image, name, email } = user.user
+	const { image, name, email } = user
 
 	return (
 		<div className='text-white px-4 mb-30'>
