@@ -22,7 +22,7 @@ export const loginService = async (loginData: IFormData) => {
 
 export const registerService = async (registerData: IFormData) => {
 	try {
-		const response = await fetch(`${apiUrl}/v1/auth/sign-up`, {
+		const response = await fetch(`${apiUrl}v1/auth/sign-up`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const updateUserAvatarService = async (
 	avatarToken: string
 ) => {
 	try {
-		const response = await fetch(`${apiUrl}/v1/users/${userId}`, {
+		const response = await fetch(`${apiUrl}v1/users/${userId}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json',
