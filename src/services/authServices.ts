@@ -22,7 +22,7 @@ export const loginService = async (loginData: IFormData) => {
 
 export const registerService = async (registerData: IFormData) => {
 	try {
-		const response = await fetch(`${apiUrl}v1/auth/sign-up`, {
+		const response = await fetch(`${apiUrl}/v1/auth/sign-up`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
