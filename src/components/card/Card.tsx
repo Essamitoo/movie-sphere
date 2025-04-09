@@ -45,7 +45,7 @@ const Card = ({ movie }: Props) => {
 				</div>
 
 				<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-50 group-hover:scale-125 transition duration-300 z-20'>
-					<FaPlay size={40} className='text-tertiary' />
+					<FaPlay size={40} className='text-white' />
 				</div>
 			</Link>
 		</div>
