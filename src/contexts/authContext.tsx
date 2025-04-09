@@ -67,7 +67,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				list: [],
 				avatar_token: data.avatar_token || '', // Si no tienes avatar_token, lo dejamos vacío
 
-				token: data.token,
+				token: data.access_token,
 				provider: 'local',
 			}
 		} else {
