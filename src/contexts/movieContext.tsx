@@ -1,7 +1,7 @@
 'use client'
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useContext, useEffect,  } from 'react'
 import { IMedia } from '@/interfaces/IMedia'
-import { AuthContext } from './authContext'
+import { useAuthContext } from './authContext'
 
 interface ChildrenType {
 	children: React.ReactNode
@@ -23,7 +23,7 @@ interface MoviesContextProps {
     isInList: (movie: any) => boolean
 }
 
-export const MoviesContext = createContext<MoviesContextProps>({
+const MoviesContext = createContext<MoviesContextProps>({
 	addToFavorites: () => {},
 	removeFromFavorites: () => {},
 	addToViews: () => {},
@@ -37,7 +37,7 @@ export const MoviesContext = createContext<MoviesContextProps>({
 })
 
 const MoviesProvider = ({ children }: ChildrenType) => {
-	const { user, updateUserLists, removeFromUserLists } = useContext(AuthContext)
+	const { user, updateUserLists, removeFromUserLists } = useAuthContext()
 
 	const isMovieInUserList = (
 		type: 'favorites' | 'views' | 'list',
@@ -113,6 +113,10 @@ const MoviesProvider = ({ children }: ChildrenType) => {
 			{children}
 		</MoviesContext.Provider>
 	)
+}
+
+export const useMovieContext = () => {
+	return useContext(MoviesContext)
 }
 
 export default MoviesProvider

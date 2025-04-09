@@ -1,10 +1,9 @@
 'use client'
 
-import { AuthContext } from '@/contexts/authContext'
-import { useContext } from 'react'
+import {  useAuthContext } from '@/contexts/authContext'
 
 const Greeting = () => {
-    const { user } = useContext(AuthContext)
+    const { user } = useAuthContext()
 
     const getGreeting = () => {
         const hour = new Date().getHours()
@@ -14,12 +13,11 @@ const Greeting = () => {
     }
 
     const currentDate = new Date()
-
     const date = currentDate.toLocaleDateString('es-ES', {
-        weekday: 'long', // Día de la semana
-        day: 'numeric', // Día del mes
-        month: 'long', // Mes
-        year: 'numeric', // Año
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric', 
     })
 
     if (!user) return <div className='h-screen text-white px-4'>Loading...</div>
