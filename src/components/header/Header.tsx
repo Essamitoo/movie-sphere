@@ -2,12 +2,11 @@
 import Search from '@/components/search/Search'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { AuthContext } from '@/contexts/authContext'
-import { useContext } from 'react'
+import { useAuthContext } from '@/contexts/authContext'
 import Logo from '../logo/Logo'
 
 const Header = () => {
-	const { user } = useContext(AuthContext)
+	const { user,logout } = useAuthContext()
 	const pathname = usePathname()
 	const hideHeaderRoutes = [
 		'/auth/register',

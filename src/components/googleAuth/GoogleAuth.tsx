@@ -1,11 +1,10 @@
 'use client'
-import { AuthContext } from "@/contexts/authContext"
-import { useContext } from "react"
+import { useAuthContext } from "@/contexts/authContext"
 import { FcGoogle } from "react-icons/fc"
 
 const GoogleAuth = () => {
 
-  const {googleLogin} = useContext(AuthContext)
+  const {googleLogin} = useAuthContext()
   const handleGoogleAuth = () => {
     googleLogin()
   }

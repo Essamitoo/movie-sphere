@@ -1,14 +1,14 @@
 'use client'
-import { AuthContext } from '@/contexts/authContext'
+import { useAuthContext } from '@/contexts/authContext'
 import { useRouter } from 'next/navigation'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 
 interface Props {
 	children: React.ReactNode
 }
 
 const AuthProtected = ({ children }: Props) => {
-	const { user, loading } = useContext(AuthContext)
+	const { user, loading } = useAuthContext()
 	const router = useRouter()
 
 	useEffect(() => {

@@ -1,11 +1,11 @@
 'use client'
 
 import { IFormData, ITouched } from '@/interfaces/IForm'
-import { AuthContext } from '@/contexts/authContext'
+import { useAuthContext } from '@/contexts/authContext'
 import { isValid } from '@/utils/validation'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { FaRegHeart } from 'react-icons/fa'
 import { FiLock, FiMail } from 'react-icons/fi'
 import { LuCrown, LuStar } from 'react-icons/lu'
@@ -17,7 +17,7 @@ import GoogleAuth from '@/components/googleAuth/GoogleAuth'
 const LoginView = () => {
 	const initialData: IFormData = { email: '', password: '' }
 	const initialTouched: ITouched = { email: false, password: false }
-	const { localLogin } = useContext(AuthContext)
+	const { localLogin } = useAuthContext()
 
 	const [data, setFormData] = useState(initialData)
 	const [touched, setTouched] = useState(initialTouched)

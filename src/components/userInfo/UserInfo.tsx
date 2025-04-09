@@ -1,10 +1,9 @@
 'use client'
-import { useContext } from 'react'
-import { AuthContext } from '@/contexts/authContext'
+import {  useAuthContext } from '@/contexts/authContext'
 import UploadImageClient from '@/components/upload/UploadImageClient'
 
 const UserInfo = () => {
-	const { user, logout } = useContext(AuthContext)
+	const { user, logout } = useAuthContext()
 
 	if (!user) {
 		return <div className='h-screen text-white px-4'>Loading...</div>

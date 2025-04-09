@@ -1,11 +1,11 @@
 'use client'
 import Card from '@/components/card/Card'
 import EmptyState from '@/components/emptyState/EmpyState'
-import { AuthContext } from '@/contexts/authContext'
-import { useContext } from 'react'
+import { useAuthContext } from '@/contexts/authContext'
+
 
 const List = () => {
-	const { user } = useContext(AuthContext)
+	const { user } = useAuthContext()
 	const moviesList = user?.list || []
 
 	return (

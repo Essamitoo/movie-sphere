@@ -6,6 +6,7 @@ import {
 	useEffect,
 	Dispatch,
 	SetStateAction,
+	useContext,
 } from 'react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { IUser } from '@/interfaces/IUser'
@@ -31,7 +32,7 @@ interface AuthContextProps {
 	loading: boolean
 }
 
-export const AuthContext = createContext<AuthContextProps>({
+const AuthContext = createContext<AuthContextProps>({
 	user: null,
 	setUser: () => {},
 	logout: () => {},
@@ -76,7 +77,9 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				name: data.name,
 				email: data.email,
 				password: '', // Sin password para login con Google
-				image: data.image ||'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
+				image:
+					data.image ||
+					'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
 				account: 'free',
 				role: 'user',
 				favorites: [],
@@ -116,15 +119,16 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	}
 
 	// Escuchar cambios despues de el login con Google
+
 	useEffect(() => {
 		if (session?.user && !localStorage.getItem('user')) {
 			const googleUserData = {
-				user: {
-					name: session.user.name || '',
-					email: session.user.email || '',
-					image: session.user.image || '',
-				},
+				name: session.user.name || '',
+				email: session.user.email || '',
+				image: session.user.image || '',
 			}
+			console.log(googleUserData)
+
 			const userDefault = normalizeUserData(googleUserData, 'google')
 			setUser(userDefault)
 			localStorage.setItem('user', JSON.stringify(userDefault))
@@ -202,6 +206,10 @@ const AuthProvider = ({ children }: ChildrenType) => {
 			{children}
 		</AuthContext.Provider>
 	)
+}
+
+export const useAuthContext = () => {
+	return useContext(AuthContext)
 }
 
 export default AuthProvider

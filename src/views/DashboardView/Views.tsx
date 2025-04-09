@@ -2,11 +2,11 @@
 
 import Card from '@/components/card/Card'
 import EmptyState from '@/components/emptyState/EmpyState'
-import { AuthContext } from '@/contexts/authContext'
-import { useContext } from 'react'
+import { useAuthContext } from '@/contexts/authContext'
+
 
 const Views = () => {
-	const { user } = useContext(AuthContext)
+	const { user } = useAuthContext()
 
 	if (!user) {
 		return <div className='h-screen text-white px-4'>Loading...</div>

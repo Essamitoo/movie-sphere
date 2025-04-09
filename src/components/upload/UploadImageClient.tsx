@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useContext } from 'react'
-import { AuthContext } from '@/contexts/authContext'
+import { useState} from 'react'
+import {  useAuthContext } from '@/contexts/authContext'
 import { Pencil } from 'lucide-react'
 import Image from 'next/image'
 import { updateUserAvatarService } from '@/services/authServices'
@@ -11,7 +11,7 @@ interface UploadImageClientProps {
 
 export default function UploadImageClient({ image }: UploadImageClientProps) {
 	const [imageUrl, setImageUrl] = useState(image)
-	const { user, setUser } = useContext(AuthContext)
+	const { user, setUser } = useAuthContext()
 	const [deleteToken, setDeleteToken] = useState(user?.avatar_token || '')
 
 	if (!user) return null

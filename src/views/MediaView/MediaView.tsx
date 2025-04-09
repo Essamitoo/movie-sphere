@@ -2,22 +2,21 @@
 
 import { formatearFecha } from '@/utils/utils'
 import { FaPlus, FaPlay, FaHeart } from 'react-icons/fa'
-import { AuthContext } from '@/contexts/authContext'
-import { useState, useContext } from 'react'
+import { useAuthContext } from '@/contexts/authContext'
+import { useState } from 'react'
 import Comment from '@/components/comment/Comment'
 import StarRating from '@/components/starRating/StartRating'
 import Reparto from '@/components/reparto/Reparto'
 import Criticas from '@/components/criticas/Criticas'
 import Trailer from '@/components/trailer/Trailer'
-import { MoviesContext } from '@/contexts/movieContext'
+import { useMovieContext } from '@/contexts/movieContext'
 import { IMediaPage } from '@/interfaces/IMedia'
 
 const MediaView = ({ movie }: { movie: IMediaPage }) => {
 	const [trailer,setTrailer] = useState(movie.trailers?.[0]?.url ||"");
 
-	const { user } = useContext(AuthContext)
-	const { addToFavorites, addToList, addToViews, isInList, isFavorite } =
-		useContext(MoviesContext)
+	const { user } = useAuthContext()
+	const { addToFavorites, addToList, addToViews, isInList, isFavorite } = useMovieContext()
 	const [open, setOpen] = useState(false)
 
 	return (

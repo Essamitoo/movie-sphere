@@ -3,9 +3,9 @@ import "@/styles/globals.css"
 import RoomCard from "@/components/roomCard/RoomCard";
 import { RoomsCard } from "@/interfaces/IRooms";
 import io, { Socket } from "socket.io-client";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import Chat from "@/components/chat/Chat";
-  import { AuthContext } from "@/contexts/authContext";
+  import { useAuthContext } from "@/contexts/authContext";
 
 const userData: RoomsCard = {
   username: "Franco",
@@ -18,7 +18,7 @@ const userData: RoomsCard = {
 }; 
 
 const RoomsPages: React.FC = () => {
-  const { user } = useContext(AuthContext)
+  const { user } = useAuthContext()
   const [username, setUsername] = useState<string>(user?.name||userData.username);
   const [room, setRoom] = useState<string>("");
   const [photo, setPhoto] = useState<string>(user?.image||userData.image);

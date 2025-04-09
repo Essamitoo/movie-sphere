@@ -2,11 +2,10 @@
 import Card from '@/components/card/Card'
 import EmptyState from '@/components/emptyState/EmpyState'
 // import GridContainer from '@/components/grid/GridContainer'
-import { AuthContext } from '@/contexts/authContext'
-import { useContext } from 'react'
+import { useAuthContext } from '@/contexts/authContext'
 
 const DashboardList = () => {
-	const { user } = useContext(AuthContext)
+	const { user } = useAuthContext()
 	const favoriteMovies = user?.favorites || []
 
 	return (
