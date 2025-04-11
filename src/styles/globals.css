@@ -106,3 +106,36 @@ h6 {
 	}
 
 }
+@layer utilities {
+	@keyframes marquee {
+	  0% {
+		transform: translateX(100%);
+	  }
+	  100% {
+		transform: translateX(-100%);
+	  }
+	}
+  
+	.animate-marquee {
+	  animation: marquee 12s linear infinite;
+	}
+  }
+/*scroll css*/
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px; 
+  }
+  
+  ::-webkit-scrollbar-track {
+	background: #1a1a1a; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+	background-color: var(--emerald); 
+	border-radius: 10px;
+	border: 2px solid #1a1a1a; 
+  }
+  * {
+	scrollbar-width: thin;
+	scrollbar-color: var(--emerald) #1a1a1a;
+  }
