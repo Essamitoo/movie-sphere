@@ -84,7 +84,10 @@ const RoomsPages: React.FC = () => {
         />
       ) : (
         <div className="p-2">
+          <div className="mt-20">
+
           <RoomCard room={userData} onEnterRoom={handleEnterRoom} />
+          </div>
         </div>
       )}
     </div>

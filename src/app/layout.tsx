@@ -40,7 +40,10 @@ export default function RootLayout({
 				<body
 					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col  bg-primary`}
 				>
+					<div className=''>
+
 					<Header />
+					</div>
 					<main className='flex-grow'>{children}</main>
 					<Footer/>
 					<ToastContainer/>

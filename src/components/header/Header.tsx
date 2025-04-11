@@ -11,17 +11,16 @@ const Header = () => {
 	const hideHeaderRoutes = [
 		'/auth/register',
 		'/auth/login',
-		'/dashboard/favorites',
-		'/dashboard/list',
-		'/dashboard/views',
-		'/dashboard',
+		'/dashboard/user',
+		'/dashboard/user/list',
+		'/dashboard/user/views',
 	]
 	const shouldShowHeader = !hideHeaderRoutes.includes(pathname)
 
 	return (
 		<>
 			{shouldShowHeader && (
-				<div className='bg-primary flex justify-around items-center text-tertiary bleed p-3'>
+				<div className='flex justify-around items-center mx-auto text-tertiary w-full  py-4 px-20  fixed z-60 bg-transparent backdrop-blur-sm'>
 					<Logo />
 					<Search />
 					<div className=''>

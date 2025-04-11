@@ -53,8 +53,9 @@ export interface IReview {
 	cover: string;
 	name: string;
 	image: string;
+	sipnosis: string;
 	trailers: ITrailer[];
-	releaseDate: Date;
+	releaseDate: number;
 	duration: string;
 	series: string;
 	cast:Cast[]
