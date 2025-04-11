@@ -218,7 +218,7 @@ export default function TripleExplosion({
         </div>
       )}
       {started && count > 0 && (
-        <div className="text-6xl font-bold">{count}</div>
+        <div className="text-6xl font-bold  text-green-700">{count}</div>
       )}
       <div ref={mountRef} className="w-full h-[30vh]"></div>
     </div>

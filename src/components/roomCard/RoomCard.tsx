@@ -22,7 +22,7 @@ const RoomCard: React.FC<Props> = ({ room, onEnterRoom,count,id }) => {
 				/>
 			</div>
 			<p className='text-[#00A878]'>{room.room}</p>
-			<p className='text-sm m-1'>{count} conectados {count>0?"🔴":"🟢"}</p>
+			<p className='text-sm m-1'>{count} conectados {count>userMax?"🔴":"🟢"}</p>
 			{count>userMax?<button
 				className='text-red-600 w-[200px] h-[35px] rounded-md text-ms hover:cursor-pointer hover:scale-105 bg-[#000000]'
 			>

@@ -113,9 +113,9 @@ const Chat: React.FC<ChatProps> = ({
 	}, [socket])
 
 	return (
-		<div className='h-screen'>
+		<div className='h-screen flex justify-center items-center'>
 			<img src={cover} alt='' className='h-full w-full absolute' />
-			<div className='mx-auto w-full max-w-6xl rounded-2xl overflow-hidden absolute z-2 top-25 left-10'>
+			<div className='h-[80vh] w-[70vw] max-w-6xl rounded-2xl overflow-hidden z-4 mt-10'>
 				<div className='flex items-center h-[30px] w-full  bg-black'>
 					<button
 						onClick={() => leaveRoom()}
@@ -130,7 +130,7 @@ const Chat: React.FC<ChatProps> = ({
 
 				<div className='grid grid-cols-[70%_30%]'>
 					<div
-						className='bg-gradient-to-r from-[#171717]/40 to-black/40  h-[70vh] overflow-y-auto flex flex-col p-4 gap-3'
+						className='bg-gradient-to-r from-[#171717]/40 to-black/40  h-[50vh] overflow-y-auto flex flex-col p-4 gap-3'
 						ref={messagesContainerRef}
 					>
 						{listMenssage.map((item, index) =>
@@ -147,7 +147,7 @@ const Chat: React.FC<ChatProps> = ({
 											username === item.author
 												? 'bg-[#202020] text-white'
 												: 'bg-[#f7f7f7cb] border border-black text-black'
-										} flex flex-col text-sm px-2 py-1 rounded-md max-w-[70%] w-[40%] break-words`}
+										} flex flex-col text-sm px-2 py-1 rounded-md max-w-[70%] min-w-[40%] break-words`}
 									>
 										<div className='flex justify-between w-full text-xs'>
 											<div className='flex items-center gap-2'>
@@ -179,7 +179,7 @@ const Chat: React.FC<ChatProps> = ({
 											<p>{item.time}hs</p>
 										</div>
 
-										<p className='mt-1 text-center font-medium text-xl'>
+										<p className='mt-1 text-center font-medium text-lg'>
 											{item.message}
 										</p>
 									</div>

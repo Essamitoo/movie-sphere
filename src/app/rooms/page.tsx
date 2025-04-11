@@ -116,7 +116,7 @@ const RoomsPages: React.FC = () => {
   }, [socket]);
 
   return (
-    <div className="bg-[#202020] min-h-lvh text-white">
+    <div className={`bg-[#202020] min-h-lvh text-white ${chat?"":"pt-[100px]"}`} >
       {chat && socket ? (
         <Chat
           socket={socket}
