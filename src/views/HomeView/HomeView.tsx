@@ -34,7 +34,7 @@ const HomeView = () => {
 
 	return (
 		<div className='text-tertiary'>
-			<div className='bg-secondary mx-auto w-full flex items-center justify-center'>
+			<div className='bg-secondary mx-auto w-full flex items-center justify-center mt-18'>
 				<MediaFilters
 					filters={filters}
 					setFilters={setFilters}

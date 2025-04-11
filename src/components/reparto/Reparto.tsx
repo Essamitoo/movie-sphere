@@ -1,25 +1,37 @@
-import { Cast } from "@/interfaces/IMedia";
+import { Cast } from '@/interfaces/IMedia'
 
-const Reparto = ({reparto}:{reparto:Cast[]}) => {
+const Reparto = ({ reparto }: { reparto: Cast[] }) => {
 	return (
-	  <div className='flex flex-col h-[250px] w-full bg-black'>
-		<p className="text-[#00A878] pl-10 text-xl font-semibold">Reparto</p>
-		<div className='ml-[5%] grid grid-cols-6 w-[90%] gap-1 h-[150px]'>
-		  {reparto.map((actor, index) => (
-			<div className="flex flex-col" key={index}>
-			  <img
-				className='p-1 w-[140px] h-[150px] rounded-xl'
-				src={actor.image}
-				alt={actor.name}
-			  />
-			  <p className="text-sm text-[#00A878]">{actor.actor}</p>
-			  <p className="text-xs">Personaje: {actor.name}</p>
-			</div>
-		  ))}
+		<div className='w-full'>
+		<h2 className='text-white text-3xl font-bold mb-4 pl-4'>Reparto</h2>
+	
+		<div className='flex flex-wrap  gap-6 px-4'>
+			{reparto.map((actor, index) => (
+				<div
+					key={index}
+					className='group relative w-[10rem] rounded-xl overflow-hidden bg-gray-900 shadow-md transition-all duration-300 '
+				>
+					<div className='relative'>
+						<img
+							src={actor.image}
+							alt={actor.name}
+							className='w-full h-[12rem] object-cover transition-transform duration-300 group-hover:scale-105'
+						/>
+					</div>
+					<div className='p-3 text-center'>
+						<p className='text-quinary font-semibold text-sm'>
+							{actor.actor}
+						</p>
+						<p className='text-tertiary text-xs  group-hover:text-gray-100'>
+							Personaje: {actor.name}
+						</p>
+					</div>
+				</div>
+			))}
 		</div>
-	  </div>
-	);
-  };
-  
-  export default Reparto;
-  
+	</div>
+	
+	)
+}
+
+export default Reparto
