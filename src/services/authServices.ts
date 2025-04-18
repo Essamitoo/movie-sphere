@@ -62,3 +62,28 @@ export const updateUserAvatarService = async (
 		console.log(error)
 	}
 }
+export const stripeService=async ({userId}:{userId:number})=>{
+	try {
+		const response = await fetch(`${apiUrl}v1/stripe/checkout`, {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json',
+		  },
+		  body: JSON.stringify({
+			userId
+		  }),
+		});
+	  
+		if (!response.ok) {
+		  throw new Error(`Error: ${response.status}`);
+		}
+	  
+		const data = await response.json();
+		console.log('Checkout session URL:', data.url);
+		window.location.href = data.url;
+	  } catch (error) {
+		console.error('Error al crear sesión de checkout:', error);
+	  }
+}
+
+  
