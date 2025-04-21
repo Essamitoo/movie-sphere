@@ -53,7 +53,7 @@ const RoomsPages: React.FC = () => {
   const { user } = useAuthContext()
   const [username, setUsername] = useState<string>(user?.name||userInfo.username);
   const [room, setRoom] = useState<string>("");
-  const [photo, setPhoto] = useState<string>(user?.image||userInfo.image);
+  const [photo, setPhoto] = useState<string>(user?.avatar||userInfo.image);
   const [rol, setRol] = useState<string>(user?.role||userInfo.rol);
   const [cover,setCover]=useState("")
   const [chat, setChat] = useState<boolean>(false);
@@ -64,7 +64,7 @@ const RoomsPages: React.FC = () => {
   useEffect(()=>{
     if(user&&user.name.length>0){
       setUsername(user?.name)
-      setPhoto(user?.image)
+      setPhoto(user?.avatar)
       setRol(user.role)
     }
   },[user])
