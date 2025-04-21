@@ -6,14 +6,20 @@ import { useAuthContext } from '@/contexts/authContext'
 import Logo from '../logo/Logo'
 
 const Header = () => {
-	const { user,logout } = useAuthContext()
+	const { user } = useAuthContext()
 	const pathname = usePathname()
 	const hideHeaderRoutes = [
 		'/auth/register',
 		'/auth/login',
 		'/dashboard/user',
+		'/dashboard/user/favorites',
 		'/dashboard/user/list',
 		'/dashboard/user/views',
+		'/dashboard/admin',
+		'/dashboard/admin/manage-media',
+		'/dashboard/admin/manage-users',
+		'/dashboard/admin/settings',
+		'/dashboard/user/settings',
 	]
 	const shouldShowHeader = !hideHeaderRoutes.includes(pathname)
 
@@ -51,10 +57,10 @@ const Header = () => {
 					</div>
 
 					{user ? (
-						<Link href={user.role === 'user' ? '/dashboard/user' : 'dashboard/admin'} className='flex items-center gap-2'>
+						<Link href={user.role === 'USER' ? '/dashboard/user' : 'dashboard/admin'} className='flex items-center gap-2'>
 							<img
 								className='h-10 w-10 rounded-full'
-								src={user.image}
+								src={user.avatar}
 								alt=''
 							/>
 							<div
@@ -82,4 +88,6 @@ const Header = () => {
 	)
 }
 export default Header
+
+
 

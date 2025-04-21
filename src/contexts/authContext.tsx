@@ -49,24 +49,24 @@ const AuthProvider = ({ children }: ChildrenType) => {
 	const [loading, setLoading] = useState(true)
 
 	// Normaliza los datos según el tipo de proveedor
+
 	const normalizeUserData = (data: any, type: 'local' | 'google'): IUser => {
-		// Ahora 'data' directamente tiene los datos del 'user' sin estar anidado
+		
 		if (type === 'local') {
 			return {
-				id: data.id, // Usamos el email como ID único
+				id: data.id, 
 				name: data.name,
 				email: data.email,
-				password: '', // Como no tienes password, lo inicializamos vacío
-				image:
+				avatar:
 					data.avatar ||
 					'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg', // Imagen por defecto
 				account: 'free',
-				role: 'user',
+				role: data.role,
 				favorites: [],
 				reviews: [],
 				views: [],
 				list: [],
-				avatar_token: data.avatar_token || '', // Si no tienes avatar_token, lo dejamos vacío
+				avatar_token: data.avatar_token || '', 
 
 				token: data.access_token,
 				provider: 'local',
@@ -76,12 +76,11 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				id: 'google_' + data.email,
 				name: data.name,
 				email: data.email,
-				password: '', // Sin password para login con Google
-				image:
+				avatar:
 					data.image ||
 					'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg',
 				account: 'free',
-				role: 'user',
+				role: data.role,
 				favorites: [],
 				reviews: [],
 				views: [],

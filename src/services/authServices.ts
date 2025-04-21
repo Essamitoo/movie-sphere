@@ -37,6 +37,71 @@ export const registerService = async (registerData: IFormData) => {
 	}
 }
 
+export const updateUserService = async (
+	updateUserData: IFormData,
+	token: string,
+	id: number
+) => {
+	try {
+		const response = await fetch(`${apiUrl}v1/users/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify(updateUserData),
+		})
+
+		const data = await response.json()
+
+		if (!response.ok) throw new Error(data.message || 'Error en la actualización')
+		
+
+		return data
+	} catch (error) {
+		console.error('Error en updateUserService:', error)
+		throw error
+	}
+}
+
+export const deleteUserService = async (token: string, id: number) => {
+	try {
+		const response = await fetch(`${apiUrl}v1/users/${id}`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		})
+
+		if (!response.ok) throw new Error(`Error al eliminar el usuario: ${response.statusText}`)
+		
+	} catch (error) {
+		console.log(error)
+		throw error
+	}
+}
+
+export const getUserByIdService = async (id: number, token: string) => {
+	try {
+		const response = await fetch(`${apiUrl}v1/users/${id}`, {
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		})
+
+		if (!response.ok) throw new Error('Usuario no encontrado')
+
+
+		const data = await response.json()
+		return data
+	} catch (error) {
+		console.error('Error en getUserByIdService:', error)
+		throw error
+	}
+}
+
 //Actualiza el avatar del usuario con la URL de la imagen y el token de eliminación de Cloudinary
 
 export const updateUserAvatarService = async (

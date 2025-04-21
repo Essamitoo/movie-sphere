@@ -160,7 +160,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 								<h2 className='font-semibold text-2xl'>
 									Tu opinión nos importa, compártela aquí.
 								</h2>
-								<Comment img={user?.image || ''} name={user?.name || ''} />
+								<Comment img={user?.avatar || ''} name={user?.name || ''} />
 								{movie.reviews?.map((item, index) => (
 									<Criticas key={index} {...item} />
 								))}

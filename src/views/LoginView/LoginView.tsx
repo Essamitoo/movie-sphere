@@ -35,7 +35,7 @@ const LoginView = () => {
 			toast.success('Sesión iniciada correctamente')
 			router.push('/home')
 		} catch (error) {
-			toast('Credenciales incorrectas')
+			toast.error('Credenciales incorrectas')
 		}
 	}
 

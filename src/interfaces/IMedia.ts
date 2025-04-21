@@ -69,3 +69,21 @@ export interface IReview {
     name:string;
     image:string;
 }
+
+export interface Movie {
+	id: number;
+	title: string;
+	description: string;
+	year: string;
+	poster: string;
+	splashart: string;
+	duration: string;
+  }
+  
+export interface Director {
+	id: number
+	name: string
+	biography: string
+	avatar: string
+  }
+  
