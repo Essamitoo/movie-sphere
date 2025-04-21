@@ -42,7 +42,7 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
 			if (user?.id && data) {
 				const newAvatar = {
 					...user,
-					image: data.avatar,
+					avatar: data.avatar,
 					avatar_token: data.avatar_token,
 				}
 
