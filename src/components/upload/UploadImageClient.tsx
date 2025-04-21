@@ -90,7 +90,7 @@ export default function UploadImageClient({ image }: UploadImageClientProps) {
 		<div className='relative mx-auto size-30'>
 			<div className='relative w-full h-full rounded-full overflow-hidden'>
 				<Image
-					src={imageUrl || user?.image}
+					src={imageUrl || user?.avatar}
 					alt='user'
 					fill
 					style={{ objectFit: 'cover' }}
