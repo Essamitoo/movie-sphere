@@ -1,6 +1,4 @@
 import CreateActor from './CreateActor'
-import DeleteActor from './DeleteActor'
-import EditarActor from './EditActor'
 import SearchActor from './SearchActor'
 
 const ManageActors = () => {
