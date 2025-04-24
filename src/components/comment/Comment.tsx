@@ -37,12 +37,12 @@ const Comment: React.FC<Props> = ({ img, name, movieId, existingReview }) => {
     try {
       setLoading(true)
       if (review) {
-        const updated = await updateReviewService({ content: comment, rating }, Number(review.id), user!.token)
+        const updated = await updateReviewService({ content: comment,rating }, Number(review.id), user!.token)
         setReview({ ...review, content: comment, rating })
         toast.success('Comentario actualizado ✅')
       } else {
         const created = await addReviewService({ userId: user!.id, movieId, content: comment, rating }, user!.token)
-        setReview(created) // 💡 aquí guardamos el nuevo comentario
+        setReview(created) 
         toast.success('Comentario enviado ✅')
       }
       setEditing(false)

@@ -2,7 +2,7 @@ import { IFormData } from '@/interfaces/IForm'
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-export const addReviewService = async (reviewData: IFormData, token: string) => {
+export const addReviewService = async (reviewData: any, token: string) => {
 	try {
 		console.log('reviewData', reviewData)
 		const response = await fetch(`${apiUrl}v1/reviews`, {
@@ -46,7 +46,7 @@ export const getReviewService = async (id: number, token: string) => {
 	}
 }
 
-export const updateReviewService = async (review: IFormData, id: number, token: string) => {
+export const updateReviewService = async (review: any, id: number, token: string) => {
     try {
         console.log('reviewData', review)
         const response = await fetch(`${apiUrl}v1/reviews/${id}`, {
