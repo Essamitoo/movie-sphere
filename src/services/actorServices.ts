@@ -61,7 +61,6 @@ export const updateActorService = async (
 
 		const data = await response.json()
 		return data
-        
 	} catch (error) {
 		console.log(error)
 		throw error
@@ -80,9 +79,6 @@ export const deleteActorService = async (id: number, token: string) => {
 		if (!response.ok) {
 			throw new Error('Server error')
 		}
-
-		// const data = await response.json()
-		// return data
 
 	} catch (error) {
 		console.log(error)

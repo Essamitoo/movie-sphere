@@ -24,12 +24,12 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 	>('suggestions')
 
 	return (
-		<div className='text-white flex flex-col items-center'>
+		<div className='flex flex-col items-center text-white'>
 			{open && <Trailer videoId={trailer} open={open} setOpen={setOpen} />}
 
 			{/* Fondo principal con portada */}
 			<div
-				className='w-full bg-no-repeat bg-fixed relative pb-20'
+				className='relative w-full pb-20 bg-fixed bg-no-repeat'
 				style={{
 					backgroundImage: `url(${movie.cover})`,
 					backgroundSize: 'cover',
@@ -39,21 +39,18 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 				<div className='absolute inset-0 bg-gradient-to-l from-transparent to-primary'></div>
 				<div className='absolute inset-0 bg-gradient-to-b from-transparent to-primary'></div>
 
-				<div className='relative px-30 pt-40'>
-
+				<div className='relative pt-40 px-30'>
 					{/* Info principal */}
-					
+
 					<div className='flex flex-col justify-center'>
-						<div className='flex gap-4 items-center px-2'>
-							<p className=''>
-								{movie.releaseDate}
-							</p>
-							<p className='border border-white px-1 text-sm'>+16</p>
+						<div className='flex items-center gap-4 px-2'>
+							<p className=''>{movie.releaseDate}</p>
+							<p className='px-1 text-sm border border-white'>+16</p>
 							<p className='flex items-center gap-1'>
 								<PiClockLight size={22} />
 								{movie.duration} min
-								</p>
-							<p className='text-sm flex gap-1'>
+							</p>
+							<p className='flex gap-1 text-sm'>
 								<FaStar size={20} className='text-yellow-300' />
 								{movie.rating}
 							</p>
@@ -62,8 +59,8 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 							)}
 						</div>
 
-							<h1 className='font-bold text-7xl'>{movie.name}</h1>
-						<p className='text-sm font-light p-6 pl-1 w-1/3 text-pretty'>
+						<h1 className='font-bold text-7xl'>{movie.name}</h1>
+						<p className='w-1/3 p-6 pl-1 text-sm font-light text-pretty'>
 							{movie.sipnosis}
 						</p>
 					</div>
@@ -73,7 +70,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 					<div className='flex gap-6'>
 						<button
 							onClick={() => setOpen(true)}
-							className='flex justify-center items-center border gap-2 py-2 px-4 hover:bg-white hover:text-black transition-all'
+							className='flex items-center justify-center gap-2 px-4 py-2 transition-all border hover:bg-white hover:text-black'
 						>
 							Trailer
 							<FaPlay size={15} />
@@ -83,7 +80,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 							onClick={() => {
 								/*addToList(movie)*/
 							}}
-							className='flex justify-center items-center border gap-2 px-4 hover:bg-white hover:text-black transition-all'
+							className='flex items-center justify-center gap-2 px-4 transition-all border hover:bg-white hover:text-black'
 						>
 							<FaPlus size={15} />
 							{isInList(movie) ? 'Agregada' : 'Agregar a la lista'}
@@ -156,11 +153,15 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 						)}
 
 						{seccionActiva === 'comentarios' && (
-							<div className='w-full flex flex-col items-center gap-4'>
-								<h2 className='font-semibold text-2xl'>
+							<div className='flex flex-col items-center w-full gap-4'>
+								<h2 className='text-2xl font-semibold'>
 									Tu opinión nos importa, compártela aquí.
 								</h2>
-								<Comment img={user?.avatar || ''} name={user?.name || ''} />
+								<Comment
+									movieId={movie.id}
+									img={user?.avatar || ''}
+									name={user?.name || ''}
+								/>
 								{movie.reviews?.map((item, index) => (
 									<Criticas key={index} {...item} />
 								))}
@@ -200,29 +201,28 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 						)}
 						{seccionActiva === 'suggestions' && (
 							<div>
-							{movie.suggestions?.length > 0 && (
-								<div className='flex flex-col'>
-									<p className='text-white text-2xl mb-4'>
-										Películas y series similares
-									</p>
-									<div className='flex gap-5'>
-										{movie.suggestions.map((item, index) => (
-											<div
-												key={index}
-												className='w-[15rem] overflow-hidden rounded-lg '
-											>
-												<img
-													src={item.img}
-													alt={`Sugerencia ${index}`}
-													className='w-full h-full object-cover rounded-md transition-transform duration-200 hover:scale-105 cursor-pointer'
-												/>
-											</div>
-										))}
+								{movie.suggestions?.length > 0 && (
+									<div className='flex flex-col'>
+										<p className='mb-4 text-2xl text-white'>
+											Películas y series similares
+										</p>
+										<div className='flex gap-5'>
+											{movie.suggestions.map((item, index) => (
+												<div
+													key={index}
+													className='w-[15rem] overflow-hidden rounded-lg '
+												>
+													<img
+														src={item.img}
+														alt={`Sugerencia ${index}`}
+														className='object-cover w-full h-full transition-transform duration-200 rounded-md cursor-pointer hover:scale-105'
+													/>
+												</div>
+											))}
+										</div>
 									</div>
-								</div>
-							)}
-						</div>
-						
+								)}
+							</div>
 						)}
 					</div>
 				</div>
