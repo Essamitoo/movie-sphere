@@ -57,7 +57,7 @@ const Header = () => {
 					</div>
 
 					{user ? (
-						<Link href={user.role === 'USER' ? '/dashboard/user' : 'dashboard/admin'} className='flex items-center gap-2'>
+						<Link href={user.role === 'USER' ? '/dashboard/user' : '/dashboard/admin'}  className='flex items-center gap-2'>
 							<img
 								className='h-10 w-10 rounded-full'
 								src={user.avatar}

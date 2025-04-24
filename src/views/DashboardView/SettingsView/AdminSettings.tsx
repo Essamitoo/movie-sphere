@@ -1,16 +1,16 @@
-'use client'
-
 import { ChangeEvent, useState } from 'react'
 import { useAuthContext } from '@/contexts/authContext'
 import { deleteUserService, updateUserService } from '@/services/authServices'
 import { toast } from 'react-toastify'
 import { BiEditAlt } from 'react-icons/bi'
+import ConfirmModal from '@/ui/ConfirmModal/ConfirmModal'
 
-const AdminSettings = () => {
+const UserSettings = () => {
 	const { user, logout, setUser } = useAuthContext()
 	if (!user) return null
 
 	const [editMode, setEditMode] = useState(false)
+	const [showModal, setShowModal] = useState(false)
 	const [formData, setFormData] = useState({
 		name: user.name,
 		email: user.email,
@@ -48,11 +48,9 @@ const AdminSettings = () => {
 	}
 
 	const handleDelete = async () => {
-		const confirmDelete = confirm('¿Seguro que deseas eliminar tu cuenta?')
-		if (!confirmDelete) return
-
+		setShowModal(false)  // Cerrar el modal antes de continuar con la eliminación.
+		setLoading(true)
 		try {
-			setLoading(true)
 			await deleteUserService(user.token, Number(user.id))
 			logout()
 		} catch (err) {
@@ -63,12 +61,8 @@ const AdminSettings = () => {
 	}
 
 	return (
-		<div className='max-w-2xl  mt-10 p-6 rounded-2xl space-y-8'>
-			{/* Sección de Configuración */}
-
+		<div className='max-w-2xl mt-10 p-6 rounded-2xl space-y-8'>
 			<div>
-				<h2 className='text-2xl font-bold mb-4'></h2>
-
 				{!editMode ? (
 					<div className='space-y-2'>
 						<p>Nombre: {user.name}</p>
@@ -84,7 +78,7 @@ const AdminSettings = () => {
 							</button>
 
 							<button
-								onClick={handleDelete}
+								onClick={() => setShowModal(true)} // Aquí mostramos el modal.
 								className='bg-red-900 text-white px-4 py-2 rounded hover:bg-red-700'
 							>
 								Eliminar cuenta
@@ -111,17 +105,6 @@ const AdminSettings = () => {
 							className='w-full p-2 border rounded'
 						/>
 
-						{/* 
-						<input
-							type="password"
-							name="password"
-							value={formData.password}
-							onChange={handleChange}
-							placeholder="Nueva contraseña"
-							className="w-full p-2 border rounded"
-						/> 
-						*/}
-
 						<div className='flex gap-4'>
 							<button
 								onClick={handleUpdate}
@@ -141,8 +124,16 @@ const AdminSettings = () => {
 					</div>
 				)}
 			</div>
+
+			{/* Modal de Confirmación */}
+			<ConfirmModal
+				isOpen={showModal}
+				message='¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.'
+				onConfirm={handleDelete}
+				onCancel={() => setShowModal(false)} // Cerrar el modal al cancelar.
+			/>
 		</div>
 	)
 }
 
-export default AdminSettings
+export default UserSettings
