@@ -1,24 +1,41 @@
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-type StarRatingProps = {
-    rating: number;
-  };
-const StarRating:React.FC<StarRatingProps> = ({ rating }) => {
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.push(<FaStar key={i} className="text-yellow-500" 
-            style={{ stroke: "black", strokeWidth: 2 }}/>);
-      } else if (i - 0.5 <= rating) {
-        stars.push(<FaStarHalfAlt key={i} className="text-yellow-500" />);
-      } else {
-        stars.push(<FaRegStar key={i} className="text-gray-400" />);
-      }
-    }
-    return stars;
-  };
+'use client'
 
-  return <div className="flex space-x-1 text-3xl">{renderStars()}</div>;
-};
+import { useState, Dispatch, SetStateAction } from 'react'
+import { FaStar } from 'react-icons/fa'
 
-export default StarRating;
+interface StarRatingProps {
+  rating: number 
+  onChange?: Dispatch<SetStateAction<number>> 
+}
+
+const StarRating: React.FC<StarRatingProps> = ({ rating, onChange }) => {
+  const [hover, setHover] = useState<number | null>(null)
+
+  return (
+    <div className='flex items-center'>
+      {[...Array(5)].map((_, index) => {
+        const currentRating = index + 1
+        return (
+          <label key={index}>
+            <input
+              type='radio'
+              name='rating'
+              value={currentRating}
+              onClick={() => onChange && onChange(currentRating)} // Usar onChange si existe
+              className='hidden'
+            />
+            <FaStar
+              className='cursor-pointer transition-colors duration-200'
+              size={25}
+              color={currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+              onMouseEnter={() => setHover(currentRating)}
+              onMouseLeave={() => setHover(null)}
+            />
+          </label>
+        )
+      })}
+    </div>
+  )
+}
+
+export default StarRating
