@@ -127,28 +127,51 @@ export const updateUserAvatarService = async (
 		console.log(error)
 	}
 }
-export const stripeService=async ({userId}:{userId:number})=>{
+export async function createCheckoutSession(userId: string): Promise<string> {
 	try {
-		const response = await fetch(`${apiUrl}v1/stripe/checkout`, {
-		  method: 'POST',
-		  headers: {
-			'Content-Type': 'application/json',
-		  },
-		  body: JSON.stringify({
-			userId
-		  }),
-		});
-	  
-		if (!response.ok) {
-		  throw new Error(`Error: ${response.status}`);
-		}
-	  
-		const data = await response.json();
-		console.log('Checkout session URL:', data.url);
-		window.location.href = data.url;
-	  } catch (error) {
-		console.error('Error al crear sesión de checkout:', error);
+	  const response = await fetch(`${apiUrl}v1/stripe/checkout-session`, {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ userId }),
+	  });
+  
+	  if (!response.ok) {
+		throw new Error(`Error: ${response.statusText}`);
 	  }
-}
-
+  
+	  const data: { url: string } = await response.json();
+	  return data.url; // Devuelve la URL del pago
+	} catch (error) {
+	  console.error('Error creando sesión de pago:', error);
+	  throw error;
+	}
+  }
+  interface ConfirmPaymentRequest {
+	sessionId: string;
+	userId: string;
+  }
+  
+  export async function confirmPayment(requestData: ConfirmPaymentRequest): Promise<void> {
+	try {
+	  const response = await fetch(`${apiUrl}v1/stripe/confirm-payment`, {
+		method: 'POST',
+		headers: {
+		  'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(requestData),
+	  });
+  
+	  if (!response.ok) {
+		throw new Error(`Error: ${response.statusText}`);
+	  }
+  
+	  console.log('Pago confirmado con éxito.');
+	} catch (error) {
+	  console.error('Error al confirmar el pago:', error);
+	  throw error;
+	}
+  }
+  
   
