@@ -5,6 +5,7 @@ import Header from '@/components/header/Header'
 import Provider from './provider'
 import { ToastContainer } from 'react-toastify'
 import Footer from '@/components/footer/Footer'
+import Script from 'next/script'
 
 const secondaryFont = Mulish({
 	variable: '--font-secondary',
@@ -37,6 +38,15 @@ export default function RootLayout({
 	return (
 		<Provider>
 			<html lang='es'>
+			<head>
+        {/* Script de Google AdSense */}
+        <Script
+          strategy="afterInteractive"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8676936217263705"
+          crossOrigin="anonymous"
+        />
+      </head>
 				<body
 					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col  bg-primary`}
 				>

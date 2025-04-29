@@ -7,8 +7,11 @@ import EmptyState from '@/components/emptyState/EmpyState'
 import Pagination from '@/components/pagination/Pagination'
 import { useMediaFilter } from '@/hooks/useMediaFilters'
 import MediaGrid from '@/components/mediaGrid/MediaGrid'
+import { useAuthContext } from '@/contexts/authContext'
+import GoogleAd from '@/ui/GoogleAd/GoogleAd'
 
 const HomeView = () => {
+	const {user} = useAuthContext()
 	const [filters, setFilters] = useState({
 		type: '',
 		year: '',
@@ -34,6 +37,7 @@ const HomeView = () => {
 
 	return (
 		<div className='text-tertiary'>
+			{user?.role !== 'PREMIUM' && <GoogleAd />}
 			<div className='bg-secondary mx-auto w-full flex items-center justify-center mt-18'>
 				<MediaFilters
 					filters={filters}

@@ -5,6 +5,7 @@ import StarRating from '../starRating/StartRating'
 import { toast } from 'react-toastify'
 import { useAuthContext } from '@/contexts/authContext'
 import { addReviewService, updateReviewService, deleteReviewService } from '@/services/reviewServices'
+import UserAvatar from '@/ui/UserAvatar/UserAvatar'
 
 interface Props {
   img: string
@@ -73,7 +74,7 @@ const Comment: React.FC<Props> = ({ img, name, movieId, existingReview }) => {
     <div className='w-full max-w-3xl rounded-xl border border-gray-800 bg-white/5 p-4 grid grid-cols-[80px_1fr] gap-4 shadow-lg'>
       {/* Usuario */}
       <div className='flex flex-col items-center'>
-        <img src={img} alt={name} className='w-14 h-14 rounded-full object-cover' />
+        <UserAvatar/>
         <p className='text-sm mt-2 text-white text-center line-clamp-1'>{name}</p>
       </div>
 

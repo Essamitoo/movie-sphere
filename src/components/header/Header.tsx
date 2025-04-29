@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useAuthContext } from '@/contexts/authContext'
 import Logo from '../logo/Logo'
+import UserAvatar from '@/ui/UserAvatar/UserAvatar'
 
 const Header = () => {
 	const { user } = useAuthContext()
@@ -35,7 +36,7 @@ const Header = () => {
 							className='text-md bg-gradient-to-r from-[#F1FDFA] via-[#c5c7c7] to-[#313131] bg-clip-text text-transparent flex justify-items-end items-center gap-2'
 						>
 							Salas de Chat
-						<span className='text-[8px] text-green-400'>🟢</span>
+							<span className='text-[8px] text-green-400'>🟢</span>
 						</Link>
 					</div>
 					<div className=''>
@@ -57,19 +58,19 @@ const Header = () => {
 					</div>
 
 					{user ? (
-						<Link href={user.role === 'USER' ? '/dashboard/user' : '/dashboard/admin'}  className='flex items-center gap-2'>
-							<img
-								className='h-10 w-10 rounded-full'
-								src={user.avatar}
-								alt=''
-							/>
+						<Link
+							href={
+								user.role === 'USER' ? '/dashboard/user' : '/dashboard/admin'
+							}
+							className='flex items-center gap-2'
+						>
+							<UserAvatar />
+							
 							<div
-								className={`${
-									user.account === 'Premium' ? 'text-amber-300' : ''
-								}`}
+								className={`${user.role === 'PREMIUM' ? 'text-amber-300' : ''}`}
 							>
 								<h2 className='text-sm text-white'>{user.name}</h2>
-								{user.account === 'Premium' && (
+								{user.role === 'PREMIUM' && (
 									<h3 className='font-extrabold'>PREMIUM</h3>
 								)}
 							</div>
@@ -88,6 +89,4 @@ const Header = () => {
 	)
 }
 export default Header
-
-
 
