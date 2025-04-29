@@ -8,7 +8,8 @@ import Pagination from '@/components/pagination/Pagination'
 import { useMediaFilter } from '@/hooks/useMediaFilters'
 import MediaGrid from '@/components/mediaGrid/MediaGrid'
 import { useAuthContext } from '@/contexts/authContext'
-import AdBanner from '@/ui/AdBanner/AdBanner'
+import AdBanner from '@/ui/AdFakeBanner/AdFakeBanner'
+import FakeAdBanner from '@/ui/AdFakeBanner/AdFakeBanner'
 
 const HomeView = () => {
 	const { user } = useAuthContext()
@@ -47,15 +48,14 @@ const HomeView = () => {
 				/>
 			</div>
 
-			{user?.role !== 'PREMIUM' && (
-				<div className='bg-slate-600'>
-					<AdBanner
-						dataAdFormat='auto'
-						dataFullWidthResponsive={true}
-						dataAdSlot='5271868319'
-					/>
-				</div>
-			)}
+			<div className='size-90 mx-auto'>
+				{/* Mostrar el banner solo si el usuario no es PREMIUM */}
+				<FakeAdBanner
+					imageUrl={
+						'https://img.freepik.com/vector-gratis/plantilla-banner-horizontal-degradado-evento-buen-fin-espanol_23-2150810851.jpg'
+					}
+				/>
+			</div>
 			{displayedItems.length > 0 ? (
 				<MediaGrid items={displayedItems} />
 			) : (
@@ -67,7 +67,9 @@ const HomeView = () => {
 				totalPages={totalPages}
 				onPageChange={handlePageChange}
 			/>
+			<FakeAdBanner imageUrl='https://http2.mlstatic.com/D_NQ_973167-MLA84039343111_042025-OO.webp'/>
 		</div>
+		
 	)
 }
 

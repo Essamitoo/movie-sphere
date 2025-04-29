@@ -5,7 +5,6 @@ import Header from '@/components/header/Header'
 import Provider from './provider'
 import { ToastContainer } from 'react-toastify'
 import Footer from '@/components/footer/Footer'
-import GoogleAd from '@/ui/GoogleAd/GoogleAd'
 const secondaryFont = Mulish({
 	variable: '--font-secondary',
 	subsets: ['latin'],
@@ -38,7 +37,6 @@ export default function RootLayout({
 		<Provider>
 			<html lang='es'>
 				<head>
-					<GoogleAd pId='pub-8676936217263705'/>
 				</head>
 				<body
 					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col  bg-primary`}
