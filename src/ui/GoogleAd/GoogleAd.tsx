@@ -1,34 +1,20 @@
-"use client";
-import { useEffect, useRef } from "react";
+'use client'
 
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
+import Script from "next/script"
+
+type AdsenseTypes = {
+  pId: string
 }
 
-export default function GoogleAd() {
-  const adLoaded = useRef(false);
-
-  useEffect(() => {
-    if (adLoaded.current) return;
-
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-      adLoaded.current = true;
-    } catch (e) {
-      console.error("Adsense error:", e);
-    }
-  }, []);
-
+const GoogleAd = ({pId}: AdsenseTypes) => {
   return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-8676936217263705"
-      data-ad-slot="4413840962"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
+    <Script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${pId}`}
+      crossOrigin="anonymous"
+      strategy="afterInteractive"
     />
-  );
+  )
 }
+
+export default GoogleAd

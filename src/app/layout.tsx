@@ -5,8 +5,7 @@ import Header from '@/components/header/Header'
 import Provider from './provider'
 import { ToastContainer } from 'react-toastify'
 import Footer from '@/components/footer/Footer'
-import Script from 'next/script'
-
+import GoogleAd from '@/ui/GoogleAd/GoogleAd'
 const secondaryFont = Mulish({
 	variable: '--font-secondary',
 	subsets: ['latin'],
@@ -16,7 +15,7 @@ const secondaryFont = Mulish({
 const primaryFont = Inter({
 	variable: '--font-primary',
 	subsets: ['latin'],
-	weight: ['200','300','400','700'],
+	weight: ['200', '300', '400', '700'],
 })
 
 const logoFont = Alexandria({
@@ -38,25 +37,18 @@ export default function RootLayout({
 	return (
 		<Provider>
 			<html lang='es'>
-			<head>
-        {/* Script de Google AdSense */}
-        <Script
-          strategy="afterInteractive"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8676936217263705"
-          crossOrigin="anonymous"
-        />
-      </head>
+				<head>
+					<GoogleAd pId='pub-8676936217263705'/>
+				</head>
 				<body
 					className={`${primaryFont.variable} ${secondaryFont.variable} ${logoFont.variable} antialiased min-h-screen flex flex-col  bg-primary`}
 				>
 					<div className=''>
-
-					<Header />
+						<Header />
 					</div>
 					<main className='flex-grow'>{children}</main>
-					<Footer/>
-					<ToastContainer/>
+					<Footer />
+					<ToastContainer />
 				</body>
 			</html>
 		</Provider>

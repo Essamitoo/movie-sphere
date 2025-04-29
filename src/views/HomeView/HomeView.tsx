@@ -8,10 +8,10 @@ import Pagination from '@/components/pagination/Pagination'
 import { useMediaFilter } from '@/hooks/useMediaFilters'
 import MediaGrid from '@/components/mediaGrid/MediaGrid'
 import { useAuthContext } from '@/contexts/authContext'
-import GoogleAd from '@/ui/GoogleAd/GoogleAd'
+import AdBanner from '@/ui/AdBanner/AdBanner'
 
 const HomeView = () => {
-	const {user} = useAuthContext()
+	const { user } = useAuthContext()
 	const [filters, setFilters] = useState({
 		type: '',
 		year: '',
@@ -37,7 +37,6 @@ const HomeView = () => {
 
 	return (
 		<div className='text-tertiary'>
-			{user?.role !== 'PREMIUM' && <GoogleAd />}
 			<div className='bg-secondary mx-auto w-full flex items-center justify-center mt-18'>
 				<MediaFilters
 					filters={filters}
@@ -48,6 +47,15 @@ const HomeView = () => {
 				/>
 			</div>
 
+			{user?.role !== 'PREMIUM' && (
+				<div className='bg-slate-600'>
+					<AdBanner
+						dataAdFormat='auto'
+						dataFullWidthResponsive={true}
+						dataAdSlot='5271868319'
+					/>
+				</div>
+			)}
 			{displayedItems.length > 0 ? (
 				<MediaGrid items={displayedItems} />
 			) : (
