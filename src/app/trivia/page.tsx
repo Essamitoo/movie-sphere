@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useAuthContext } from '@/contexts/authContext'
 import io from 'socket.io-client'
+import Link from 'next/link';
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_RANKING_URL || "http://localhost:3001";
 const socket = io(`${BACKEND_URL}`) 
 
@@ -164,12 +165,12 @@ export default function TriviaGame() {
 							</p>
 							<p className='text-3xl'>❤️❤️❤️</p>
 						</div>
-						<button
+						{user&&user.role==='PREMIUM'?<button
 							onClick={startGame}
 							className='z-3 px-6 py-2 border border-gray-400/50 bg-black mt-40 text-white font-bold rounded hover:bg-[#00cc92] hover:text-black absolute hover:cursor-pointer hover:scale-105 w-[200px]'
 						>
 							Iniciar Trivia
-						</button>
+						</button>:<Link href='/premium' className='z-3 px-6 py-2 border border-gray-400/50 bg-black mt-40 text-white font-bold rounded hover:bg-[#00cc92] hover:text-black/70 absolute hover:cursor-pointer hover:scale-105 w-[200px]'>Iniciar Trivia</Link>}
 					</>
 				) : showQuestion ? (
 					<>
