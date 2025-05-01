@@ -48,11 +48,11 @@ const HomeView = () => {
 				/>
 			</div>
 
-			<div className='size-90 mx-auto'>
+			<div className='w-1/2  mx-auto'>
 				{/* Mostrar el banner solo si el usuario no es PREMIUM */}
 				<FakeAdBanner
 					imageUrl={
-						'https://img.freepik.com/vector-gratis/plantilla-banner-horizontal-degradado-evento-buen-fin-espanol_23-2150810851.jpg'
+						'https://publicidad-y-medios.com/storage/uploads/1657978845_espectacular9.jpg'
 					}
 				/>
 			</div>

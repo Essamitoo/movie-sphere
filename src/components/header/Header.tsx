@@ -59,9 +59,7 @@ const Header = () => {
 
 					{user ? (
 						<Link
-							href={
-								user.role === 'USER' ? '/dashboard/user' : '/dashboard/admin'
-							}
+							href={''}
 							className='flex items-center gap-2'
 						>
 							<UserAvatar />

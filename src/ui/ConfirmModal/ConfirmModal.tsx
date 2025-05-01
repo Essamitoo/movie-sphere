@@ -1,15 +1,16 @@
 import Link from "next/link";
 
 interface ConfirmModalProps {
-    isOpen: boolean;
-    onConfirm: () => void;
-    onCancel: () => void;
-    message: string;
-    confirmLabel: string
-    link?: string
-  }
+	isOpen: boolean
+	onConfirm: () => void
+	onCancel: () => void
+	message: string
+	unconfirmedLabel: string
+	confirmLabel: string
+	link?: string
+}
   
-  const ConfirmModal = ({ isOpen, onConfirm, onCancel, message, confirmLabel, link }: ConfirmModalProps) => {
+  const ConfirmModal = ({ isOpen, onConfirm, onCancel, message, confirmLabel, link, unconfirmedLabel }: ConfirmModalProps) => {
     if (!isOpen) return null;
 
     return (
@@ -21,7 +22,7 @@ interface ConfirmModalProps {
                         onClick={onCancel}
                         className='bg-quaternary hover:bg-quaternary/60 text-tertiary font-bold py-2 px-4 rounded'
                     >
-                        Cancelar
+                        {unconfirmedLabel}
                     </button>
                     <Link
                         href={link || ''}

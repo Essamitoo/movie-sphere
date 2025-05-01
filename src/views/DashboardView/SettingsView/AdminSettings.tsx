@@ -127,6 +127,7 @@ const UserSettings = () => {
 
 			{/* Modal de Confirmación */}
 			<ConfirmModal
+			unconfirmedLabel='Cancelar'
 			confirmLabel='Confirmar'
 				isOpen={showModal}
 				message='¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.'
