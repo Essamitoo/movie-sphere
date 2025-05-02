@@ -36,6 +36,7 @@ export interface IReview {
   }
   
   export interface IReview {
+		id: number
 	userImg: string;
 	userName: string;
 	reviewCount: number;
