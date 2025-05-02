@@ -156,10 +156,10 @@ export default function TriviaGame() {
 						<div className='absolute z-2 bg-black/70 w-90 h-80 flex flex-col items-center gap-5'>
 							<img
 								src='https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
-								alt=''
+								alt={user?.avatar || 'La imagen que esta usando'} 
 								className='w-16 h-16 rounded-full'
 							/>
-							<p>Nombre</p>
+							<p>{user?.name}</p>
 							<p className='text-md text-green-500 bg-black/80'>
 								⏱10seg por pregunta
 							</p>

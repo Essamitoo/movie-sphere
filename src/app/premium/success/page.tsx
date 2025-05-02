@@ -20,7 +20,7 @@ const ConfirmPaymentComponent: React.FC = () => {
 					)
 					setTimeout(() => {
 						router.push('/home') // Redirige después de 1 segundo
-					}, 1000)
+					}, 5000)
 				})
 				.catch((error) => {
 					alert('Hubo un error al confirmar el pago.')
@@ -33,11 +33,11 @@ const ConfirmPaymentComponent: React.FC = () => {
 	return (
 		<div className='text-center flex justify-center items-center h-screen flex-col'>
 			{user && user.role === 'PREMIUM' && (
-				<>
+				<div className='bg-white text-black p-6 flex flex-col justify-content-center items-center rounded-lg'>
 					<img src={user?.avatar} alt='' className='rounded-full w-40 h-40' />
 					<p>{user.name}</p>
 					<h3 className='text-2xl font-bold'>✔️ ¡Ya sos PREMIUM!</h3>
-				</>
+				</div>
 			)}
 		</div>
 	)
