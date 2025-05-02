@@ -45,14 +45,8 @@ const Header = () => {
 								Inicio
 							</Link>
 
-							<Link href='/series' className='header-link'>
-								Noticias
-							</Link>
-							<Link href='/popular' className='header-link'>
-								Popular
-							</Link>
-							<Link href='/estrenos' className='header-link'>
-								Estrenos
+							<Link href='/trivia' className='header-link'>
+								Trivia
 							</Link>
 						</div>
 					</div>
