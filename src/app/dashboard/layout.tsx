@@ -18,7 +18,6 @@ export default function DashboardLayout({
 				<main className='w-7/8 bg-[#303030] text-tertiary px-16 py-10 '>
 					<div className='flex gap-6'>
 						<DashboardHeader />
-						<Search />
 					</div>
 					<div>{children}</div>
 				</main>

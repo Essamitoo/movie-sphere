@@ -11,7 +11,7 @@ const DashboardList = () => {
 	return (
 		<div className=''>
 			{favoriteMovies.length > 0 ? (
-				<div className='flex flex-wrap justify-center'>
+				<div className='flex flex-wrap gap-4'>
 					{favoriteMovies.map((movie) => (
 						<Card key={movie.id} movie={movie} />
 					))}

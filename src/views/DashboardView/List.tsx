@@ -11,7 +11,7 @@ const List = () => {
 	return (
 			<div className=''>
 				{moviesList.length > 0 ? (
-					<div className='flex flex-wrap justify-start'>
+					<div className='flex flex-wrap justify-start gap-4'>
 						{moviesList.map((movie) => (
 							<div key={movie.id}>
 								<Card movie={movie} />
