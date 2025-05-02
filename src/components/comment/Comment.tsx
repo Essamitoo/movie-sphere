@@ -5,7 +5,7 @@ import { addReviewService, deleteReviewService, updateReviewService } from "@/se
 import { useAuthContext } from "@/contexts/authContext"
 import { useEffect, useState } from "react"
 
-const Comment: React.FC = ({ img, name, movieId }: any) => {
+const Comment = ({ img, name, movieId }: any) => {
   const { user, setUser } = useAuthContext()
   const [reviews, setReviews] = useState<any[]>([])
   const [newComment, setNewComment] = useState('')

@@ -13,7 +13,7 @@ import { FaStar } from 'react-icons/fa6'
 import Image from 'next/image'
 import { PiClockLight } from 'react-icons/pi'
 
-const MediaView = ({ movie, movieCard }: { movie: IMediaPage, movieCard: IMedia }) => {
+const MediaView = ({ movie, movieCard }: { movie: IMediaPage, movieCard: any }) => {
 	const [trailer, setTrailer] = useState(movie.trailers?.[0]?.url || '')
 	const { user } = useAuthContext()
 	const { addToFavorites, addToList, addToViews, isInList, isFavorite } =
