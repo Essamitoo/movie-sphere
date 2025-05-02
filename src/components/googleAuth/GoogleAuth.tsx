@@ -6,7 +6,8 @@ const GoogleAuth = () => {
 
   const {googleLogin} = useAuthContext()
   const handleGoogleAuth = () => {
-    googleLogin()
+    // Redirect to backend Google OAuth endpoint
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4321'}v1/auth/google/sign-up`;
   }
   return (
     <div className="-mt-4">
