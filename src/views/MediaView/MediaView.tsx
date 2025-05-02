@@ -8,12 +8,12 @@ import Reparto from '@/components/reparto/Reparto'
 import Criticas from '@/components/criticas/Criticas'
 import Trailer from '@/components/trailer/Trailer'
 import { useMovieContext } from '@/contexts/movieContext'
-import { IMediaPage } from '@/interfaces/IMedia'
+import { IMedia, IMediaPage } from '@/interfaces/IMedia'
 import { FaStar } from 'react-icons/fa6'
 import Image from 'next/image'
 import { PiClockLight } from 'react-icons/pi'
 
-const MediaView = ({ movie }: { movie: IMediaPage }) => {
+const MediaView = ({ movie, movieCard }: { movie: IMediaPage, movieCard: IMedia }) => {
 	const [trailer, setTrailer] = useState(movie.trailers?.[0]?.url || '')
 	const { user } = useAuthContext()
 	const { addToFavorites, addToList, addToViews, isInList, isFavorite } =
@@ -77,9 +77,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 						</button>
 
 						<button
-							onClick={() => {
-								/*addToList(movie)*/
-							}}
+							onClick={() => addToList(movieCard)}
 							className='flex items-center justify-center gap-2 px-4 transition-all border hover:bg-white hover:text-black'
 						>
 							<FaPlus size={15} />
@@ -87,9 +85,7 @@ const MediaView = ({ movie }: { movie: IMediaPage }) => {
 						</button>
 
 						<button
-							onClick={() => {
-								/*addToFavorites(movie)*/
-							}}
+							onClick={() => addToFavorites(movieCard)}
 							className={`border px-3 transition-all ${
 								isFavorite(movie)
 									? 'text-[#00A878] bg-black'

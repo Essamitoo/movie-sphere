@@ -16,7 +16,7 @@ const Card = ({ movie }: Props) => {
 
 	return (
 		<div className='relative h-94 overflow-hidden rounded-lg group max-w-[265px] '>
-			<Link href={`media/${movie.id}`}>
+			<Link href={`/media/${movie.id}`}>
 				<img
 					src={movie.image}
 					alt={movie.title}
@@ -31,7 +31,7 @@ const Card = ({ movie }: Props) => {
 							movie.type === 'movie' ? 'bg-blue-800' : 'bg-green-800'
 						}`}
 					>
-						{capFirstLetter(movie.type)}
+						{capFirstLetter(movie.type || 'movie')}
 					</span>
 				</div>
 

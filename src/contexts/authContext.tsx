@@ -63,7 +63,7 @@ const AuthProvider = ({ children }: ChildrenType) => {
 				account: 'free',
 				role: data.role,
 				favorites: [],
-				reviews: [],
+				reviews: data.reviews,
 				views: [],
 				list: [],
 				avatar_token: data.avatar_token || '', 

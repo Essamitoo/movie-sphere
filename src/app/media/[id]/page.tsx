@@ -12,7 +12,7 @@ const Media = ({ params }: { params: Promise<{ id: string }> }) => {
 		return <p>Película no encontrada</p>
 	}
 
-	return <MediaView movie={movie} />
+	return <MediaView movie={movie} movieCard={movie} />
 }
 
 

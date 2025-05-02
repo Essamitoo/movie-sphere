@@ -1,7 +1,8 @@
 'use client'
-import { createContext, useContext, useEffect,  } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { IMedia } from '@/interfaces/IMedia'
 import { useAuthContext } from './authContext'
+import { toast } from 'react-toastify' // Importar toast
 
 interface ChildrenType {
 	children: React.ReactNode
@@ -23,7 +24,7 @@ interface MoviesContextProps {
     isInList: (movie: any) => boolean
 }
 
-const MoviesContext = createContext<MoviesContextProps>({
+const MoviesContext = createContext<MoviesContextProps>( {
 	addToFavorites: () => {},
 	removeFromFavorites: () => {},
 	addToViews: () => {},
@@ -47,53 +48,55 @@ const MoviesProvider = ({ children }: ChildrenType) => {
 		return user?.[type].some((item: any) => item.id === movie.id)
 	}
 
-    useEffect(() => {
-        
-    })
+	useEffect(() => {});
 
 	const addToFavorites = (movie: IMedia) => {
-        if(!isMovieInUserList('favorites', movie)) {
-
+        if (!isMovieInUserList('favorites', movie)) {
             updateUserLists('favorites', movie)
-            alert('Película añadida a favoritos')
-
-        } else alert('Ya tienes esta película en favoritos')
-        
+            toast.success('Película añadida a favoritos') 
+        } else {
+            toast.error('Ya tienes esta película en favoritos') 
+        }
 	}
 
 	const addToViews = (movie: IMedia) => {
-        if(!isMovieInUserList('views', movie)) {
+        if (!isMovieInUserList('views', movie)) {
             updateUserLists('views', movie)
-            alert('Película añadida a vistas')
-
-        } else alert('La pelicula ya esta en vistas')
+            toast.success('Película añadida a vistas') 
+        } else {
+            toast.error('La película ya está en vistas') 
+        }
 	}
 
 	const addToList = (movie: IMedia) => {
-        if(!isMovieInUserList('list', movie)) {
+        if (!isMovieInUserList('list', movie)) {
             updateUserLists('list', movie)
-            alert('Película añadida a la lista')
-
-        } else alert('La pelicula ya esta en la lista')
+            toast.success('Película añadida a la lista')
+        } else {
+            toast.error('La película ya está en la lista')  
+        }
 	}
 
 	const removeFromFavorites = (movie: IMedia) => {
 		removeFromUserLists('favorites', movie)
+		toast.info('Película eliminada de favoritos')  
 	}
 
 	const removeFromViews = (movie: IMedia) => {
 		removeFromUserLists('views', movie)
+		toast.info('Película eliminada de vistas')  
 	}
 
 	const removeFromList = (movie: IMedia) => {
 		removeFromUserLists('list', movie)
+		toast.info('Película eliminada de la lista')  
 	}
 
 	// Variables para estilos condicionales
 
-    const isFavorite = (movie: IMedia) => isMovieInUserList('favorites', movie);
-    const isViewed = (movie: IMedia) => isMovieInUserList('views', movie);
-    const isInList = (movie: IMedia) => isMovieInUserList('list', movie);
+	const isFavorite = (movie: IMedia) => isMovieInUserList('favorites', movie)
+	const isViewed = (movie: IMedia) => isMovieInUserList('views', movie)
+	const isInList = (movie: IMedia) => isMovieInUserList('list', movie)
 
 	return (
 		<MoviesContext.Provider
@@ -105,9 +108,9 @@ const MoviesProvider = ({ children }: ChildrenType) => {
 				addToList,
 				removeFromList,
 				isMovieInUserList,
-                isFavorite,
-                isViewed,
-                isInList,
+				isFavorite,
+				isViewed,
+				isInList,
 			}}
 		>
 			{children}

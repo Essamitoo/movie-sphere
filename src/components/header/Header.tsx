@@ -58,12 +58,9 @@ const Header = () => {
 					</div>
 
 					{user ? (
-						<Link
-							href={''}
-							className='flex items-center gap-2'
-						>
+						<div className='flex items-center gap-2'>
 							<UserAvatar />
-							
+
 							<div
 								className={`${user.role === 'PREMIUM' ? 'text-amber-300' : ''}`}
 							>
@@ -72,7 +69,7 @@ const Header = () => {
 									<h3 className='font-extrabold'>PREMIUM</h3>
 								)}
 							</div>
-						</Link>
+						</div>
 					) : (
 						<Link
 							href='/auth/login'

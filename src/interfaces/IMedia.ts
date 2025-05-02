@@ -15,6 +15,7 @@ export interface IMedia  {
 
 
 export interface IReview {
+	id: number
 	userImg: string;
 	userName: string;
 	reviewCount: number;
