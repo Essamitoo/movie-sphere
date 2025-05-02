@@ -1,20 +1,21 @@
 'use client'
+import { Suspense } from 'react'
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuthContext } from '@/contexts/authContext'
 
-const GoogleCallback = () => {
+const GoogleCallbackClient = () => {
 	const router = useRouter()
 	const { setUser } = useAuthContext()
 	const searchParams = useSearchParams()
 
 	useEffect(() => {
 		// Read user info from query params
-		const email = searchParams.get('email')
-		const role = searchParams.get('role')
-		const avatar = searchParams.get('avatar')
-		const name = searchParams.get('name')
-		const access_token = searchParams.get('access_token')
+		const email = searchParams?.get('email') || ''
+		const role = searchParams?.get('role') || ''
+		const avatar = searchParams?.get('avatar') || ''
+		const name = searchParams?.get('name') || ''
+		const access_token = searchParams?.get('access_token') || ''
 
 		if (email && role && avatar && name && access_token) {
 			const user = {
@@ -49,5 +50,11 @@ const GoogleCallback = () => {
 		</div>
 	)
 }
+
+const GoogleCallback = () => (
+	<Suspense>
+		<GoogleCallbackClient />
+	</Suspense>
+)
 
 export default GoogleCallback
